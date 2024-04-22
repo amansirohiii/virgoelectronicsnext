@@ -8,5 +8,5 @@ import { useMediaQuery } from "@/hooks/use-media-query"
 export function CombinedNavbar() {
   const isMobile = useMediaQuery("(max-width: 768px)")
 
-  return isMobile ? <MobileNavbar /> : <Navbar />
+  return !isMobile ?  <Navbar /> : <MobileNavbar />
 }
