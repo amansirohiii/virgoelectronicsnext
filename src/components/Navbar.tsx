@@ -18,77 +18,69 @@ import {
 
 const components: { title: string; href: string; description: string }[] = [
   {
-    title: "Alert Dialog",
-    href: "/docs/primitives/alert-dialog",
+    title: "Ceiling Fans",
+    href: "/products/ceiling-fans",
     description:
-      "A modal dialog that interrupts the user with important content and expects a response.",
+      "Stay cool this summer with our high-speed ceiling fans!",
   },
   {
-    title: "Hover Card",
-    href: "/docs/primitives/hover-card",
+    title: "Coolers",
+    href: "/products/cooler",
     description:
-      "For sighted users to preview content available behind a link.",
+      "Coolers for every need.",
   },
   {
-    title: "Progress",
-    href: "/docs/primitives/progress",
+    title: "Pedestal Fans",
+    href: "/products/pedestal-fans",
     description:
-      "Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.",
+      "pedestal fans for every need and budget.",
   },
   {
-    title: "Scroll-area",
-    href: "/docs/primitives/scroll-area",
-    description: "Visually or semantically separates content.",
+    title: "Exhaust Fans",
+    href: "/products/exhaust-fans",
+    description: "exhaust fans for every need and budget.",
   },
   {
-    title: "Tabs",
-    href: "/docs/primitives/tabs",
+    title: "Heating",
+    href: "/products/heating",
     description:
-      "A set of layered sections of content—known as tab panels—that are displayed one at a time.",
+      "heating solutions for every need and budget.",
   },
   {
-    title: "Tooltip",
-    href: "/docs/primitives/tooltip",
+    title: "Electric Iron",
+    href: "/products/electric-iron",
     description:
-      "A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.",
+      "iron your clothes with ease.",
   },
   {
-    title: "Scroll-area",
-    href: "/docs/primitives/scroll-area",
-    description: "Visually or semantically separates content.",
-  },
-  {
-    title: "Tabs",
-    href: "/docs/primitives/tabs",
-    description:
-      "A set of layered sections of content—known as tab panels—that are displayed one at a time.",
-  },
-  {
-    title: "Tooltip",
-    href: "/docs/primitives/tooltip",
-    description:
-      "A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.",
-  },
+    title: "Madhani",
+    href: "/products/madhani",
+    description: "madhani for every need and budget.",
+  }
 ]
 
 
 export function Navbar() {
   return (
-    <NavigationMenu>
-      <NavigationMenuList>
-      <NavigationMenuItem>
-          <Link href="/docs" legacyBehavior passHref>
+    <div className="hidden sm:flex w-full justify-center items-center h-20 border-b-2">
+
+
+         <div className="absolute left-5 h-12">
+         <Link href="/" legacyBehavior passHref>
               <Image
                 src="/virgo.png"
                 alt="logo"
                 width={150}
                 height={80}
                 priority
-                className="mr-2"/>
+                className=""/>
 
           </Link>
-        </NavigationMenuItem>
-        <NavigationMenuItem>
+         </div>
+       <div className="pl-0">
+       <NavigationMenu>
+       <NavigationMenuList>
+        {/* <NavigationMenuItem>
           <NavigationMenuTrigger>Getting started</NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="grid gap-3 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
@@ -120,9 +112,9 @@ export function Navbar() {
               </ListItem>
             </ul>
           </NavigationMenuContent>
-        </NavigationMenuItem>
+        </NavigationMenuItem> */}
         <NavigationMenuItem>
-          <NavigationMenuTrigger>Components</NavigationMenuTrigger>
+          <NavigationMenuTrigger>Products</NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-3 lg:w-[600px] ">
               {components.map((component) => (
@@ -138,14 +130,23 @@ export function Navbar() {
           </NavigationMenuContent>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <Link href="/docs" legacyBehavior passHref>
+          <Link href="/about" legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              Documentation
+              About Us
+            </NavigationMenuLink>
+          </Link>
+        </NavigationMenuItem>
+        <NavigationMenuItem>
+          <Link href="/contact" legacyBehavior passHref>
+            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+              Contact Us
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>
       </NavigationMenuList>
     </NavigationMenu>
+    </div>
+    </div>
   )
 }
 

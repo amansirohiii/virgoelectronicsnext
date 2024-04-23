@@ -25,7 +25,7 @@ export function Hero() {
         loop: true,
       }}
       plugins={[plugin.current]}
-      className="m-2 "
+      className="m-2"
       onMouseEnter={plugin.current.stop}
       onMouseLeave={plugin.current.reset}
     >
@@ -34,14 +34,14 @@ export function Hero() {
           <CarouselItem key={index}>
             <div className="p-1">
               <Card>
-                <CardContent className="flex aspect-rectangle items-center justify-center sm:min-h-screen min-h-[60vh] relative">
+                <CardContent className="flex aspect-rectangle items-center justify-center sm:min-h-[70vh] min-h-[40vh] relative object-cover">
                   <Image
                     src={`/images/carousel/${image}`}
                     alt="carousel"
                     fill
                     priority
                     className="mr-2"
-                  />{" "}
+                  />
                 </CardContent>
               </Card>
             </div>

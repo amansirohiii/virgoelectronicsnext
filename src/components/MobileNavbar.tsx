@@ -4,6 +4,7 @@ import * as React from "react"
 import Link, { LinkProps } from "next/link"
 import { useRouter } from "next/navigation"
 import { ViewVerticalIcon } from "@radix-ui/react-icons"
+import Image from "next/image"
 
 import { docsConfig } from "@/config/docs"
 import { siteConfig } from "@/config/site"
@@ -17,11 +18,12 @@ export function MobileNavbar() {
   const [open, setOpen] = React.useState(false)
 
   return (
-    <Sheet open={open} onOpenChange={setOpen}>
+<div className="sm:hidden flex justify-center items-center">
+<Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
         <Button
           variant="ghost"
-          className="mx-2 px-0 text-base hover:bg-transparent focus-visible:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 md:hidden"
+          className="mx-2 flex-end flex px-0 text-base hover:bg-transparent focus-visible:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 md:hidden"
         >
           <svg
             strokeWidth="1.5"
@@ -55,6 +57,16 @@ export function MobileNavbar() {
           <span className="sr-only">Toggle Menu</span>
         </Button>
       </SheetTrigger>
+      <span className="mx-auto">
+      <Image
+                src="/virgo.png"
+                alt="logo"
+                width={150}
+                height={80}
+                priority
+                className="mr-8"/>
+
+      </span>
       <SheetContent side="left" className="pr-0">
         <MobileLink
           href="/"
@@ -111,6 +123,7 @@ export function MobileNavbar() {
         </ScrollArea>
       </SheetContent>
     </Sheet>
+</div>
   )
 }
 
