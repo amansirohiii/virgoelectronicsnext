@@ -1,7 +1,9 @@
+"use client"
 import { cn } from "@/utils/cn";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import { useState } from "react";
+import Image from "next/image";
 
 export const HoverEffect = ({
   items,
@@ -19,7 +21,7 @@ export const HoverEffect = ({
   return (
     <div
       className={cn(
-        "grid grid-cols-1 md:grid-cols-2  lg:grid-cols-3  py-10",
+        "grid grid-cols-1 md:grid-cols-2  lg:grid-cols-4  py-10 ",
         className
       )}
     >
@@ -50,8 +52,13 @@ export const HoverEffect = ({
           </AnimatePresence>
           <Card>
             <CardTitle>{item.title}</CardTitle>
-            <CardDescription>{item.description}</CardDescription>
-          </Card>
+            <CardDescription><Image
+                src={item.description}
+                alt="logo"
+                width={150}
+                height={80}
+                priority
+                className="items-center mx-auto"/></CardDescription>          </Card>
         </Link>
       ))}
     </div>
@@ -99,13 +106,13 @@ export const CardDescription = ({
   children: React.ReactNode;
 }) => {
   return (
-    <p
+    <div
       className={cn(
-        "mt-8 text-zinc-400 tracking-wide leading-relaxed text-sm",
+        "mt-8 text-zinc-400 tracking-wide leading-relaxed text-sm ",
         className
       )}
     >
       {children}
-    </p>
+    </div>
   );
 };

@@ -2,46 +2,55 @@ import { HoverEffect } from "@/components/ui/card-hover-effect";
 
 export function Products() {
   return (
-    <div className="max-w-5xl mx-auto px-8">
-      <HoverEffect items={projects} />
+    <div className="w-full">
+        <div className="max-w-7xl mx-auto px-8 dark">
+        <h1 className="text-3xl sm:text-5xl items-center justify-center my-5 sm:mt-32 text-bold">Our Products </h1>
+      <HoverEffect items = {products} />
+    </div>
     </div>
   );
 }
-export const projects = [
+export const products = [
   {
-    title: "Stripe",
+    title: "Ceiling Fans",
     description:
-      "A technology company that builds economic infrastructure for the internet.",
-    link: "https://stripe.com",
+      "/images/icons/ceiling.png",
+    link: "/products/ceiling-fans",
   },
   {
-    title: "Netflix",
+    title: "Coolers",
     description:
-      "A streaming service that offers a wide variety of award-winning TV shows, movies, anime, documentaries, and more on thousands of internet-connected devices.",
-    link: "https://netflix.com",
+      "/images/icons/cooler.png",
+    link: "/products/cooler",
   },
   {
-    title: "Google",
+    title: "Pedestal Fans",
     description:
-      "A multinational technology company that specializes in Internet-related services and products.",
-    link: "https://google.com",
+      "/images/icons/pedestal.png",
+    link: "/products/pedestal-fans",
   },
   {
-    title: "Meta",
+    title: "Heating",
     description:
-      "A technology company that focuses on building products that advance Facebook's mission of bringing the world closer together.",
-    link: "https://meta.com",
+      "/images/icons/heating.png",
+    link: "/products/heating",
   },
   {
-    title: "Amazon",
+    title: "Exhaust Fans",
     description:
-      "A multinational technology company focusing on e-commerce, cloud computing, digital streaming, and artificial intelligence.",
-    link: "https://amazon.com",
+      "/images/icons/exhaust.png",
+    link: "/products/exhaust-fans",
   },
   {
-    title: "Microsoft",
+    title: "Electric Iron",
     description:
-      "A multinational technology company that develops, manufactures, licenses, supports, and sells computer software, consumer electronics, personal computers, and related services.",
-    link: "https://microsoft.com",
+      "/images/icons/iron.png",
+    link: "/products/electric-iron",
+  },
+  {
+    title: "Madhani",
+    description:
+      "/images/icons/madhani.png",
+    link: "/products/madhani",
   },
 ];
