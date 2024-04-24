@@ -26,3 +26,4 @@ function Layout({ title, children }: LayoutProps) {
   );
 }
 
+export default Layout;
