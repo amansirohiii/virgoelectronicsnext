@@ -52,7 +52,7 @@ async function ProductPage({ params }: { params: { product: string } }) {
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <BreadcrumbLink href="/products/ceiling-fan">
+            <BreadcrumbLink href={`/products/${selectedProduct.category}`>
               {selectedProduct?.category}
             </BreadcrumbLink>
           </BreadcrumbItem>
