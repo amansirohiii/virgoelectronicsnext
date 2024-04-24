@@ -1,6 +1,5 @@
 import { products } from "@/utils/data";
 import { notFound } from "next/navigation";
-import Layout from "@/components/Layout";
 import Image from "next/image";
 import { BackgroundBeams } from "@/components/ui/background-beams";
 import {
@@ -29,7 +28,7 @@ async function ProductPage({ params }: { params: { product: string } }) {
   const selectedProduct = selectedProducts[0];
 
   return (
-    <div>
+    <div className="container m-auto mt-4 xl:px-14 md:px-12 px-8 min-h-screen">
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>

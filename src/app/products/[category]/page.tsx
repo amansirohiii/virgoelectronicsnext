@@ -1,7 +1,6 @@
 // pages/products/[category]/index.tsx
 import { products } from "@/utils/data";
 import Link from "next/link";
-import Layout from "@/components/Layout";
 import Image from "next/image";
 import { Suspense } from "react";
 import {
@@ -93,7 +92,7 @@ const Card = ({ product }: any) => {
   console.log(categoryProducts)
 
   return (
-      <div className="">
+      <div className="container m-auto mt-4 xl:px-14 md:px-12 px-8 min-h-screen">
         <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>
