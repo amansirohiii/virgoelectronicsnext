@@ -25,120 +25,120 @@ const Footer = () => {
         <div className="flex flex-col gap-2">
           <h3 className="font-bold text-lg">Follow US</h3>
           <div>
-            <a
+            <Link
               href="#"
               className="opacity-60 hover:opacity-100"
             >
               Github
-            </a>
+            </Link>
           </div>
 
           <div>
-            <a
+            <Link
               href="#"
               className="opacity-60 hover:opacity-100"
             >
               Twitter
-            </a>
+            </Link>
           </div>
 
           <div>
-            <a
+            <Link
               href="#"
               className="opacity-60 hover:opacity-100"
             >
               Dribbble
-            </a>
+            </Link>
           </div>
         </div>
 
         <div className="flex flex-col gap-2">
           <h3 className="font-bold text-lg">Platforms</h3>
           <div>
-            <a
+            <Link
               href="#"
               className="opacity-60 hover:opacity-100"
             >
               Web
-            </a>
+            </Link>
           </div>
 
           <div>
-            <a
+            <Link
               href="#"
               className="opacity-60 hover:opacity-100"
             >
               Mobile
-            </a>
+            </Link>
           </div>
 
           <div>
-            <a
+            <Link
               href="#"
               className="opacity-60 hover:opacity-100"
             >
               Desktop
-            </a>
+            </Link>
           </div>
         </div>
 
         <div className="flex flex-col gap-2">
           <h3 className="font-bold text-lg">About</h3>
           <div>
-            <a
+            <Link
               href="#"
               className="opacity-60 hover:opacity-100"
             >
               Features
-            </a>
+            </Link>
           </div>
 
           <div>
-            <a
+            <Link
               href="#"
               className="opacity-60 hover:opacity-100"
             >
               Pricing
-            </a>
+            </Link>
           </div>
 
           <div>
-            <a
+            <Link
               href="#"
               className="opacity-60 hover:opacity-100"
             >
               FAQ
-            </a>
+            </Link>
           </div>
         </div>
 
         <div className="flex flex-col gap-2">
           <h3 className="font-bold text-lg">Community</h3>
           <div>
-            <a
+            <Link
               href="#"
               className="opacity-60 hover:opacity-100"
             >
               Youtube
-            </a>
+            </Link>
           </div>
 
           <div>
-            <a
+            <Link
               href="#"
               className="opacity-60 hover:opacity-100"
             >
               Discord
-            </a>
+            </Link>
           </div>
 
           <div>
-            <a
+            <Link
               href="#"
               className="opacity-60 hover:opacity-100"
             >
               Twitch
-            </a>
+            </Link>
           </div>
         </div>
       </section>
@@ -146,13 +146,13 @@ const Footer = () => {
       <section className="container pb-14 text-center">
         <h3>
           &copy; 2024 All rights reserved{" "}
-          <a
+          <Link
             target="_blank"
             href="https://github.com/amansirohiii"
             className="text-primary transition-all border-primary hover:border-b-2"
           >
             Virgo Electronics
-          </a>
+          </Link>
         </h3>
       </section>
     </footer>

@@ -73,7 +73,7 @@ export function Navbar() {
                 width={150}
                 height={80}
                 priority
-                className=""/>
+                className="cursor-pointer"/>
 
           </Link>
          </div>

@@ -15,7 +15,7 @@ export const products = [
     title: "Ceiling Fans",
     description:
       "/images/icons/ceiling.png",
-    link: "/products/ceiling-fans",
+    link: "/products/ceiling-fan",
   },
   {
     title: "Coolers",
@@ -27,7 +27,7 @@ export const products = [
     title: "Pedestal Fans",
     description:
       "/images/icons/pedestal.png",
-    link: "/products/pedestal-fans",
+    link: "/products/pedestal-fan",
   },
   {
     title: "Heating",
@@ -39,7 +39,7 @@ export const products = [
     title: "Exhaust Fans",
     description:
       "/images/icons/exhaust.png",
-    link: "/products/exhaust-fans",
+    link: "/products/exhaust-fan",
   },
   {
     title: "Electric Iron",
