@@ -1,4 +1,3 @@
-import { useRouter } from "next/router";
 import { products } from "@/utils/data";
 import { notFound } from "next/navigation";
 import Layout from "@/components/Layout";
@@ -19,26 +18,21 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { usePathname } from 'next/navigation'
 
 
-function ProductPage() {
-  const router = useRouter();
-  const { product } = router.query;
-  console.log(product);
-  let item = "Heater BT Model";
-  // Find the selected product
-  const selectedProduct = products.find(
+  async function ProductPage({ params }: { params: { product: string } }) {
+
+  const product = params.product
+  const selectedProducts = await products.filter(
     (item) => item.model.toLowerCase().split(" ").join("-") === product
   );
-  console.log(selectedProduct);
+  const selectedProduct = selectedProducts[0];
 
-  if (!selectedProduct) {
-    return <div>loading</div>;
-  }
 
 
   return (
-    <Layout>
+
       <div>
       <Breadcrumb>
       <BreadcrumbList>
@@ -61,18 +55,18 @@ function ProductPage() {
         </BreadcrumbItem>
         <BreadcrumbSeparator /> */}
         <BreadcrumbItem>
-          <BreadcrumbLink href="/products/ceiling-fan">{selectedProduct.category}</BreadcrumbLink>
+          <BreadcrumbLink href="/products/ceiling-fan">{selectedProduct?.category}</BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator />
         <BreadcrumbItem>
-          <BreadcrumbPage>{selectedProduct.model}</BreadcrumbPage>
+          <BreadcrumbPage>{selectedProduct?.model}</BreadcrumbPage>
         </BreadcrumbItem>
       </BreadcrumbList>
     </Breadcrumb>
         <div className="container px-5 py-24 mx-auto">
           <div className="lg:w-4/5 mx-auto flex flex-wrap">
             <Image
-              src={selectedProduct.image}
+              src={selectedProduct?.image}
               alt="logo"
               width={150}
               height={80}
@@ -129,7 +123,6 @@ function ProductPage() {
 
       </div>
 
-    </Layout>
   );
 }
 

@@ -1,6 +1,4 @@
 // pages/products/[category]/index.tsx
-
-import { useRouter } from "next/router";
 import { products } from "@/utils/data";
 import Link from "next/link";
 import Layout from "@/components/Layout";
@@ -87,16 +85,14 @@ const Card = ({ product }: any) => {
   );
 };
 
-const CategoryPage = () => {
-  const router = useRouter();
-  const { category } = router.query;
-  // Find products for the current category
-  const categoryProducts = products.filter(
+ const CategoryPage = async({ params }: { params: { category: string } }) => {
+  const category = params.category;
+  const categoryProducts = await products.filter(
     (product) => product.category === category
   );
+  console.log(categoryProducts)
 
   return (
-    <Layout>
       <div className="">
         <Breadcrumb>
           <BreadcrumbList>
@@ -124,7 +120,7 @@ const CategoryPage = () => {
           </BreadcrumbList>
         </Breadcrumb>
         <h1 className="text-center text-2xl font-bold">
-          {category?.toUpperCase()}
+          {category}
         </h1>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 w-full gap-3">
           {categoryProducts.map((product) => (
@@ -134,7 +130,6 @@ const CategoryPage = () => {
           ))}
         </div>
       </div>
-    </Layout>
   );
 };
 
