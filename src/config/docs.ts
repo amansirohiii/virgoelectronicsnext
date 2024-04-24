@@ -8,77 +8,68 @@ interface DocsConfig {
 export const docsConfig: DocsConfig = {
   mainNav: [
     {
-      title: "Documentation",
-      href: "/docs",
+      title: "Home",
+      href: "/",
+    },
+    // {
+    //   title: "Products",
+    //   href: "/products/all",
+    // },
+    {
+      title: "About Us",
+      href: "/about",
     },
     {
-      title: "Components",
-      href: "/docs/components/accordion",
-    },
-    {
-      title: "Themes",
-      href: "/themes",
-    },
-    {
-      title: "Examples",
-      href: "/examples",
-    },
-    {
-      title: "Blocks",
-      href: "/blocks",
+      title: "Contact Us",
+      href: "/contact",
     },
   ],
   sidebarNav: [
     {
-      title: "Getting Started",
+      title: "Products",
       items: [
         {
-          title: "Introduction",
-          href: "/docs",
+          title: "All",
+          href: "/products/all",
           items: [],
         },
         {
-          title: "Installation",
-          href: "/docs/installation",
+          title: "Ceiling Fans",
+          href: "/products/ceiling-fan",
           items: [],
         },
         {
-          title: "components.json",
-          href: "/docs/components-json",
+          title: "Coolers",
+          href: "/products/cooler",
           items: [],
         },
         {
-          title: "Theming",
-          href: "/docs/theming",
+          title: "Pedestal Fans",
+          href: "/products/pedestal-fan",
           items: [],
         },
         {
-          title: "Dark mode",
-          href: "/docs/dark-mode",
+          title: "Exhaust Fans",
+          href: "/products/exhaust-fan",
           items: [],
         },
         {
-          title: "CLI",
-          href: "/docs/cli",
+          title: "Heating",
+          href: "/products/heating",
           items: [],
         },
         {
-          title: "Typography",
-          href: "/docs/components/typography",
+          title: "Electric Irons",
+          href: "/products/electric-iron",
           items: [],
         },
         {
-          title: "Figma",
-          href: "/docs/figma",
-          items: [],
-        },
-        {
-          title: "Changelog",
-          href: "/docs/changelog",
+          title: "Madhani",
+          href: "/products/madhani",
           items: [],
         },
       ],
     },
-    
+
   ],
 }
