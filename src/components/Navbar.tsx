@@ -19,7 +19,7 @@ import {
 const components: { title: string; href: string; description: string }[] = [
   {
     title: "Ceiling Fans",
-    href: "/products/ceiling-fans",
+    href: "/products/ceiling-fan",
     description:
       "Stay cool this summer with our high-speed ceiling fans!",
   },
@@ -31,13 +31,13 @@ const components: { title: string; href: string; description: string }[] = [
   },
   {
     title: "Pedestal Fans",
-    href: "/products/pedestal-fans",
+    href: "/products/pedestal-fan",
     description:
       "pedestal fans for every need and budget.",
   },
   {
     title: "Exhaust Fans",
-    href: "/products/exhaust-fans",
+    href: "/products/exhaust-fan",
     description: "exhaust fans for every need and budget.",
   },
   {
