@@ -17,15 +17,14 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { usePathname } from "next/navigation";
-import Link from "next/link";
 
 async function ProductPage({ params }: { params: { product: string } }) {
   const product = params.product;
   const selectedProducts = await products.filter(
     (item) => item.model.toLowerCase().split(" ").join("-") === product
   );
-  const selectedProduct = selectedProducts[0];
+if(selectedProducts.length==0) return notFound();
+    const selectedProduct = selectedProducts[0];
 
   return (
     <div className="container m-auto mt-4 xl:px-14 md:px-12 px-8 min-h-screen">
@@ -88,7 +87,7 @@ async function ProductPage({ params }: { params: { product: string } }) {
                 <button className="border-2 border-gray-300 ml-1 bg-gray-700 rounded-full w-6 h-6 focus:outline-none"></button>
                 <button className="border-2 border-gray-300 ml-1 bg-indigo-500 rounded-full w-6 h-6 focus:outline-none"></button>
               </div>
-              <div className="flex ml-6 items-center">
+              {/* <div className="flex ml-6 items-center">
                 <span className="mr-3">Size</span>
                 <div className="relative">
                   <select className="rounded border appearance-none border-gray-300 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500 text-base pl-3 pr-10">
@@ -111,7 +110,7 @@ async function ProductPage({ params }: { params: { product: string } }) {
                     </svg>
                   </span>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

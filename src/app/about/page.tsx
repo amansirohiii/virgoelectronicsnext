@@ -118,7 +118,7 @@ const page = () => {
     </div>
 </section>
 
-<section className=" py-14 lg:py-24 bg-gray-50">
+{/* <section className=" py-14 lg:py-24 bg-gray-50">
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative">
       <div className="mb-16 rounded-full">
         <h2 className="text-4xl font-manrope font-bold text-gray-900 text-center">What our happy user says!</h2>
@@ -178,7 +178,8 @@ const page = () => {
 
 
     </div>
-  </section></div>
+  </section> */}
+  </div>
   )
 }
 

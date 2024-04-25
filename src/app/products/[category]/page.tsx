@@ -18,6 +18,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import NotFound from "@/app/not-found";
 
 interface Product {
   id: number;
@@ -89,8 +90,8 @@ const Card = ({ product }: any) => {
   const categoryProducts = await products.filter(
     (product) => product.category === category
   );
-  console.log(categoryProducts)
-
+  if(categoryProducts.length==0) return NotFound();
+console.log(categoryProducts);
   return (
       <div className="container m-auto mt-4 xl:px-14 md:px-12 px-8 min-h-screen">
         <Breadcrumb>
