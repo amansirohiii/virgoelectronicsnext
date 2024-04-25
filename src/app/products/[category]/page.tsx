@@ -91,7 +91,6 @@ const Card = ({ product }: any) => {
     (product) => product.category === category
   );
   if(categoryProducts.length==0) return NotFound();
-console.log(categoryProducts);
   return (
       <div className="container m-auto mt-4 xl:px-14 md:px-12 px-8 min-h-screen">
         <Breadcrumb>
