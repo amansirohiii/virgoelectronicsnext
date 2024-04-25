@@ -30,7 +30,6 @@ const {
 } = require("tailwindcss/lib/util/flattenColorPalette");
 
 
-
 const config = {
   darkMode: ["class"],
   content: [
@@ -40,6 +39,19 @@ const config = {
     './src/**/*.{ts,tsx}',
 	],
   prefix: "",
+    safelist: [
+      'bg-brown',
+      'bg-white',
+      'bg-ivory',
+      'bg-beige',
+      'bg-golden-brown',
+      'bg-blue',
+      'bg-pearl-ivory',
+      'bg-silver-blue',
+      'bg-powder-coating',
+      'bg-grey',
+      'bg-red',
+    ],
   theme: {
     container: {
       center: true,
@@ -48,8 +60,23 @@ const config = {
         "2xl": "1400px",
       },
     },
+
     extend: {
       colors: {
+
+        "brown": "#964B00",
+        "white": "#FFFFFF",
+        "ivory": "#FFFFF0",
+        "beige": "#F5F5DC",
+        "golden-brown": "#966919",
+        "blue": "#0000FF",
+        "pearl-ivory": "#F0EAD6",
+        "silver-blue": "#5D89A8",
+        "powder-coating": "#B0C4DE",
+        "grey": "#808080",
+        "red": "#FF0000",
+
+
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

@@ -23,8 +23,8 @@ async function ProductPage({ params }: { params: { product: string } }) {
   const selectedProducts = await products.filter(
     (item) => item.model.toLowerCase().split(" ").join("-") === product
   );
-if(selectedProducts.length==0) return notFound();
-    const selectedProduct = selectedProducts[0];
+  if (selectedProducts.length == 0) return notFound();
+  const selectedProduct = selectedProducts[0];
 
   return (
     <div className="container m-auto mt-4 xl:px-14 md:px-12 px-8 min-h-screen">
@@ -42,7 +42,9 @@ if(selectedProducts.length==0) return notFound();
               </DropdownMenuTrigger>
               <DropdownMenuContent align="start">
                 <DropdownMenuItem>
-                 <BreadcrumbLink href="/products/all"> All Products</BreadcrumbLink>
+                  <BreadcrumbLink href="/products/all">
+                    All Products
+                  </BreadcrumbLink>
                 </DropdownMenuItem>
                 {/* <DropdownMenuItem>Themes</DropdownMenuItem>
               <DropdownMenuItem>GitHub</DropdownMenuItem> */}
@@ -79,14 +81,17 @@ if(selectedProducts.length==0) return notFound();
               {selectedProduct.model}
             </h1>
 
-            <p className="leading-relaxed">{selectedProduct.specs}</p>
+            <p className="leading-relaxed">{selectedProduct.description}</p>
             <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-100 mb-5">
-              <div className="flex">
-                <span className="mr-3">Color</span>
-                <button className="border-2 border-gray-300 rounded-full w-6 h-6 focus:outline-none"></button>
-                <button className="border-2 border-gray-300 ml-1 bg-gray-700 rounded-full w-6 h-6 focus:outline-none"></button>
-                <button className="border-2 border-gray-300 ml-1 bg-indigo-500 rounded-full w-6 h-6 focus:outline-none"></button>
-              </div>
+              {(selectedProduct?.color?.length>0) &&
+              (<div className="flex">
+              <span className="mr-3">Colors:</span>
+              {selectedProduct.color.map((color, index) => (
+                <button key={selectedProduct.id + index} title={color}
+                className={`border-2 border-gray-300 ml-1 bg-${color.toLowerCase()} rounded-full w-6 h-6 focus:outline-none`}
+              ></button>
+              ))}
+            </div>)}
               {/* <div className="flex ml-6 items-center">
                 <span className="mr-3">Size</span>
                 <div className="relative">

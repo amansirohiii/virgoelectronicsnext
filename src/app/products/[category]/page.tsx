@@ -33,7 +33,6 @@ interface Product {
 }
 
 const Card = ({ product }: any) => {
-  console.log(product);
   return (
     <div className="group my-10 flex w-full max-w-xs flex-col overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md">
       <div className="relative mx-3 mt-3 flex h-80 overflow-hidden rounded-xl">
@@ -92,7 +91,18 @@ const Card = ({ product }: any) => {
   );
   if(categoryProducts.length==0) return NotFound();
   return (
-      <div className="container m-auto mt-4 xl:px-14 md:px-12 px-8 min-h-screen">
+
+        <div>
+          <div className="relative w-full  h-96">
+            <Image
+              src="/images/banners/ceilingBanner.png"
+              alt="banner"
+              fill
+              className="hidden lg:block w-80"
+            />
+          </div>
+          <div className="container m-auto mt-4 xl:px-14 md:px-12 px-8 min-h-screen">
+
         <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>
@@ -130,6 +140,7 @@ const Card = ({ product }: any) => {
             </Link>
           ))}
         </div>
+      </div>
       </div>
   );
 };
