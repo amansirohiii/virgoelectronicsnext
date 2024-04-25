@@ -17,11 +17,11 @@ export const docsConfig: DocsConfig = {
     // },
     {
       title: "About Us",
-      href: "/about",
+      href: "/about-us",
     },
     {
       title: "Contact Us",
-      href: "/contact",
+      href: "/contact-us",
     },
   ],
   sidebarNav: [
@@ -35,22 +35,22 @@ export const docsConfig: DocsConfig = {
         },
         {
           title: "Ceiling Fans",
-          href: "/products/ceiling-fan",
+          href: "/products/ceiling-fans",
           items: [],
         },
         {
           title: "Coolers",
-          href: "/products/cooler",
+          href: "/products/coolers",
           items: [],
         },
         {
           title: "Pedestal Fans",
-          href: "/products/pedestal-fan",
+          href: "/products/pedestal-fans",
           items: [],
         },
         {
           title: "Exhaust Fans",
-          href: "/products/exhaust-fan",
+          href: "/products/exhaust-fans",
           items: [],
         },
         {
@@ -60,7 +60,7 @@ export const docsConfig: DocsConfig = {
         },
         {
           title: "Electric Irons",
-          href: "/products/electric-iron",
+          href: "/products/electric-irons",
           items: [],
         },
         {

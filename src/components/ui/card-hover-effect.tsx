@@ -188,11 +188,11 @@ export const CardAll = ({
   return (
     <div
       className={cn(
-        "rounded-2xl h-full w-full p-4 overflow-hidden border dark:border-white/[0.2]  relative z-20 ",
+        "rounded-2xl h-full w-full p-4 overflow-hidden border dark:border-white/[0.2]  relative  ",
         className
       )}
     >
-      <div className="relative z-50">
+      <div className="relative">
         <div className="">{children}</div>
       </div>
     </div>

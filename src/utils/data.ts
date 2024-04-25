@@ -1,11 +1,11 @@
 export const productCategories = [
-  { slug: "ceiling-fan", name: "Ceiling Fans" },
-  { slug: "coolers", name: "Coolers" },
-  { slug: "exhaust-fan", name: "Exhaust Fans" },
-  { slug: "electric-iron", name: "Irons" },
-  { slug: "madhani", name: "Madhani" },
-  { slug: "pedestal-fan", name: "Pedestal Fans" },
-  { slug: "heating", name: "Heaters" },
+  { slug: "ceiling-fans", name: "Ceiling Fans", banner: "/images/banners/ceiling-fans.webp" },
+  { slug: "coolers", name: "Coolers", banner: "/images/banners/coolers.webp" },
+  { slug: "exhaust-fans", name: "Exhaust Fans", banner: "/images/banners/exhaust-fans.webp" },
+  { slug: "electric-irons", name: "Irons", banner: "/images/banners/electric-irons.webp" },
+  { slug: "madhani", name: "Madhani", banner: "/images/banners/madhani.webp" },
+  { slug: "pedestal-fans", name: "Pedestal Fans", banner: "/images/banners/pedestal-fans.webp" },
+  { slug: "heating", name: "Heaters", banner: "/images/banners/heating.webp" },
 ];
 interface Product {
   id: number;
@@ -35,8 +35,8 @@ interface Product {
 export const products: Product[] = [
   {
     id: 1,
-    category: "ceiling-fan",
-    image: "/images/ceiling/ceiling1.webp",
+    category: "ceiling-fans",
+    image: "/images/ceiling-fans/ceiling1.webp",
     model: "Era",
     description: "",
     color: ["brown", "white", "ivory"],
@@ -45,7 +45,7 @@ export const products: Product[] = [
     winding: "Full Copper",
     fan: "High Speed Fan 50W",
     decoration: "Decorative Trims on Blades & Motor",
-    link: "/products/ceiling-fan/era",
+    link: "/products/ceiling-fans/era",
     body: "",
     blade: "",
     size: "",
@@ -59,8 +59,8 @@ export const products: Product[] = [
   },
   {
     id: 2,
-    category: "ceiling-fan",
-    image: "/images/ceiling/ceiling2.webp",
+    category: "ceiling-fans",
+    image: "/images/ceiling-fans/ceiling2.webp",
     model: "Era Plus",
     description: "",
     color: ["brown", "ivory"],
@@ -69,7 +69,7 @@ export const products: Product[] = [
     blade: "Heavy Duty",
     winding: "Full Copper",
     decoration: "Decorative Trims on Blades & Motor",
-    link: "/products/ceiling-fan/era-plus",
+    link: "/products/ceiling-fans/era-plus",
     fan: "",
     body: "",
     size: "",
@@ -83,8 +83,8 @@ export const products: Product[] = [
   },
   {
     id: 3,
-    category: "ceiling-fan",
-    image: "/images/ceiling/ceiling3.webp",
+    category: "ceiling-fans",
+    image: "/images/ceiling-fans/ceiling3.webp",
     model: "Sportz",
 
     description: "",
@@ -95,7 +95,7 @@ export const products: Product[] = [
     decoration: "Decorative Trims on Blades & Motor, Unique Paint Combination, Easy Clean & Dust Free",
     body: "All Aluminium Die Cast",
     blade: "Precisely balanced Aluminium Blades",
-    link: "/products/ceiling-fan/sportz",
+    link: "/products/ceiling-fans/sportz",
     fan: "",
     size: "",
     motor: "",
@@ -108,8 +108,8 @@ export const products: Product[] = [
   },
   {
     id: 4,
-    category: "ceiling-fan",
-    image: "/images/ceiling/ceiling4.webp",
+    category: "ceiling-fans",
+    image: "/images/ceiling-fans/ceiling4.webp",
     model: "Asta",
 
     description: "",
@@ -120,7 +120,7 @@ export const products: Product[] = [
     body: "All Aluminium Die Cast",
     blade: "Precisely balanced Aluminium Blades",
     decoration: "Decorative Trims on Blades & Motor",
-    link: "/products/ceiling-fan/asta",
+    link: "/products/ceiling-fans/asta",
     fan: "",
     size: "",
     motor: "",
@@ -133,15 +133,15 @@ export const products: Product[] = [
   },
   {
     id: 5,
-    category: "ceiling-fan",
-    image: "/images/ceiling/ceiling5.webp",
+    category: "ceiling-fans",
+    image: "/images/ceiling-fans/ceiling5.webp",
     model: "Sportz Plus",
 
     description: "",
     color: ["brown", "beige", "ivory", "blue"],
     sweep: "1200mm",
     bearing: "Double Ball Bearing",
-    link: "/products/ceiling-fan/sportz-plus",
+    link: "/products/ceiling-fans/sportz-plus",
     winding: "Full Copper",
     fan: "",
     decoration: "Decorative Trims on Blades & Motor",
@@ -159,15 +159,15 @@ export const products: Product[] = [
 
   {
     id: 6,
-    category: "ceiling-fan",
-    image: "/images/ceiling/ceiling7.webp",
+    category: "ceiling-fans",
+    image: "/images/ceiling-fans/ceiling7.webp",
     model: "Magna",
 
     description: "",
     color: ["pearl-ivory", "golden-brown", "silver-blue"],
     sweep: "1200mm",
     bearing: "Double Ball Bearing",
-    link: "/products/ceiling-fan/magna",
+    link: "/products/ceiling-fans/magna",
     winding: "Full Copper",
     fan: "",
     decoration: "Decorative Trims on Blades & Motor",
@@ -184,8 +184,9 @@ export const products: Product[] = [
   },
   {
     id: 7,
-    category: "cooler",
-    image: "/images/cooler/cooler1.webp",
+    category: "coolers",
+
+    image: "/images/coolers/cooler1.webp",
     model: "ZX-01",
     color: ["powder-coating"],
     description:
@@ -209,8 +210,9 @@ export const products: Product[] = [
   },
   {
     id: 8,
-    category: "cooler",
-    image: "/images/cooler/cooler2.webp",
+    category: "coolers",
+
+    image: "/images/coolers/cooler2.webp",
     model: "Duct",
     color: ["powder-coating"],
 
@@ -235,8 +237,9 @@ export const products: Product[] = [
   },
   {
     id: 9,
-    category: "cooler",
-    image: "/images/cooler/cooler3.webp",
+    category: "coolers",
+
+    image: "/images/coolers/cooler3.webp",
     model: "Baby",
     color: ["powder-coating"],
 
@@ -261,8 +264,9 @@ export const products: Product[] = [
   },
   {
     id: 10,
-    category: "cooler",
-    image: "/images/cooler/cooler4.webp",
+    category: "coolers",
+
+    image: "/images/coolers/cooler4.webp",
     model: "ZX-02",
     color: ["powder-coating"],
 
@@ -287,8 +291,9 @@ export const products: Product[] = [
   },
   {
     id: 11,
-    category: "cooler",
-    image: "/images/cooler/cooler5.webp",
+    category: "coolers",
+
+    image: "/images/coolers/cooler5.webp",
     model: "CG-04",
     color: ["powder-coating"],
 
@@ -313,8 +318,9 @@ export const products: Product[] = [
   },
   {
     id: 12,
-    category: "cooler",
-    image: "/images/cooler/cooler6.webp",
+    category: "coolers",
+
+    image: "/images/coolers/cooler6.webp",
     model: "CG-03",
     color: ["powder-coating"],
 
@@ -339,8 +345,9 @@ export const products: Product[] = [
   },
   {
     id: 13,
-    category: "cooler",
-    image: "/images/cooler/cooler7.webp",
+    category: "coolers",
+
+    image: "/images/coolers/cooler7.webp",
     model: "CG-02",
     color: ["powder-coating"],
 
@@ -365,8 +372,9 @@ export const products: Product[] = [
   },
   {
     id: 14,
-    category: "cooler",
-    image: "/images/cooler/cooler8.webp",
+    category: "coolers",
+
+    image: "/images/coolers/cooler8.webp",
     model: "CG-01",
     color: ["powder-coating"],
 
@@ -391,8 +399,9 @@ export const products: Product[] = [
   },
   {
     id: 15,
-    category: "cooler",
-    image: "/images/cooler/cooler9.webp",
+    category: "coolers",
+
+    image: "/images/coolers/cooler9.webp",
     model: "Commercial",
     color: [],
 
@@ -417,8 +426,9 @@ export const products: Product[] = [
   },
   {
     id: 16,
-    category: "cooler",
-    image: "/images/cooler/cooler10.webp",
+    category: "coolers",
+
+    image: "/images/coolers/cooler10.webp",
     model: "Sumo",
 
     description:
@@ -443,8 +453,9 @@ export const products: Product[] = [
   },
   {
     id: 17,
-    category: "cooler",
-    image: "/images/cooler/cooler11.webp",
+    category: "coolers",
+
+    image: "/images/coolers/cooler11.webp",
     model: "Skycool Tower 20''",
 
     description:
@@ -469,14 +480,14 @@ export const products: Product[] = [
   },
   {
     id: 18,
-    category: "exhaust-fan",
-    image: "/images/exhaust/exhaust1.jpg",
+    category: "exhaust-fans",
+    image: "/images/exhaust-fans/exhaust1.jpg",
     model: "Exhaust Fan",
 
     description:
       "",
 
-    link: "/products/exhaust-fan/exhaust-fan",
+    link: "/products/exhaust-fans/exhaust-fan",
     color: [],
     sweep: "",
     bearing: "Double Ball Bearing",
@@ -496,13 +507,13 @@ export const products: Product[] = [
   },
   {
     id: 19,
-    category: "exhaust-fan",
-    image: "/images/exhaust/exhaust2.jpg",
+    category: "exhaust-fans",
+    image: "/images/exhaust-fans/exhaust2.jpg",
     model: "Fresh Air Fan",
 
     description: "",
 
-    link: "/products/exhaust-fan/fresh-air-fan",
+    link: "/products/exhaust-fans/fresh-air-fan",
     color: [],
     sweep: "",
     bearing: "",
@@ -522,13 +533,13 @@ export const products: Product[] = [
   },
   {
     id: 20,
-    category: "electric-iron",
-    image: "/images/iron/iron1.webp",
+    category: "electric-irons",
+    image: "/images/electric-irons/iron1.webp",
     model: "Magic",
 
     description: "",
 
-    link: "/products/electric-iron/magic",
+    link: "/products/electric-irons/magic",
     color: [],
     sweep: "",
     bearing: "",
@@ -548,13 +559,13 @@ export const products: Product[] = [
   },
   {
     id: 21,
-    category: "electric-iron",
-    image: "/images/iron/iron2.webp",
+    category: "electric-irons",
+    image: "/images/electric-irons/iron2.webp",
     model: "Plancha",
 
     description: "",
 
-    link: "/products/electric-iron/plancha",
+    link: "/products/electric-irons/plancha",
     color: [],
     sweep: "",
     bearing: "",
@@ -574,14 +585,14 @@ export const products: Product[] = [
   },
   {
     id: 22,
-    category: "pedestal-fan",
-    image: "/images/pedestal/pedestal1.jpg",
+    category: "pedestal-fans",
+    image: "/images/pedestal-fans/pedestal1.jpg",
     model: "Pedestal-18",
 
     description:
       "",
 
-    link: "/products/pedestal-fan/pedestal-18",
+    link: "/products/pedestal-fans/pedestal-18",
     color: [],
     sweep: "",
     bearing: "",
@@ -601,14 +612,14 @@ export const products: Product[] = [
   },
   {
     id: 23,
-    category: "pedestal-fan",
-    image: "/images/pedestal/pedestal2.jpg",
+    category: "pedestal-fans",
+    image: "/images/pedestal-fans/pedestal2.jpg",
     model: "Pedestal-16",
 
     description:
       "",
 
-    link: "/products/pedestal-fan/pedestal-16",
+    link: "/products/pedestal-fans/pedestal-16",
     color: [],
     sweep: "",
     bearing: "",

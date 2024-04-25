@@ -5,8 +5,8 @@ export const siteConfig = {
     description:
       "Virgo Electronics",
     links: {
-      twitter: "https://twitter.com/",
-      github: "https://github.com/",
+      twitter: "https://twitter.com/amansirohiii",
+      github: "https://github.com/amansirohiii",
     },
   }
 

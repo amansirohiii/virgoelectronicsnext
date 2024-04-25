@@ -19,25 +19,25 @@ import {
 const components: { title: string; href: string; description: string }[] = [
   {
     title: "Ceiling Fans",
-    href: "/products/ceiling-fan",
+    href: "/products/ceiling-fans",
     description:
       "Stay cool this summer with our high-speed ceiling fans!",
   },
   {
     title: "Coolers",
-    href: "/products/cooler",
+    href: "/products/coolers",
     description:
       "Coolers for every need.",
   },
   {
     title: "Pedestal Fans",
-    href: "/products/pedestal-fan",
+    href: "/products/pedestal-fans",
     description:
       "pedestal fans for every need and budget.",
   },
   {
     title: "Exhaust Fans",
-    href: "/products/exhaust-fan",
+    href: "/products/exhaust-fans",
     description: "exhaust fans for every need and budget.",
   },
   {
@@ -48,7 +48,7 @@ const components: { title: string; href: string; description: string }[] = [
   },
   {
     title: "Electric Iron",
-    href: "/products/electric-iron",
+    href: "/products/electric-irons",
     description:
       "iron your clothes with ease.",
   },
@@ -130,14 +130,14 @@ export function Navbar() {
           </NavigationMenuContent>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <Link href="/about" legacyBehavior passHref>
+          <Link href="/about-us" legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
               About Us
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <Link href="/contact" legacyBehavior passHref>
+          <Link href="/contact-us" legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
               Contact Us
             </NavigationMenuLink>

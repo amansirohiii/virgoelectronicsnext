@@ -10,7 +10,7 @@ export default async function NotFound() {
       <p>
         View <Link href="/">Home</Link>
       </p>
-      {permanentRedirect("/")}
+      {/* {permanentRedirect("/")} */}
 
     </div>
   )

@@ -21,10 +21,34 @@ import {
 async function ProductPage({ params }: { params: { product: string } }) {
   const product = params.product;
   const selectedProducts = await products.filter(
-    (item) => item.model.toLowerCase().split(" ").join("-") === product
+    (item) => item.model.toLowerCase().split(" ").join("-").replace("''", "") === product
   );
   if (selectedProducts.length == 0) return notFound();
   const selectedProduct = selectedProducts[0];
+  const {
+    id,
+    link,
+    category,
+    image,
+    model,
+    description,
+    color,
+    sweep,
+    bearing,
+    winding,
+    fan,
+    decoration,
+    body,
+    blade,
+    size,
+    motor,
+    capacity,
+    input,
+    purpose,
+    parda,
+    power,
+    pump,
+  } = selectedProduct;
 
   return (
     <div className="container m-auto mt-4 xl:px-14 md:px-12 px-8 min-h-screen">
@@ -53,20 +77,20 @@ async function ProductPage({ params }: { params: { product: string } }) {
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <BreadcrumbLink href={`/products/${selectedProduct?.category}`}>
-              {selectedProduct?.category}
+            <BreadcrumbLink href={`/products/${category}`}>
+              {category}
             </BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <BreadcrumbPage>{selectedProduct?.model}</BreadcrumbPage>
+            <BreadcrumbPage>{model}</BreadcrumbPage>
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
       <div className="container px-5 py-24 mx-auto">
         <div className="lg:w-4/5 mx-auto flex flex-wrap">
           <Image
-            src={selectedProduct?.image}
+            src={image}
             alt="logo"
             width={150}
             height={80}
@@ -78,44 +102,54 @@ async function ProductPage({ params }: { params: { product: string } }) {
                 ON SALE
               </h2> */}
             <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">
-              {selectedProduct.model}
+              {model}
             </h1>
 
-            <p className="leading-relaxed">{selectedProduct.description}</p>
+            <p className="leading-relaxed">{description}</p>
             <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-100 mb-5">
-              {(selectedProduct?.color?.length>0) &&
-              (<div className="flex">
-              <span className="mr-3">Colors:</span>
-              {selectedProduct.color.map((color, index) => (
-                <button key={selectedProduct.id + index} title={color}
-                className={`border-2 border-gray-300 ml-1 bg-${color.toLowerCase()} rounded-full w-6 h-6 focus:outline-none`}
-              ></button>
-              ))}
-            </div>)}
-              {/* <div className="flex ml-6 items-center">
-                <span className="mr-3">Size</span>
-                <div className="relative">
-                  <select className="rounded border appearance-none border-gray-300 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500 text-base pl-3 pr-10">
-                    <option>SM</option>
-                    <option>M</option>
-                    <option>L</option>
-                    <option>XL</option>
-                  </select>
-                  <span className="absolute right-0 top-0 h-full w-10 text-center text-gray-600 pointer-events-none flex items-center justify-center">
-                    <svg
-                      fill="none"
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      className="w-4 h-4"
-                      viewBox="0 0 24 24"
-                    >
-                      <path d="M6 9l6 6 6-6"></path>
-                    </svg>
-                  </span>
+              {color?.length > 0 && (
+                <div className="flex">
+                  <span className="mr-3">Colors:</span>
+                  {color.map((color, index) => (
+                    <button
+                      key={id + index}
+                      title={color}
+                      className={`border-2 border-gray-300 ml-1 bg-${color.toLowerCase()} rounded-full w-6 h-6 focus:outline-none`}
+                    ></button>
+                  ))}
                 </div>
-              </div> */}
+              )}
+            </div>
+            <div className="flex flex-col ">
+              {[
+                "sweep",
+                "bearing",
+                "winding",
+                "fan",
+                "decoration",
+                "body",
+                "blade",
+                "size",
+                "motor",
+                "capacity",
+                "input",
+                "purpose",
+                "parda",
+                "power",
+                "pump",
+              ].map(
+                (property: any) =>
+                  selectedProduct[property] && (
+                    <div key={property} className="flex">
+                      <span className="mr-3 flex">
+                        {property[0].toUpperCase() + property.slice(1)}:
+                      </span>
+                      <span className="text-gray-500">
+                        {selectedProduct[property]}
+                      </span>
+                    </div>
+                  )
+              )}
             </div>
           </div>
         </div>
