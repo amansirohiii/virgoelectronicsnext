@@ -20,10 +20,10 @@ import {
 import type { Metadata, ResolvingMetadata } from 'next'
 
 
-async function ProductPage({ params }: { params: { product: string } }) {
-  const product = params.product;
+async function ProductPage({ params }: { params: { product: string, category: string } }) {
+  console.log(params)
   const selectedProducts = await products.filter(
-    (item) => item.model.toLowerCase().split(" ").join("-").replace("''", "") === product
+    (item) => item.model.toLowerCase().split(" ").join("-").replace("''", "") === params.product && params.category === item.category
   );
   if (selectedProducts.length == 0) return notFound();
   const selectedProduct = selectedProducts[0];
