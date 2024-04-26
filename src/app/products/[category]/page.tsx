@@ -68,12 +68,12 @@ const Card = ({ product }: any) => {
   return (
 
         <div>
-          <div className="relative w-full h-96 mt-20">
+          <div className="relative w-full h-36 sm:h-96 sm:mt-20">
             <Image
               src={banner}
               alt="banner"
               fill
-              className="hidden lg:block w-80"
+              className=""
             />
           </div>
           <div className="container m-auto mt-4 xl:px-14 md:px-12 px-8 min-h-screen">

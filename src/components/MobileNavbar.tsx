@@ -63,14 +63,18 @@ export function MobileNavbar() {
           </Button>
         </SheetTrigger>
         <span className="mx-auto">
-          <Image
+          <Link href="/">
+
+            <Image
             src="/virgo.png"
             alt="logo"
             width={150}
             height={80}
             priority
             className="mr-8"
-          />
+          /></Link>
+
+
         </span>
         <SheetContent side="left" className="pr-0">
           <MobileLink
