@@ -1,5 +1,4 @@
 // pages/products/[category]/index.tsx
-import { products } from "@/utils/data";
 import Link from "next/link";
 import Image from "next/image";
 import { Suspense } from "react";
@@ -19,7 +18,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import NotFound from "@/app/not-found";
-import { productCategories } from "@/utils/data";
+import { productCategories, products } from "@/utils/data";
+import type { Metadata, ResolvingMetadata } from 'next'
 
 interface Product {
   id: number;
@@ -92,7 +92,7 @@ const Card = ({ product }: any) => {
               </DropdownMenuTrigger>
               <DropdownMenuContent align="start">
                 <DropdownMenuItem>
-                 <BreadcrumbLink href="/products/all"> All Products</BreadcrumbLink>
+                 <BreadcrumbLink href="/products/"> All Category</BreadcrumbLink>
                 </DropdownMenuItem>
                 {/* <DropdownMenuItem>Themes</DropdownMenuItem>
               <DropdownMenuItem>GitHub</DropdownMenuItem> */}
@@ -106,7 +106,7 @@ const Card = ({ product }: any) => {
           </BreadcrumbList>
         </Breadcrumb>
         <h1 className="text-center text-2xl font-bold">
-          {category}
+          {category.split("-").map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(" ")}
         </h1>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 w-full gap-3">
           {categoryProducts.map((product) => (
@@ -119,5 +119,23 @@ const Card = ({ product }: any) => {
       </div>
   );
 };
+type Props = {
+  params: { category: string }
+  searchParams: { [key: string]: string | string[] | undefined }
+}
+export async function generateMetadata(
+  { params, searchParams }: Props,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  // read route params
+  console.log(searchParams);
+  const data = await products.filter((product) => product.category === params.category)[0];
+
+  return {
+    title: ` ${data?.category.replace("-", " ").toUpperCase()} Manufacturer Ghaziabad, Virgo Electronics`,
+    openGraph: {
+description: data?.description    },
+  }
+}
 
 export default CategoryPage;

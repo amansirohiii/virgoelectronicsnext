@@ -17,6 +17,8 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import type { Metadata, ResolvingMetadata } from 'next'
+
 
 async function ProductPage({ params }: { params: { product: string } }) {
   const product = params.product;
@@ -66,8 +68,8 @@ async function ProductPage({ params }: { params: { product: string } }) {
               </DropdownMenuTrigger>
               <DropdownMenuContent align="start">
                 <DropdownMenuItem>
-                  <BreadcrumbLink href="/products/all">
-                    All Products
+                  <BreadcrumbLink href="/products/">
+                    All Category
                   </BreadcrumbLink>
                 </DropdownMenuItem>
                 {/* <DropdownMenuItem>Themes</DropdownMenuItem>
@@ -157,6 +159,26 @@ async function ProductPage({ params }: { params: { product: string } }) {
       {/* <BackgroundBeams /> */}
     </div>
   );
+}
+
+
+type Props = {
+  params: { category: string }
+  searchParams: { [key: string]: string | string[] | undefined }
+}
+export async function generateMetadata(
+  { params, searchParams }: Props,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  // read route params
+  console.log(searchParams);
+  const data = await products.filter((product) => product.category === params.category)[0];
+
+  return {
+    title: `${data.model}, Best ${data.category.replace("-", " ").toUpperCase()} Ghaziabad, Virgo Electronics`,
+    openGraph: {
+description: "hello"    },
+  }
 }
 
 export default ProductPage;
