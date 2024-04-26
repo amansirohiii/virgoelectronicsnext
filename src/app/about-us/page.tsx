@@ -38,7 +38,7 @@ const page = () => {
     </div>
 </section>
 
-<section className="py-14 lg:py-24 relative">
+<section className="py-14 lg:py-24 relative mt-20">
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative ">
         <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-9 ">
 

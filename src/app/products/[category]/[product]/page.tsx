@@ -1,7 +1,6 @@
 import { products } from "@/utils/data";
 import { notFound } from "next/navigation";
 import Image from "next/image";
-import { BackgroundBeams } from "@/components/ui/background-beams";
 import {
   Breadcrumb,
   BreadcrumbEllipsis,
@@ -21,7 +20,6 @@ import type { Metadata, ResolvingMetadata } from 'next'
 
 
 async function ProductPage({ params }: { params: { product: string, category: string } }) {
-  console.log(params)
   const selectedProducts = await products.filter(
     (item) => item.model.toLowerCase().split(" ").join("-").replace("''", "") === params.product && params.category === item.category
   );
@@ -53,7 +51,7 @@ async function ProductPage({ params }: { params: { product: string, category: st
   } = selectedProduct;
 
   return (
-    <div className="container m-auto mt-4 xl:px-14 md:px-12 px-8 min-h-screen sm:mt-20">
+    <div className="container m-auto xl:px-14 md:px-12 px-8 min-h-screen mt-20">
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>

@@ -23,7 +23,7 @@ export function MobileNavbar() {
   const [open, setOpen] = React.useState(false);
 
   return (
-    <div className="sm:hidden flex justify-center items-center">
+    <div className="sm:hidden flex justify-center items-center fixed top-0 bg-white z-50 w-full">
       <Sheet open={open} onOpenChange={setOpen}>
         <SheetTrigger asChild>
           <Button
