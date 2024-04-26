@@ -64,18 +64,19 @@ const Card = ({ product }: any) => {
     (product) => product.category === category
   );
   if(categoryProducts.length==0) return NotFound();
-  const {banner} = await productCategories.filter((product) => product.slug === category)[0];
+  const productCategory = await productCategories.filter((product) => product.slug === category)[0];
   return (
 
         <div>
           <div className="relative w-full h-36 sm:h-96 sm:mt-20">
             <Image
-              src={banner}
+              src={productCategory.banner}
               alt="banner"
               fill
               className=""
             />
           </div>
+
           <div className="container m-auto mt-4 xl:px-14 md:px-12 px-8 min-h-screen">
 
         <Breadcrumb>
@@ -108,6 +109,9 @@ const Card = ({ product }: any) => {
         <h1 className="text-center text-2xl font-bold">
           {category.split("-").map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(" ")}
         </h1>
+        <div className=" my-5 text-gray-400">
+            <p>{productCategory.description}</p>
+              </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 w-full gap-3">
           {categoryProducts.map((product) => (
             <Link key={product.id} href={product.link}>

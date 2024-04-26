@@ -176,8 +176,7 @@ export async function generateMetadata(
 
   return {
     title: `${data?.model}, Best ${data?.category.replace("-", " ").toUpperCase()} Ghaziabad, Virgo Electronics`,
-    openGraph: {
-description: data?.description    },
+    description: data?.description || "Virgo Electronics is the best place to buy fans, coolers, and other electrical appliances in Ghaziabad. We have a wide range of products to choose from.",
   }
 }
 
