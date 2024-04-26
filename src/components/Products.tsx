@@ -21,7 +21,7 @@ export const products = [
     title: "Coolers",
     description:
       "/images/icons/cooler.png",
-    link: "/products/cooler",
+    link: "/products/coolers",
   },
   {
     title: "Pedestal Fans",

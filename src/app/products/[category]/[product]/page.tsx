@@ -53,7 +53,7 @@ async function ProductPage({ params }: { params: { product: string } }) {
   } = selectedProduct;
 
   return (
-    <div className="container m-auto mt-4 xl:px-14 md:px-12 px-8 min-h-screen">
+    <div className="container m-auto mt-4 xl:px-14 md:px-12 px-8 min-h-screen sm:mt-20">
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>
@@ -175,9 +175,9 @@ export async function generateMetadata(
   const data = await products.filter((product) => product.category === params.category)[0];
 
   return {
-    title: `${data.model}, Best ${data.category.replace("-", " ").toUpperCase()} Ghaziabad, Virgo Electronics`,
+    title: `${data?.model}, Best ${data?.category.replace("-", " ").toUpperCase()} Ghaziabad, Virgo Electronics`,
     openGraph: {
-description: "hello"    },
+description: data?.description    },
   }
 }
 

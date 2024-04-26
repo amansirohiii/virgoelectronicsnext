@@ -62,7 +62,7 @@ const components: { title: string; href: string; description: string }[] = [
 
 export function Navbar() {
   return (
-    <div className="hidden sm:flex w-full justify-center items-center h-20 border-b-2 text-black">
+    <div className="hidden sm:flex w-full justify-center items-center h-20 border-b-2 text-black bg-white fixed top-0 z-50 ">
 
 
          <div className="absolute left-5 h-12">
