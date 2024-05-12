@@ -161,7 +161,7 @@ async function ProductPage({ params }: { params: { product: string, category: st
 
 
 type Props = {
-  params: { category: string }
+  params: { category: string, product: string}
   searchParams: { [key: string]: string | string[] | undefined }
 }
 export async function generateMetadata(
@@ -169,8 +169,9 @@ export async function generateMetadata(
   parent: ResolvingMetadata
 ): Promise<Metadata> {
   // read route params
-  console.log(searchParams);
-  const data = await products.filter((product) => product.category === params.category)[0];
+  console.log(params, searchParams);
+  const category = await products.filter((product) => product.category === params.category);
+  const data = await category.filter((category)=> category.model.toLowerCase().split(" ").join("-").replace("''", "") === params.product)[0];
 
   return {
     title: `${data?.model}, Best ${data?.category.replace("-", " ").toUpperCase()} Ghaziabad, Virgo Electronics`,
