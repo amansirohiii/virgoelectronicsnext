@@ -9,7 +9,7 @@ export default function Home() {
 <Hero/>
 <HeroTypewriter/>
 <Products/>
-<Testimonials/>
+{/* <Testimonials/> */}
 </div>
 );
 }
