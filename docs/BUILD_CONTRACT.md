@@ -87,3 +87,16 @@ Version 1 was correct but read like a spec sheet. The owner's words: too basic h
 5. **Phone first.** Check every layout at 360 px in your head: nothing wider than the screen, 44 px tap targets, text at least 16 px, images with fixed aspect ratios so nothing jumps.
 6. **Corners** stay square on cells and buttons.
 7. The logo stays only in the header and footer. On a dark surface it must sit on a white plate with padding.
+
+---
+
+# Version 3 notes (owner feedback after version 2)
+
+"We are doing good, be more perfect." Specific points:
+
+- No browser-default form controls. Selects, checkboxes and radios are our own accessible components. Fields validate as the person types or leaves the field, not only on submit.
+- No heavy outlined buttons. Secondary buttons are quiet filled buttons; the phone menu trigger is a plain icon button.
+- The footer must not repeat links, and the logo must sit naturally on its background (no white sticker on a dark panel).
+- Share previews: every page must show a proper picture when its link is pasted in WhatsApp or anywhere else (JPG, 1200 x 630).
+- A PDF catalogue of the range, downloadable.
+- Code quality: small typed components with one job each, no duplicated markup, no dead code, no `any`, comments only where a reader needs the why.
