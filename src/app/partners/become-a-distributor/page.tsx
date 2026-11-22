@@ -28,7 +28,7 @@ export default function BecomeADistributorPage() {
         <h1 className="display display-lg mt-4">Become a Virgo distributor</h1>
         <p className="lede mt-5">
           This form is for firms that supply shops across a district or an area. Tell us about your firm and the area
-          you want to cover. We call you on the number you give and go through rates, schemes and supply on the call.
+          you want to cover. We call you on the number you give and go through rates and supply on the call.
         </p>
 
         <div className="mt-12 grid gap-14 md:mt-16 lg:grid-cols-12">

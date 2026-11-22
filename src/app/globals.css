@@ -256,6 +256,10 @@
     font-size: 1rem; /* 16px minimum stops iOS zooming on focus */
     color: var(--color-ink);
   }
+  .input::placeholder {
+    color: var(--color-steel);
+    opacity: 1;
+  }
   .input:hover {
     border-color: var(--color-ink);
   }

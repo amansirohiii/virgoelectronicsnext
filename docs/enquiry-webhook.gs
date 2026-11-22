@@ -64,7 +64,7 @@ function doPost(e) {
     if (data.product) details.product = data.product;
 
     var lock = LockService.getScriptLock();
-    lock.waitLock(10000);
+    lock.waitLock(5000);
     try {
       var sheet = getSheet();
       sheet.appendRow(

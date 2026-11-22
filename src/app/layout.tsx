@@ -24,6 +24,9 @@ const plexMono = IBM_Plex_Mono({
   display: "swap",
 });
 
+/** Enquiry delivery waits up to 15 s for the webhook; give the server room for it. */
+export const maxDuration = 30;
+
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {

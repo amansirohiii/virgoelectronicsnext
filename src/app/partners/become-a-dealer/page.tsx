@@ -28,7 +28,7 @@ export default function BecomeADealerPage() {
         <h1 className="display display-lg mt-4">Become a Virgo dealer</h1>
         <p className="lede mt-5">
           This form is for shops that sell appliances to customers. Tell us about your shop and the ranges you want to
-          stock. We call you on the number you give and go through rates, schemes and supply on the call.
+          stock. We call you on the number you give and go through rates and supply on the call.
         </p>
 
         <div className="mt-12 grid gap-14 md:mt-16 lg:grid-cols-12">

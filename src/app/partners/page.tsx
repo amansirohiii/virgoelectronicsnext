@@ -149,7 +149,7 @@ export default function PartnersPage() {
             />
           </div>
 
-          <p className="rule-t mt-14 pt-6 text-lg">We go through rates, schemes and supply on the call.</p>
+          <p className="rule-t mt-14 pt-6 text-lg">We go through rates and supply on the call.</p>
         </div>
       </section>
 

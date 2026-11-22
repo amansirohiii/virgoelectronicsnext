@@ -15,7 +15,7 @@ export function Trail({ crumbs }: { crumbs: { name: string; path: string }[] }) 
                 </span>
               ) : (
                 <>
-                  <Link href={c.path} className="inline-block py-1 hover:underline">
+                  <Link href={c.path} className="inline-flex min-h-11 items-center hover:underline">
                     {c.name}
                   </Link>
                   <span aria-hidden="true">/</span>

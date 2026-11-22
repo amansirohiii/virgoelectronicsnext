@@ -24,7 +24,8 @@ export function pageMeta(opts: {
       siteName: site.name,
       locale: "en_IN",
       type: "website",
-      ...(opts.image ? { images: [{ url: opts.image }] } : {}),
+      // A page's own openGraph replaces the site default, so the default image is set here.
+      images: [opts.image ? { url: opts.image } : { url: "/opengraph-image", width: 1200, height: 630 }],
     },
     ...(opts.noindex ? { robots: { index: false, follow: true } } : {}),
   };

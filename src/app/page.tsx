@@ -24,15 +24,21 @@ export const metadata = pageMeta({
   path: "/",
 });
 
-/** One product per category standing on the hero shelf. Heights are in rem. */
-const shelf: { category: CategorySlug; slug: string; h: number; mobile: boolean }[] = [
-  { category: "coolers", slug: "cg-02", h: 19, mobile: true },
-  { category: "pedestal-fans", slug: "pedestal-18", h: 18, mobile: true },
-  { category: "madhani", slug: "electric-madhani", h: 10.5, mobile: false },
-  { category: "heaters", slug: "quartz-heater", h: 8.5, mobile: true },
-  { category: "exhaust-fans", slug: "exhaust-fan", h: 8, mobile: false },
-  { category: "electric-irons", slug: "magic", h: 4.6, mobile: false },
+/**
+ * One product per category standing on the hero shelf.
+ * `fr` is each product's share of the shelf width. The shares keep the products
+ * in rough proportion to each other, and because they are fractions the whole
+ * shelf scales with the screen and can never overflow.
+ */
+const shelf: { category: CategorySlug; slug: string; fr: number; mobile: boolean }[] = [
+  { category: "coolers", slug: "cg-02", fr: 11.2, mobile: true },
+  { category: "pedestal-fans", slug: "pedestal-18", fr: 9.4, mobile: true },
+  { category: "madhani", slug: "electric-madhani", fr: 5.8, mobile: false },
+  { category: "heaters", slug: "quartz-heater", fr: 7.7, mobile: true },
+  { category: "exhaust-fans", slug: "exhaust-fan", fr: 8, mobile: false },
+  { category: "electric-irons", slug: "magic", fr: 7.4, mobile: false },
 ];
+const shelfColumns = (items: typeof shelf) => items.map((i) => `${i.fr}fr`).join(" ");
 
 function monthInIndia(): number {
   return Number(new Intl.DateTimeFormat("en-US", { timeZone: "Asia/Kolkata", month: "numeric" }).format(new Date()));
@@ -126,11 +132,12 @@ export default function HomePage() {
         </div>
 
         {/* The shelf: one real product from each category on one floor line */}
-        <div className="cell rise relative mt-10 overflow-hidden md:mt-14" style={{ "--i": 2 } as React.CSSProperties}>
+        <div className="cell rise relative mt-10 md:mt-14" style={{ "--i": 2 } as React.CSSProperties}>
+          {/* Ceiling fan: in its own row on small screens, hung over the short products on wide ones */}
           {fan?.images[0] ? (
             <Link
               href={categoryPath("ceiling-fans")}
-              className="group absolute left-1/2 top-0 z-10 w-[62%] -translate-x-1/2 sm:w-[38%] lg:left-[58%] lg:w-[27%]"
+              className="group mx-auto block w-[58%] sm:w-[40%] lg:absolute lg:right-[9%] lg:top-0 lg:w-[27%]"
             >
               <Image
                 src={fan.images[0].src}
@@ -138,44 +145,49 @@ export default function HomePage() {
                 width={fan.images[0].width}
                 height={fan.images[0].height}
                 preload
-                sizes="(min-width: 1024px) 27vw, (min-width: 640px) 38vw, 62vw"
+                sizes="(min-width: 1024px) 27vw, (min-width: 640px) 40vw, 58vw"
                 className="h-auto w-full"
               />
-              <span className="label mt-1 block text-center group-hover:underline">
-                Ceiling fans · {getProducts("ceiling-fans").length}
-              </span>
+              <span className="label mt-1 block text-center group-hover:underline">Ceiling Fans</span>
             </Link>
           ) : null}
 
-          <div className="relative flex h-[25rem] items-end justify-between gap-4 px-5 sm:px-8 md:h-[29rem] lg:px-14">
+          <div className="relative mx-auto max-w-[60rem] px-5 pt-6 sm:px-8 lg:pt-20">
             <span aria-hidden="true" className="absolute inset-x-0 bottom-14 border-t-[1.5px] border-ink" />
-            {shelf.map((item) => {
-              const p = getProduct(item.category, item.slug);
-              const image = p?.images[0];
-              const category = categories.find((c) => c.slug === item.category);
-              if (!p || !image || !category) return null;
-              return (
-                <Link
-                  key={item.slug}
-                  href={categoryPath(item.category)}
-                  className={`group relative flex-col items-center ${item.mobile ? "flex" : "hidden md:flex"}`}
-                >
-                  <Image
-                    src={image.src}
-                    alt={image.alt}
-                    width={image.width}
-                    height={image.height}
-                    sizes="(min-width: 768px) 16vw, 30vw"
-                    preload={item.mobile}
-                    style={{ height: `${item.h}rem` }}
-                    className="w-auto max-w-none origin-bottom scale-[0.82] transition-transform duration-500 ease-out-quart group-hover:scale-[0.86] sm:scale-90 sm:group-hover:scale-[0.94] lg:scale-100 lg:group-hover:scale-[1.04]"
-                  />
-                  <span className="label flex h-14 items-center whitespace-nowrap group-hover:underline">
-                    {category.name} · {getProducts(item.category).length}
-                  </span>
-                </Link>
-              );
-            })}
+            <ul
+              className="grid items-end gap-x-4 [grid-template-columns:var(--cols-sm)] md:gap-x-6 md:[grid-template-columns:var(--cols-md)]"
+              style={
+                {
+                  "--cols-sm": shelfColumns(shelf.filter((i) => i.mobile)),
+                  "--cols-md": shelfColumns(shelf),
+                } as React.CSSProperties
+              }
+            >
+              {shelf.map((item) => {
+                const p = getProduct(item.category, item.slug);
+                const image = p?.images[0];
+                const category = categories.find((c) => c.slug === item.category);
+                if (!p || !image || !category) return null;
+                return (
+                  <li key={item.slug} className={`min-w-0 ${item.mobile ? "" : "hidden md:block"}`}>
+                    <Link href={categoryPath(item.category)} className="group flex flex-col">
+                      <Image
+                        src={image.src}
+                        alt={image.alt}
+                        width={image.width}
+                        height={image.height}
+                        sizes="(min-width: 768px) 16vw, 30vw"
+                        preload={item.mobile}
+                        className="h-auto w-full origin-bottom transition-transform duration-500 ease-out-quart group-hover:scale-[1.04]"
+                      />
+                      <span className="label flex h-14 items-center justify-center text-center group-hover:underline">
+                        {category.name}
+                      </span>
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
           </div>
         </div>
       </section>

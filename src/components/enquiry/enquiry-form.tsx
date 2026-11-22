@@ -96,6 +96,14 @@ const FIELDS: Record<string, FieldDef> = {
 };
 
 const GENERAL_MESSAGE: FieldDef = { label: "Your message", kind: "textarea", maxLength: 1000 };
+const PRODUCT_PIN: FieldDef = {
+  label: "PIN code",
+  kind: "numeric",
+  optional: true,
+  autoComplete: "postal-code",
+  hint: "Helps us point you to a dealer near you",
+  maxLength: 6,
+};
 
 const TYPE_NAMES: Record<EnquiryType, string> = {
   dealer: "dealer",
@@ -107,6 +115,7 @@ const TYPE_NAMES: Record<EnquiryType, string> = {
 
 function fieldDef(type: EnquiryType, key: string): FieldDef {
   if (type === "general" && key === "message") return GENERAL_MESSAGE;
+  if (type === "product" && key === "pin") return PRODUCT_PIN;
   const def = FIELDS[key];
   if (!def) throw new Error(`Unknown enquiry field: ${key}`);
   return def;
@@ -116,15 +125,25 @@ export function EnquiryForm({ type, product, heading }: EnquiryFormProps) {
   const [state, formAction, pending] = useActionState(submitEnquiry, initialEnquiryState);
   const pathname = usePathname();
   const uid = useId().replace(/[^a-zA-Z0-9]/g, "");
-  const startedAt = useRef("");
-  const startedInput = useRef<HTMLInputElement>(null);
+  const mountedAt = useRef<number | null>(null);
+  const elapsedInput = useRef<HTMLInputElement>(null);
   const focusTarget = useRef<HTMLDivElement>(null);
 
-  // Record when the form was first shown; the server rejects forms sent within 3 seconds.
+  // Note when the form became usable. Time is measured on this device only
+  // (performance.now), so a wrong phone clock cannot block anyone.
   useEffect(() => {
-    if (!startedAt.current) startedAt.current = String(Date.now());
-    if (startedInput.current) startedInput.current.value = startedAt.current;
-  }, [state.attempt]);
+    if (mountedAt.current === null) mountedAt.current = performance.now();
+  }, []);
+
+  // The server rejects forms sent within 3 seconds of the page opening.
+  const stampElapsed = () => {
+    const now = performance.now();
+    const mounted = mountedAt.current ?? now;
+    // On a first page load, count from the start of the load so someone who
+    // typed before the script arrived is not told to wait.
+    const base = mounted < 10_000 ? 0 : mounted;
+    if (elapsedInput.current) elapsedInput.current.value = String(Math.round(now - base));
+  };
 
   // After each submit, move focus to whatever now explains the result.
   useEffect(() => {
@@ -158,11 +177,12 @@ export function EnquiryForm({ type, product, heading }: EnquiryFormProps) {
       {headingEl}
 
       {/* Remounted after each submit so inputs show the values the server returned */}
-      <form key={state.attempt} action={formAction} noValidate className={heading ? "mt-6" : undefined}>
+      <form key={state.attempt} action={formAction} onSubmit={stampElapsed} noValidate className={heading ? "mt-6" : undefined}>
         {state.status === "invalid" && errorKeys.length > 0 ? (
           <div
             ref={focusTarget}
             tabIndex={-1}
+            role="alert"
             aria-labelledby={`${uid}-summary`}
             className="mb-8 border-l-4 border-red-deep bg-white p-5"
           >
@@ -209,7 +229,7 @@ export function EnquiryForm({ type, product, heading }: EnquiryFormProps) {
 
         <input type="hidden" name="type" value={type} />
         <input type="hidden" name="page" value={pathname} />
-        <input ref={startedInput} type="hidden" name="startedAt" defaultValue="" />
+        <input ref={elapsedInput} type="hidden" name="elapsed" defaultValue="" />
         {product ? (
           <>
             <input type="hidden" name="productName" value={product.name} />

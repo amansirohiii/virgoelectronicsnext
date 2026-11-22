@@ -209,7 +209,7 @@ export default async function ProductPage({ params }: { params: Promise<Params> 
               text="Supply Virgo products to shops in your area."
             />
             <TradeLink
-              href="/bulk-orders"
+              href={`/bulk-orders?product=${entry}`}
               title="Bulk orders"
               text={`Buy the ${product.name} or other models in quantity for your own use.`}
             />

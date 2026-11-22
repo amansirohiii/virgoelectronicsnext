@@ -8,7 +8,7 @@ import { dealerCta } from "@/content/navigation";
  */
 export function ContactBar() {
   return (
-    <div className="fixed inset-x-0 bottom-0 z-30 border-t border-line bg-white pb-[env(safe-area-inset-bottom)] lg:hidden">
+    <div data-contact-bar className="fixed inset-x-0 bottom-0 z-30 border-t border-line bg-white pb-[env(safe-area-inset-bottom)] lg:hidden">
       <div className="flex divide-x divide-line">
         {hasPhone() ? (
           <a href={telHref()} className="flex min-h-14 flex-1 items-center justify-center font-semibold">

@@ -28,11 +28,19 @@ export function MobileMenu({ categories }: Props) {
         buttonRef.current?.focus();
       }
     };
+    // The panel covers the page, so the page behind it must not take focus.
+    const behind = [
+      document.getElementById("main"),
+      document.querySelector("body > footer"),
+      document.querySelector("[data-contact-bar]"),
+    ];
     document.addEventListener("keydown", onKey);
     document.body.style.overflow = "hidden";
+    behind.forEach((el) => el?.setAttribute("inert", ""));
     return () => {
       document.removeEventListener("keydown", onKey);
       document.body.style.overflow = "";
+      behind.forEach((el) => el?.removeAttribute("inert"));
     };
   }, [open]);
 
@@ -61,7 +69,14 @@ export function MobileMenu({ categories }: Props) {
         hidden={!open}
         className="fixed inset-x-0 bottom-0 top-16 z-40 overflow-y-auto overscroll-contain bg-white md:top-[4.5rem]"
       >
-        <nav aria-label="Mobile" className="wrap pb-28 pt-6">
+        {/* A tap on any link closes the panel, including a link to the page already open */}
+        <nav
+          aria-label="Mobile"
+          className="wrap pb-28 pt-6"
+          onClick={(e) => {
+            if ((e.target as HTMLElement).closest("a")) setOpen(false);
+          }}
+        >
           <p className="label">Products</p>
           <ul className="mt-2 border-t border-line">
             {categories.map((c) => (

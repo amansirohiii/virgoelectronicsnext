@@ -99,7 +99,7 @@ export function SiteFooter() {
       <div className="border-t border-line">
         <div className="wrap flex flex-col gap-2 py-5 text-sm text-steel sm:flex-row sm:items-center sm:justify-between">
           <p>
-            © {new Date().getFullYear()} {site.name}, {site.city}.
+            © {site.name}, {site.city}.
           </p>
           {site.statements.noApplicationFee ? (
             <p>We never charge a fee for a dealership or distributorship application.</p>
@@ -122,7 +122,7 @@ function FooterList({
   return (
     <nav aria-label={title} className={className}>
       <h2 className="label">{title}</h2>
-      <ul className="mt-4 space-y-2.5">{children}</ul>
+      <ul className="mt-2">{children}</ul>
     </nav>
   );
 }
@@ -139,11 +139,11 @@ function FooterLink({
   return (
     <li>
       {external ? (
-        <a href={href} rel="noopener noreferrer" target="_blank" className="hover:underline">
+        <a href={href} rel="noopener noreferrer" target="_blank" className="inline-flex min-h-11 items-center hover:underline">
           {children}
         </a>
       ) : (
-        <Link href={href} className="hover:underline">
+        <Link href={href} className="inline-flex min-h-11 items-center hover:underline">
           {children}
         </Link>
       )}

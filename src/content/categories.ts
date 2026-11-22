@@ -103,7 +103,7 @@ export const categories: Category[] = [
     notes: [
       {
         title: "Quartz or blower",
-        body: "A quartz heater warms what is in front of it and runs on less power. A blower heater pushes warm air into the room and suits a larger space.",
+        body: "The quartz heater warms what is in front of it and has 400 and 800 W settings. The blower heater pushes warm air into the room and has 1000 and 2000 W settings.",
       },
     ],
     seo: {

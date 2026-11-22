@@ -24,7 +24,7 @@ import {
  */
 
 const MIN_FILL_MS = 3_000;
-const DELIVERY_TIMEOUT_MS = 8_000;
+const DELIVERY_TIMEOUT_MS = 15_000;
 
 /*
  * Per-IP rate limit: 5 delivery attempts per 10 minutes.
@@ -112,9 +112,11 @@ export async function submitEnquiry(prev: EnquiryState, formData: FormData): Pro
 
   // Bot checks: a filled honeypot or a form sent within 3 seconds of opening.
   const now = Date.now();
-  const startedAt = Number(text(formData, "startedAt"));
+  // `elapsed` is measured in the browser with a monotonic timer, so it does not depend on the device clock.
+  const elapsedRaw = text(formData, "elapsed");
+  const elapsed = Number(elapsedRaw);
   const honeypot = text(formData, "website");
-  if (honeypot !== "" || !Number.isFinite(startedAt) || startedAt <= 0 || now - startedAt < MIN_FILL_MS) {
+  if (honeypot !== "" || elapsedRaw === "" || !Number.isFinite(elapsed) || elapsed < MIN_FILL_MS) {
     return {
       status: "blocked",
       attempt,
@@ -181,7 +183,7 @@ export async function submitEnquiry(prev: EnquiryState, formData: FormData): Pro
       return { status: "undelivered", attempt, values };
     }
   } catch (err) {
-    const reason = err instanceof Error && err.name === "AbortError" ? "timed out after 8 s" : "request failed";
+    const reason = err instanceof Error && err.name === "AbortError" ? "timed out after 15 s" : "request failed";
     console.error(`[enquiry] ${reference} ${type} not delivered: ${reason}`);
     return { status: "undelivered", attempt, values };
   } finally {
