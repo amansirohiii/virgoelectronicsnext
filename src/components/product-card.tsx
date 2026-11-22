@@ -31,7 +31,7 @@ export function ProductCard({
             alt={image.alt}
             fill
             sizes={sizes}
-            priority={priority}
+            preload={priority}
             className="object-contain p-[9%] transition-transform duration-500 ease-out-quart group-hover:scale-[1.035]"
           />
         ) : null}

@@ -137,7 +137,7 @@ export default function HomePage() {
                 alt={fan.images[0].alt}
                 width={fan.images[0].width}
                 height={fan.images[0].height}
-                priority
+                preload
                 sizes="(min-width: 1024px) 27vw, (min-width: 640px) 38vw, 62vw"
                 className="h-auto w-full"
               />
@@ -166,7 +166,7 @@ export default function HomePage() {
                     width={image.width}
                     height={image.height}
                     sizes="(min-width: 768px) 16vw, 30vw"
-                    priority={item.mobile}
+                    preload={item.mobile}
                     style={{ height: `${item.h}rem` }}
                     className="w-auto max-w-none origin-bottom scale-[0.82] transition-transform duration-500 ease-out-quart group-hover:scale-[0.86] sm:scale-90 sm:group-hover:scale-[0.94] lg:scale-100 lg:group-hover:scale-[1.04]"
                   />

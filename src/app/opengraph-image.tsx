@@ -30,7 +30,7 @@ export default function OpengraphImage() {
           color: "#16181b",
         }}
       >
-        {/* eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text */}
+        {/* eslint-disable-next-line jsx-a11y/alt-text */}
         <img src={logo} width={LOGO_W} height={LOGO_H} style={{ width: LOGO_W, height: LOGO_H }} />
         <div style={{ display: "flex", flexDirection: "column" }}>
           <div style={{ display: "flex", width: "100%", height: 3, background: "#16181b" }} />

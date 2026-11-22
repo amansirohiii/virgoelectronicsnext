@@ -15,7 +15,7 @@ export function Logo({ height = 40, priority = false }: { height?: number; prior
         alt={site.name}
         width={width}
         height={height}
-        priority={priority}
+        preload={priority}
         sizes={`${width}px`}
       />
     </Link>
