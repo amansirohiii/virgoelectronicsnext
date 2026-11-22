@@ -26,11 +26,25 @@
 }
 
 @layer base {
+  /*
+    Sticky header heights: top strip plus main bar. The header frame and the
+    anchor offset both read these, so a jump to #anchor never lands under it.
+  */
+  :root {
+    --header-strip: 2.25rem;
+    --header-bar: 4rem;
+    --header-h: calc(var(--header-strip) + var(--header-bar));
+  }
+  @media (min-width: 64rem) {
+    :root {
+      --header-bar: 4.75rem;
+    }
+  }
   html {
     background: var(--color-paper);
     color: var(--color-ink);
     -webkit-text-size-adjust: 100%;
-    scroll-padding-top: 5.5rem;
+    scroll-padding-top: var(--header-h);
   }
   body {
     font-family: var(--font-sans);
@@ -134,7 +148,7 @@
     font-weight: 600;
     font-size: 1rem;
     line-height: 1.15;
-    border: 1.5px solid transparent;
+    border: 1px solid transparent;
     transition:
       background-color 160ms var(--ease-out-quart),
       color 160ms var(--ease-out-quart),
@@ -155,21 +169,40 @@
   .btn-ink:hover {
     background: #000;
   }
+  /* Secondary: a quiet filled button, not an outline */
   .btn-line {
-    border-color: var(--color-ink);
+    background: #fff;
+    border-color: var(--color-line);
     color: var(--color-ink);
   }
   .btn-line:hover {
     background: var(--color-ink);
+    border-color: var(--color-ink);
     color: #fff;
   }
   .on-dark .btn-line {
-    border-color: #fff;
+    background: rgb(255 255 255 / 0.1);
+    border-color: transparent;
     color: #fff;
   }
   .on-dark .btn-line:hover {
     background: #fff;
     color: var(--color-ink);
+  }
+  /* Tertiary and icon actions: no frame until hovered */
+  .btn-ghost {
+    background: transparent;
+    color: var(--color-ink);
+  }
+  .btn-ghost:hover {
+    background: var(--color-paper);
+  }
+  /* Square 44 px icon button; pair with .btn-ghost or .btn-line */
+  .btn-icon {
+    width: 2.75rem;
+    height: 2.75rem;
+    min-height: 2.75rem;
+    padding: 0;
   }
   .btn[aria-disabled="true"],
   .btn:disabled {

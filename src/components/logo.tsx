@@ -4,7 +4,7 @@ import { site } from "@/content/site";
 
 /**
  * The Virgo logo, unaltered. It is only ever placed on white: the header bar,
- * or a white plate on the graphite footer.
+ * the phone menu and the white footer body.
  * Source file is 720 × 276 with a transparent background.
  *
  * `height` is the largest size it is drawn at; `className` can set a smaller

@@ -1,4 +1,5 @@
-export type NavItem = { label: string; href: string };
+/** `download` marks a file link: rendered as a plain `<a download>`, not a page route. */
+export type NavItem = { label: string; href: string; download?: boolean };
 
 export const mainNav = [
   { label: "Products", href: "/products" },
@@ -14,10 +15,19 @@ export const distributorCta = {
   href: "/partners/become-a-distributor",
 } as const;
 
+export const catalogueLink = {
+  label: "Catalogue (PDF)",
+  href: "/downloads/virgo-catalogue.pdf",
+  download: true,
+} as const satisfies NavItem;
+
+const compareLink = { label: "Compare models", href: "/compare" } as const;
+
 /** Side column of the products menu */
 export const rangeLinks: NavItem[] = [
   { label: "See the whole range", href: "/products" },
-  { label: "Compare models", href: "/compare" },
+  compareLink,
+  catalogueLink,
   { label: "Bulk orders", href: "/bulk-orders" },
 ];
 
@@ -25,25 +35,42 @@ export const rangeLinks: NavItem[] = [
 export const mobileLinks: NavItem[] = [
   { label: "For dealers and distributors", href: "/partners" },
   { label: "Bulk orders", href: "/bulk-orders" },
-  { label: "Compare models", href: "/compare" },
+  compareLink,
+  catalogueLink,
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
 ];
 
-export const footerNav = {
-  trade: [
-    { label: "For dealers and distributors", href: "/partners" },
-    dealerCta,
-    distributorCta,
-    { label: "Bulk orders", href: "/bulk-orders" },
-  ],
-  company: [
-    { label: "About", href: "/about" },
-    { label: "Contact", href: "/contact" },
-    { label: "Compare models", href: "/compare" },
-  ],
-  legal: [
-    { label: "Privacy", href: "/privacy" },
-    { label: "Terms", href: "/terms" },
-  ],
-} satisfies Record<string, NavItem[]>;
+/** Footer link columns after "Products" (which is built from the catalogue). Each link appears once. */
+export const footerColumns: { title: string; links: NavItem[] }[] = [
+  {
+    title: "For the trade",
+    links: [
+      { label: "For dealers", href: "/partners" },
+      dealerCta,
+      distributorCta,
+      { label: "Bulk orders", href: "/bulk-orders" },
+    ],
+  },
+  {
+    title: "Company",
+    links: [
+      { label: "About us", href: "/about" },
+      { label: "All products", href: "/products" },
+    ],
+  },
+  {
+    title: "Downloads and help",
+    links: [
+      { ...catalogueLink, label: "Product catalogue (PDF)" },
+      compareLink,
+      { label: "Contact us", href: "/contact" },
+    ],
+  },
+];
+
+/** Footer bottom bar only */
+export const legalLinks: NavItem[] = [
+  { label: "Privacy", href: "/privacy" },
+  { label: "Terms", href: "/terms" },
+];

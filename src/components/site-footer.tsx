@@ -1,8 +1,8 @@
-import Link from "next/link";
-import { footerNav, type NavItem } from "@/content/navigation";
+import { footerColumns, legalLinks, type NavItem } from "@/content/navigation";
 import { hasEmail, hasPhone, hasWhatsApp, site, telHref, whatsappHref } from "@/content/site";
 import { categoryPath, getCategories } from "@/lib/catalogue";
 import { Logo } from "@/components/logo";
+import { NavAnchor } from "@/components/shell/nav-anchor";
 import { PreFooter } from "@/components/shell/pre-footer";
 import {
   ClockIcon,
@@ -17,158 +17,196 @@ import {
   YouTubeIcon,
 } from "@/components/shell/icons";
 
+type Icon = React.ComponentType<{ className?: string }>;
+type Column = { title: string; links: NavItem[] };
+
+/**
+ * White footer body (logo, address, four link columns) over a graphite strip
+ * with the company facts and the legal links. The graphite strip carries the
+ * bottom padding that keeps it clear of the phone contact bar.
+ */
 export function SiteFooter() {
-  const c = site.contact;
-  const columns: { title: string; links: NavItem[] }[] = [
+  const columns: Column[] = [
     {
       title: "Products",
       links: getCategories().map((cat) => ({ label: cat.name, href: categoryPath(cat.slug) })),
     },
-    { title: "For the trade", links: footerNav.trade },
-    { title: "Company", links: footerNav.company },
-    { title: "Legal", links: footerNav.legal },
+    ...footerColumns,
   ];
 
+  return (
+    <>
+      <PreFooter />
+
+      <footer data-site-footer className="bg-white">
+        <div className="wrap grid gap-12 py-14 md:py-16 xl:grid-cols-[minmax(0,20rem)_minmax(0,1fr)] xl:gap-16">
+          <FooterBrand />
+          <FooterLinks columns={columns} />
+        </div>
+
+        <div className="on-dark pb-[calc(3.5rem+env(safe-area-inset-bottom))] lg:pb-0">
+          <FooterFacts />
+          <FooterLegal />
+        </div>
+      </footer>
+    </>
+  );
+}
+
+/** Logo, one line about the company, address, contact lines and social links. */
+function FooterBrand() {
+  const c = site.contact;
   const social = [
     { name: "Instagram", href: site.social.instagram, Icon: InstagramIcon },
     { name: "YouTube", href: site.social.youtube, Icon: YouTubeIcon },
     { name: "Facebook", href: site.social.facebook, Icon: FacebookIcon },
   ].filter((s) => s.href.length > 0);
 
-  const facts = [
-    { text: `Made in ${site.city} since ${site.founded}`, Icon: FactoryIcon, show: true },
-    { text: `Replies within ${c.replyWithin}`, Icon: ClockIcon, show: c.replyWithin.length > 0 },
-    { text: "No fee to apply as a dealer", Icon: NoFeeIcon, show: site.statements.noApplicationFee },
-  ].filter((f) => f.show);
-
   return (
-    <>
-      <PreFooter />
+    <div className="grid gap-8 md:grid-cols-2 md:gap-10 xl:block">
+      <div>
+        <Logo height={56} />
+        <p className="mt-5 max-w-sm text-steel">
+          We have made electrical appliances in {site.city} since {site.founded}: coolers, fans,
+          heaters, electric irons and madhani.
+        </p>
+      </div>
 
-      <footer
-        data-site-footer
-        className="on-dark pb-[calc(3.5rem+env(safe-area-inset-bottom))] lg:pb-0"
-      >
-        <div className="wrap grid gap-12 py-14 md:py-20 lg:grid-cols-12 lg:gap-10">
-          <div className="lg:col-span-4">
-            <div className="inline-flex bg-white px-4 py-3">
-              <Logo height={42} />
-            </div>
-            <p className="mt-6 max-w-sm text-[#c3c7cc]">
-              We have made electrical appliances in {site.city} since {site.founded}: coolers, fans,
-              heaters, electric irons and madhani.
-            </p>
-
-            <address className="mt-6 grid grid-cols-[1.25rem_minmax(0,1fr)] gap-x-3 gap-y-3 not-italic">
-              <PinIcon className="mt-0.5 size-5 text-[#b4b9bf]" />
-              <span>
-                {c.address.length > 0 ? (
-                  c.address.map((line) => (
+      <div className="xl:mt-6">
+        <address className="not-italic">
+          <p className="flex gap-3">
+            <PinIcon className="mt-0.5 size-5 shrink-0 text-steel" />
+            <span>
+              {c.address.length > 0
+                ? c.address.map((line) => (
                     <span key={line} className="block">
                       {line}
                     </span>
                   ))
-                ) : (
-                  <>
-                    {site.plantArea}, {site.state}
-                  </>
-                )}
-              </span>
-              {hasPhone() ? (
-                <>
-                  <PhoneIcon className="mt-0.5 size-5 text-[#b4b9bf]" />
-                  <a href={telHref()} className="font-semibold hover:underline">
-                    {c.phone}
-                  </a>
-                </>
-              ) : null}
-              {hasWhatsApp() ? (
-                <>
-                  <WhatsAppIcon className="mt-0.5 size-5 text-[#b4b9bf]" />
-                  <a href={whatsappHref()} className="font-semibold hover:underline">
-                    WhatsApp us
-                  </a>
-                </>
-              ) : null}
-              {hasEmail() ? (
-                <>
-                  <MailIcon className="mt-0.5 size-5 text-[#b4b9bf]" />
-                  <a href={`mailto:${c.email}`} className="hover:underline">
-                    {c.email}
-                  </a>
-                </>
-              ) : null}
-            </address>
-
-            {social.length > 0 ? (
-              <ul className="mt-7 flex gap-2">
-                {social.map(({ name, href, Icon }) => (
-                  <li key={name}>
-                    <a
-                      href={href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={`${site.name} on ${name} (opens in a new tab)`}
-                      className="inline-flex size-11 items-center justify-center border border-graphite-line text-white transition-colors hover:border-white hover:bg-white hover:text-ink"
-                    >
-                      <Icon className="size-5" />
-                    </a>
-                  </li>
-                ))}
-              </ul>
+                : `${site.plantArea}, ${site.state}`}
+            </span>
+          </p>
+          <ul className="mt-2">
+            {hasPhone() ? (
+              <ContactLine Icon={PhoneIcon} href={telHref()}>
+                {c.phone}
+              </ContactLine>
             ) : null}
-          </div>
+            {hasWhatsApp() ? (
+              <ContactLine Icon={WhatsAppIcon} href={whatsappHref()}>
+                WhatsApp us
+              </ContactLine>
+            ) : null}
+            {hasEmail() ? (
+              <ContactLine Icon={MailIcon} href={`mailto:${c.email}`}>
+                {c.email}
+              </ContactLine>
+            ) : null}
+          </ul>
+        </address>
 
-          {/* Four link columns on one grid, so headings and first links line up */}
-          <div className="grid grid-cols-2 gap-x-6 gap-y-10 md:grid-cols-4 lg:col-span-8">
-            {columns.map((col) => (
-              <nav key={col.title} aria-label={col.title}>
-                <h2 className="text-[0.9375rem] font-semibold text-white">{col.title}</h2>
-                <ul className="mt-3">
-                  {col.links.map((l) => (
-                    <li key={l.href}>
-                      <Link
-                        href={l.href}
-                        className="inline-flex min-h-11 items-center text-[#c3c7cc] transition-colors hover:text-white"
-                      >
-                        <span className="underline-grow">{l.label}</span>
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </nav>
+        {social.length > 0 ? (
+          <ul className="mt-4 flex gap-2">
+            {social.map(({ name, href, Icon }) => (
+              <li key={name}>
+                <a
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`${site.name} on ${name} (opens in a new tab)`}
+                  className="btn btn-line btn-icon"
+                >
+                  <Icon className="size-5" />
+                </a>
+              </li>
             ))}
-          </div>
-        </div>
+          </ul>
+        ) : null}
+      </div>
+    </div>
+  );
+}
 
-        <div className="wrap">
-          <ul className="grid gap-4 border-t border-graphite-line py-7 sm:grid-cols-3 sm:gap-8">
-            {facts.map(({ text, Icon }) => (
-              <li key={text} className="flex items-center gap-3">
-                <Icon className="size-6 shrink-0 text-[#b4b9bf]" />
-                <span className="font-medium">{text}</span>
+function ContactLine({ Icon, href, children }: { Icon: Icon; href: string; children: React.ReactNode }) {
+  return (
+    <li>
+      <a href={href} className="flex min-h-11 items-center gap-3 font-semibold hover:underline">
+        <Icon className="size-5 shrink-0 text-steel" />
+        <span className="min-w-0 [overflow-wrap:anywhere]">{children}</span>
+      </a>
+    </li>
+  );
+}
+
+/**
+ * Four columns on one grid, so headings and links line up. Rows are 40 px apart
+ * for a mouse and grow to 44 px on touch screens.
+ */
+function FooterLinks({ columns }: { columns: Column[] }) {
+  return (
+    <nav aria-label="Footer" className="grid grid-cols-2 gap-x-6 gap-y-10 md:grid-cols-4">
+      {columns.map((col) => (
+        <div key={col.title}>
+          <h2 className="text-[0.9375rem] font-semibold leading-5">{col.title}</h2>
+          <ul className="mt-3 border-t border-line pt-1.5">
+            {col.links.map((l) => (
+              <li key={l.href}>
+                <NavAnchor
+                  item={l}
+                  className="inline-flex min-h-10 items-center text-steel transition-colors hover:text-ink pointer-coarse:min-h-11"
+                >
+                  <span className="underline-grow">{l.label}</span>
+                </NavAnchor>
               </li>
             ))}
           </ul>
         </div>
+      ))}
+    </nav>
+  );
+}
 
-        <div className="border-t border-graphite-line">
-          <div className="wrap flex flex-col gap-1 py-4 text-sm text-[#b4b9bf] sm:flex-row sm:items-center sm:justify-between">
-            <p className="py-2">
-              © {site.name}, {site.city}.
-            </p>
-            <ul className="flex gap-6">
-              {footerNav.legal.map((l) => (
-                <li key={l.href}>
-                  <Link href={l.href} className="inline-flex min-h-11 items-center hover:text-white">
-                    <span className="underline-grow">{l.label}</span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </footer>
-    </>
+function FooterFacts() {
+  const c = site.contact;
+  const facts: { text: string; Icon: Icon; show: boolean }[] = [
+    { text: `Made in ${site.city} since ${site.founded}`, Icon: FactoryIcon, show: true },
+    { text: `Replies within ${c.replyWithin}`, Icon: ClockIcon, show: c.replyWithin.length > 0 },
+    { text: "No fee to apply as a dealer", Icon: NoFeeIcon, show: site.statements.noApplicationFee },
+  ];
+
+  return (
+    <div className="wrap">
+      <ul className="grid gap-4 py-7 sm:grid-cols-3 sm:gap-8">
+        {facts
+          .filter((f) => f.show)
+          .map(({ text, Icon }) => (
+            <li key={text} className="flex items-center gap-3">
+              <Icon className="size-6 shrink-0 text-[#b4b9bf]" />
+              <span className="font-medium">{text}</span>
+            </li>
+          ))}
+      </ul>
+    </div>
+  );
+}
+
+function FooterLegal() {
+  return (
+    <div className="border-t border-graphite-line">
+      <div className="wrap flex flex-col gap-1 py-4 text-sm text-[#b4b9bf] sm:flex-row sm:items-center sm:justify-between">
+        <p className="py-2">
+          © {site.name}, {site.city}.
+        </p>
+        <ul className="flex gap-6">
+          {legalLinks.map((l) => (
+            <li key={l.href}>
+              <NavAnchor item={l} className="inline-flex min-h-11 items-center hover:text-white">
+                <span className="underline-grow">{l.label}</span>
+              </NavAnchor>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
   );
 }

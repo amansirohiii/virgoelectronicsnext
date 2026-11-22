@@ -69,17 +69,26 @@ export const ChevronIcon = (p: IconProps) => (
   </Svg>
 );
 
-export const MenuIcon = (p: IconProps) => (
+export const DownloadIcon = (p: IconProps) => (
   <Svg {...p}>
-    <path d="M3.5 7h17M3.5 12h17M3.5 17h17" />
+    <path d="M12 4v11" />
+    <path d="M7 10.5l5 5 5-5" />
+    <path d="M4.5 19.5h15" />
   </Svg>
 );
 
-export const CloseIcon = (p: IconProps) => (
-  <Svg {...p}>
-    <path d="M6 6l12 12M18 6L6 18" />
-  </Svg>
-);
+/** Three lines that fold into a cross when `open`. */
+export function MenuToggleIcon({ open }: { open: boolean }) {
+  const bar =
+    "absolute inset-x-0 top-1/2 -mt-[0.75px] h-[1.5px] bg-current transition-[translate,rotate,opacity] duration-300 ease-out-quart";
+  return (
+    <span aria-hidden="true" className="relative block h-4 w-[1.375rem]">
+      <span className={`${bar} ${open ? "rotate-45" : "-translate-y-[6px]"}`} />
+      <span className={`${bar} ${open ? "opacity-0" : ""}`} />
+      <span className={`${bar} ${open ? "-rotate-45" : "translate-y-[6px]"}`} />
+    </span>
+  );
+}
 
 export const FactoryIcon = (p: IconProps) => (
   <Svg {...p}>

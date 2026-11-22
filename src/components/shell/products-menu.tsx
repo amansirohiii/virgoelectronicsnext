@@ -5,15 +5,16 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useId, useRef, useState } from "react";
 import type { NavItem } from "@/content/navigation";
-import { ArrowIcon, ChevronIcon } from "./icons";
+import { ArrowIcon, ChevronIcon, DownloadIcon } from "./icons";
+import { NavAnchor } from "./nav-anchor";
 import { inSection } from "./nav-link";
 import { modelsLabel, type MenuCategory } from "./types";
 
 /**
  * "Products" in the desktop bar and its full-width panel. Opens on hover and
- * when keyboard focus enters; closes on Escape, when focus or the pointer
- * leaves, and after a link is chosen. The panel is positioned against the
- * fixed header, so it spans the whole window under the bar.
+ * when keyboard focus enters; closes on Escape, on a press outside it, when
+ * focus or the pointer leaves, and after a link is chosen. The panel is
+ * positioned against the fixed header, so it spans the whole window under the bar.
  */
 export function ProductsMenu({
   href,
@@ -30,6 +31,7 @@ export function ProductsMenu({
   const pathname = usePathname();
   const [lastPath, setLastPath] = useState(pathname);
   const panelId = useId();
+  const itemRef = useRef<HTMLLIElement>(null);
   const triggerRef = useRef<HTMLAnchorElement>(null);
   const timer = useRef<number | undefined>(undefined);
   const skipFocusOpen = useRef(false);
@@ -41,6 +43,35 @@ export function ProductsMenu({
   }
 
   useEffect(() => () => window.clearTimeout(timer.current), []);
+
+  // Escape and a press outside close it wherever focus or the pointer is
+  useEffect(() => {
+    if (!open) return;
+    const close = () => {
+      window.clearTimeout(timer.current);
+      setOpen(false);
+    };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== "Escape") return;
+      const focusInside = itemRef.current?.contains(document.activeElement) ?? false;
+      close();
+      if (focusInside) {
+        // Return focus to "Products" without the focus handler opening the panel again
+        skipFocusOpen.current = true;
+        triggerRef.current?.focus();
+        skipFocusOpen.current = false;
+      }
+    };
+    const onPointer = (e: PointerEvent) => {
+      if (!itemRef.current?.contains(e.target as Node)) close();
+    };
+    document.addEventListener("keydown", onKey);
+    document.addEventListener("pointerdown", onPointer);
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.removeEventListener("pointerdown", onPointer);
+    };
+  }, [open]);
 
   const later = (next: boolean, delay: number) => {
     window.clearTimeout(timer.current);
@@ -55,6 +86,7 @@ export function ProductsMenu({
 
   return (
     <li
+      ref={itemRef}
       className="h-full"
       onMouseEnter={() => later(true, 60)}
       onMouseLeave={() => later(false, 140)}
@@ -63,14 +95,6 @@ export function ProductsMenu({
       }}
       onBlur={(e) => {
         if (!e.currentTarget.contains(e.relatedTarget as Node | null)) now(false);
-      }}
-      onKeyDown={(e) => {
-        if (e.key !== "Escape" || !open) return;
-        e.stopPropagation();
-        now(false);
-        skipFocusOpen.current = true;
-        triggerRef.current?.focus();
-        skipFocusOpen.current = false;
       }}
     >
       <Link
@@ -124,13 +148,17 @@ export function ProductsMenu({
           <ul className="border-l border-line pl-8">
             {links.map((l) => (
               <li key={l.href} className="border-b border-line">
-                <Link
-                  href={l.href}
+                <NavAnchor
+                  item={l}
                   className="group flex min-h-12 items-center justify-between gap-3 font-semibold"
                 >
                   <span className="underline-grow">{l.label}</span>
-                  <ArrowIcon className="size-4 transition-transform duration-200 group-hover:translate-x-1" />
-                </Link>
+                  {l.download ? (
+                    <DownloadIcon className="size-4" />
+                  ) : (
+                    <ArrowIcon className="size-4 transition-transform duration-200 group-hover:translate-x-1" />
+                  )}
+                </NavAnchor>
               </li>
             ))}
           </ul>

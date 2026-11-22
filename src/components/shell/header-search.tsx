@@ -21,7 +21,7 @@ export function HeaderSearch() {
       />
       <label
         htmlFor="header-search"
-        className="inline-flex size-11 cursor-pointer items-center justify-center text-ink transition-colors hover:bg-paper peer-focus:bg-paper"
+        className="btn btn-ghost btn-icon peer-focus:bg-paper"
       >
         <SearchIcon className="size-[1.375rem]" />
         <span className="sr-only">Search the range</span>

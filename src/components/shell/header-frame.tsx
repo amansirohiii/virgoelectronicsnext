@@ -32,12 +32,12 @@ export function HeaderFrame({ children }: { children: React.ReactNode }) {
   }, []);
 
   return (
-    <div className="h-[6.25rem] lg:h-28">
+    <div className="h-(--header-h)">
       <header
         ref={ref}
         data-site-header
         data-scrolled="false"
-        className="group fixed inset-x-0 top-0 z-40 transition-transform duration-300 ease-out-quart data-[scrolled=true]:-translate-y-9"
+        className="group fixed inset-x-0 top-0 z-40 transition-transform duration-300 ease-out-quart data-[scrolled=true]:translate-y-[calc(-1*var(--header-strip))]"
       >
         {children}
       </header>

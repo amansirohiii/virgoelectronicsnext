@@ -1,9 +1,15 @@
 import Image from "next/image";
 import Link from "next/link";
 import { dealerCta, distributorCta } from "@/content/navigation";
-import { scenes } from "@/content/scenes";
+import { scenes, type Scene } from "@/content/scenes";
 import { site } from "@/content/site";
 import { ArrowIcon } from "./icons";
+
+/** The dealer scene once it is added to `content/scenes.ts`; until then the pedestal fan in a shop. */
+function preFooterScene(): Scene {
+  const byKey: Record<string, Scene | undefined> = scenes;
+  return byKey.dealer ?? scenes.pedestalFan;
+}
 
 /**
  * Trade band above the footer on every page: a wide room scene with a solid
@@ -11,7 +17,7 @@ import { ArrowIcon } from "./icons";
  * On phones the panel sits under the photograph.
  */
 export function PreFooter() {
-  const scene = scenes.pedestalFan;
+  const scene = preFooterScene();
   const reply = site.contact.replyWithin;
 
   return (

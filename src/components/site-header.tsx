@@ -24,7 +24,7 @@ export function SiteHeader() {
   return (
     <HeaderFrame>
       {/* Top strip: slides away once the page scrolls */}
-      <div className="on-dark h-9 text-[0.8125rem] transition-[opacity,visibility] duration-300 group-data-[scrolled=true]:invisible group-data-[scrolled=true]:opacity-0">
+      <div className="on-dark h-(--header-strip) text-[0.8125rem] transition-[opacity,visibility] duration-300 group-data-[scrolled=true]:invisible group-data-[scrolled=true]:opacity-0">
         <div className="wrap flex h-full items-center justify-center gap-6 md:justify-between">
           <p className="hidden text-[#c3c7cc] md:block">
             {site.descriptor} since {site.founded}
@@ -51,7 +51,7 @@ export function SiteHeader() {
 
       {/* Main bar */}
       <div className="border-b border-transparent bg-white transition-[border-color,box-shadow] duration-300 group-data-[scrolled=true]:border-line group-data-[scrolled=true]:shadow-[0_10px_28px_-18px_rgba(22,24,27,0.45)]">
-        <div className="wrap flex h-16 items-center gap-6 lg:h-[4.75rem]">
+        <div className="wrap flex h-(--header-bar) items-center gap-6">
           <Logo height={46} priority className="h-[38px] w-auto lg:h-[46px]" />
 
           <nav aria-label="Main" className="ml-6 hidden h-full flex-1 lg:block xl:ml-10">
