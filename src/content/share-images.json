@@ -1,0 +1,254 @@
+{
+  "/products/coolers/baby": {
+    "src": "/og/product-coolers-baby.jpg",
+    "width": 1200,
+    "height": 630,
+    "alt": "Virgo Baby, desert cooler"
+  },
+  "/products/coolers/cg-01": {
+    "src": "/og/product-coolers-cg-01.jpg",
+    "width": 1200,
+    "height": 630,
+    "alt": "Virgo CG-01, desert cooler"
+  },
+  "/products/coolers/cg-04": {
+    "src": "/og/product-coolers-cg-04.jpg",
+    "width": 1200,
+    "height": 630,
+    "alt": "Virgo CG-04, desert cooler"
+  },
+  "/products/coolers/cg-02": {
+    "src": "/og/product-coolers-cg-02.jpg",
+    "width": 1200,
+    "height": 630,
+    "alt": "Virgo CG-02, desert cooler"
+  },
+  "/products/coolers/cg-03": {
+    "src": "/og/product-coolers-cg-03.jpg",
+    "width": 1200,
+    "height": 630,
+    "alt": "Virgo CG-03, desert cooler"
+  },
+  "/products/coolers/zx-01": {
+    "src": "/og/product-coolers-zx-01.jpg",
+    "width": 1200,
+    "height": 630,
+    "alt": "Virgo ZX-01, desert cooler"
+  },
+  "/products/coolers/zx-02": {
+    "src": "/og/product-coolers-zx-02.jpg",
+    "width": 1200,
+    "height": 630,
+    "alt": "Virgo ZX-02, desert cooler"
+  },
+  "/products/coolers/duct": {
+    "src": "/og/product-coolers-duct.jpg",
+    "width": 1200,
+    "height": 630,
+    "alt": "Virgo Duct, duct cooler"
+  },
+  "/products/coolers/commercial": {
+    "src": "/og/product-coolers-commercial.jpg",
+    "width": 1200,
+    "height": 630,
+    "alt": "Virgo Commercial, commercial cooler"
+  },
+  "/products/coolers/skycool-tower-20": {
+    "src": "/og/product-coolers-skycool-tower-20.jpg",
+    "width": 1200,
+    "height": 630,
+    "alt": "Virgo Skycool Tower 20\", tower cooler"
+  },
+  "/products/coolers/sumo": {
+    "src": "/og/product-coolers-sumo.jpg",
+    "width": 1200,
+    "height": 630,
+    "alt": "Virgo Sumo, desert cooler"
+  },
+  "/products/ceiling-fans/era": {
+    "src": "/og/product-ceiling-fans-era.jpg",
+    "width": 1200,
+    "height": 630,
+    "alt": "Virgo Era, ceiling fan"
+  },
+  "/products/ceiling-fans/era-plus": {
+    "src": "/og/product-ceiling-fans-era-plus.jpg",
+    "width": 1200,
+    "height": 630,
+    "alt": "Virgo Era Plus, ceiling fan"
+  },
+  "/products/ceiling-fans/sportz": {
+    "src": "/og/product-ceiling-fans-sportz.jpg",
+    "width": 1200,
+    "height": 630,
+    "alt": "Virgo Sportz, ceiling fan"
+  },
+  "/products/ceiling-fans/asta": {
+    "src": "/og/product-ceiling-fans-asta.jpg",
+    "width": 1200,
+    "height": 630,
+    "alt": "Virgo Asta, ceiling fan"
+  },
+  "/products/ceiling-fans/sportz-plus": {
+    "src": "/og/product-ceiling-fans-sportz-plus.jpg",
+    "width": 1200,
+    "height": 630,
+    "alt": "Virgo Sportz Plus, ceiling fan"
+  },
+  "/products/ceiling-fans/magna": {
+    "src": "/og/product-ceiling-fans-magna.jpg",
+    "width": 1200,
+    "height": 630,
+    "alt": "Virgo Magna, ceiling fan"
+  },
+  "/products/pedestal-fans/pedestal-18": {
+    "src": "/og/product-pedestal-fans-pedestal-18.jpg",
+    "width": 1200,
+    "height": 630,
+    "alt": "Virgo Pedestal-18, pedestal fan"
+  },
+  "/products/pedestal-fans/pedestal-16": {
+    "src": "/og/product-pedestal-fans-pedestal-16.jpg",
+    "width": 1200,
+    "height": 630,
+    "alt": "Virgo Pedestal-16, pedestal fan"
+  },
+  "/products/exhaust-fans/exhaust-fan": {
+    "src": "/og/product-exhaust-fans-exhaust-fan.jpg",
+    "width": 1200,
+    "height": 630,
+    "alt": "Virgo Exhaust Fan, metal exhaust fan"
+  },
+  "/products/exhaust-fans/fresh-air-fan": {
+    "src": "/og/product-exhaust-fans-fresh-air-fan.jpg",
+    "width": 1200,
+    "height": 630,
+    "alt": "Virgo Fresh Air Fan, fresh air fan"
+  },
+  "/products/heaters/quartz-heater": {
+    "src": "/og/product-heaters-quartz-heater.jpg",
+    "width": 1200,
+    "height": 630,
+    "alt": "Virgo Quartz Heater, quartz room heater"
+  },
+  "/products/heaters/blower-heater": {
+    "src": "/og/product-heaters-blower-heater.jpg",
+    "width": 1200,
+    "height": 630,
+    "alt": "Virgo BT Blower Heater, blower room heater"
+  },
+  "/products/heaters/immersion-rod": {
+    "src": "/og/product-heaters-immersion-rod.jpg",
+    "width": 1200,
+    "height": 630,
+    "alt": "Virgo Immersion Rod, immersion water heater"
+  },
+  "/products/electric-irons/magic": {
+    "src": "/og/product-electric-irons-magic.jpg",
+    "width": 1200,
+    "height": 630,
+    "alt": "Virgo Magic, dry iron"
+  },
+  "/products/electric-irons/plancha": {
+    "src": "/og/product-electric-irons-plancha.jpg",
+    "width": 1200,
+    "height": 630,
+    "alt": "Virgo Plancha, dry iron"
+  },
+  "/products/madhani/electric-madhani": {
+    "src": "/og/product-madhani-electric-madhani.jpg",
+    "width": 1200,
+    "height": 630,
+    "alt": "Virgo Electric Madhani, lassi and butter churner"
+  },
+  "/products/coolers": {
+    "src": "/og/category-coolers.jpg",
+    "width": 1200,
+    "height": 630,
+    "alt": "Virgo coolers: 11 models"
+  },
+  "/products/ceiling-fans": {
+    "src": "/og/category-ceiling-fans.jpg",
+    "width": 1200,
+    "height": 630,
+    "alt": "Virgo ceiling fans: 6 models"
+  },
+  "/products/pedestal-fans": {
+    "src": "/og/category-pedestal-fans.jpg",
+    "width": 1200,
+    "height": 630,
+    "alt": "Virgo pedestal fans: 2 models"
+  },
+  "/products/exhaust-fans": {
+    "src": "/og/category-exhaust-fans.jpg",
+    "width": 1200,
+    "height": 630,
+    "alt": "Virgo exhaust fans: 2 models"
+  },
+  "/products/heaters": {
+    "src": "/og/category-heaters.jpg",
+    "width": 1200,
+    "height": 630,
+    "alt": "Virgo heaters: 3 models"
+  },
+  "/products/electric-irons": {
+    "src": "/og/category-electric-irons.jpg",
+    "width": 1200,
+    "height": 630,
+    "alt": "Virgo electric irons: 2 models"
+  },
+  "/products/madhani": {
+    "src": "/og/category-madhani.jpg",
+    "width": 1200,
+    "height": 630,
+    "alt": "Virgo madhani: 1 model"
+  },
+  "/": {
+    "src": "/og/page-home.jpg",
+    "width": 1200,
+    "height": 630,
+    "alt": "Virgo Electronics. Virgo CG-02 cooler standing in a living room beside a window"
+  },
+  "/products": {
+    "src": "/og/page-products.jpg",
+    "width": 1200,
+    "height": 630,
+    "alt": "All products. Virgo Magna ceiling fan in golden brown on a living room ceiling"
+  },
+  "/partners": {
+    "src": "/og/page-partners.jpg",
+    "width": 1200,
+    "height": 630,
+    "alt": "For dealers and distributors. Virgo Pedestal-18 fan standing in a tailoring shop"
+  },
+  "/partners/become-a-dealer": {
+    "src": "/og/page-become-a-dealer.jpg",
+    "width": 1200,
+    "height": 630,
+    "alt": "Become a Virgo dealer. Virgo quartz heater glowing on a bedroom floor beside a bed"
+  },
+  "/partners/become-a-distributor": {
+    "src": "/og/page-become-a-distributor.jpg",
+    "width": 1200,
+    "height": 630,
+    "alt": "Become a Virgo distributor. Virgo CG-02 cooler standing in a living room beside a window"
+  },
+  "/bulk-orders": {
+    "src": "/og/page-bulk-orders.jpg",
+    "width": 1200,
+    "height": 630,
+    "alt": "Bulk orders. Virgo Pedestal-18 fan standing in a tailoring shop"
+  },
+  "/about": {
+    "src": "/og/page-about.jpg",
+    "width": 1200,
+    "height": 630,
+    "alt": "About us. Virgo Magna ceiling fan in golden brown on a living room ceiling"
+  },
+  "/contact": {
+    "src": "/og/page-contact.jpg",
+    "width": 1200,
+    "height": 630,
+    "alt": "Contact us. Virgo quartz heater glowing on a bedroom floor beside a bed"
+  }
+}
