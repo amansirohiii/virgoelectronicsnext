@@ -32,6 +32,11 @@ export default function TermsPage() {
           The pictures show the product. Colours can look different from one screen to another, so the
           product in your hand may not match the shade on your screen exactly.
         </p>
+        <p>
+          Pictures of a product in a room or a shop are illustrations made from our product
+          photographs. They show how the product looks in use and are not photographs of a
+          customer&apos;s home or shop.
+        </p>
       </LegalSection>
 
       <LegalSection title="No online sales or prices">

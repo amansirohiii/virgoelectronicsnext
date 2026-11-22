@@ -113,6 +113,12 @@
     "height": 630,
     "alt": "Virgo Pedestal-16, pedestal fan"
   },
+  "/products/table-fans/moving-12-ap": {
+    "src": "/og/product-table-fans-moving-12-ap.jpg",
+    "width": 1200,
+    "height": 630,
+    "alt": "Virgo Moving 12\" AP, all-purpose table fan"
+  },
   "/products/exhaust-fans/exhaust-fan": {
     "src": "/og/product-exhaust-fans-exhaust-fan.jpg",
     "width": 1200,
@@ -161,6 +167,12 @@
     "height": 630,
     "alt": "Virgo Electric Madhani, lassi and butter churner"
   },
+  "/products/conduit-pipes/pvc-conduit-pipe": {
+    "src": "/og/product-conduit-pipes-pvc-conduit-pipe.jpg",
+    "width": 1200,
+    "height": 630,
+    "alt": "Virgo PVC Conduit Pipe, rigid pvc conduit"
+  },
   "/products/coolers": {
     "src": "/og/category-coolers.jpg",
     "width": 1200,
@@ -178,6 +190,12 @@
     "width": 1200,
     "height": 630,
     "alt": "Virgo pedestal fans: 2 models"
+  },
+  "/products/table-fans": {
+    "src": "/og/category-table-fans.jpg",
+    "width": 1200,
+    "height": 630,
+    "alt": "Virgo table fans: 1 model"
   },
   "/products/exhaust-fans": {
     "src": "/og/category-exhaust-fans.jpg",
@@ -203,11 +221,17 @@
     "height": 630,
     "alt": "Virgo madhani: 1 model"
   },
+  "/products/conduit-pipes": {
+    "src": "/og/category-conduit-pipes.jpg",
+    "width": 1200,
+    "height": 630,
+    "alt": "Virgo conduit pipes: 1 model"
+  },
   "/": {
     "src": "/og/page-home.jpg",
     "width": 1200,
     "height": 630,
-    "alt": "Virgo Electronics. Virgo CG-02 cooler standing in a living room beside a window"
+    "alt": "Virgo Electronics. Virgo CG-02 cooler standing in a bright living room"
   },
   "/products": {
     "src": "/og/page-products.jpg",
@@ -219,25 +243,25 @@
     "src": "/og/page-partners.jpg",
     "width": 1200,
     "height": 630,
-    "alt": "For dealers and distributors. Virgo Pedestal-18 fan standing in a tailoring shop"
+    "alt": "For dealers and distributors. Virgo Pedestal-18 fan standing in an appliance shop"
   },
   "/partners/become-a-dealer": {
     "src": "/og/page-become-a-dealer.jpg",
     "width": 1200,
     "height": 630,
-    "alt": "Become a Virgo dealer. Virgo quartz heater glowing on a bedroom floor beside a bed"
+    "alt": "Become a Virgo dealer. Virgo quartz heater glowing on a bedroom floor"
   },
   "/partners/become-a-distributor": {
     "src": "/og/page-become-a-distributor.jpg",
     "width": 1200,
     "height": 630,
-    "alt": "Become a Virgo distributor. Virgo CG-02 cooler standing in a living room beside a window"
+    "alt": "Become a Virgo distributor. Virgo CG-02 cooler standing in a bright living room"
   },
   "/bulk-orders": {
     "src": "/og/page-bulk-orders.jpg",
     "width": 1200,
     "height": 630,
-    "alt": "Bulk orders. Virgo Pedestal-18 fan standing in a tailoring shop"
+    "alt": "Bulk orders. Virgo Pedestal-18 fan standing in an appliance shop"
   },
   "/about": {
     "src": "/og/page-about.jpg",
@@ -249,6 +273,6 @@
     "src": "/og/page-contact.jpg",
     "width": 1200,
     "height": 630,
-    "alt": "Contact us. Virgo quartz heater glowing on a bedroom floor beside a bed"
+    "alt": "Contact us. Virgo quartz heater glowing on a bedroom floor"
   }
 }

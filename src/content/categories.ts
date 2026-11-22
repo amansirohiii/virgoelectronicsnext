@@ -75,6 +75,18 @@ export const categories: Category[] = [
     },
   },
   {
+    slug: "table-fans",
+    name: "Table Fans",
+    singular: "table fan",
+    line: "12 inch all-purpose fan",
+    intro: ["A 12 inch all-purpose table fan for a desk, a counter or a bedside."],
+    tableColumns: ["Sweep", "Type", "Colour"],
+    seo: {
+      title: "Table fans: 12 inch all-purpose fan",
+      description: "Virgo Moving 12 inch AP table fan, an all-purpose fan for a desk, a counter or a bedside.",
+    },
+  },
+  {
     slug: "exhaust-fans",
     name: "Exhaust Fans",
     singular: "exhaust fan",
@@ -136,6 +148,21 @@ export const categories: Category[] = [
       title: "Electric madhani (lassi and butter churner)",
       description:
         "Virgo electric madhani with a heavy-duty copper-wound motor, for home and commercial use.",
+    },
+  },
+  {
+    slug: "conduit-pipes",
+    name: "Conduit Pipes",
+    singular: "conduit pipe",
+    line: "PVC conduit pipe for electrical wiring",
+    intro: [
+      "Rigid PVC conduit pipe for running electrical wiring inside walls and ceilings or on the surface. Ask us for the sizes and gauges we supply.",
+    ],
+    tableColumns: ["Material", "Use"],
+    seo: {
+      title: "PVC conduit pipes for electrical wiring",
+      description:
+        "Virgo rigid PVC conduit pipe for concealed and surface electrical wiring. Enquire for sizes and gauges.",
     },
   },
 ];

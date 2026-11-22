@@ -12,10 +12,12 @@ export type CategorySlug =
   | "coolers"
   | "ceiling-fans"
   | "pedestal-fans"
+  | "table-fans"
   | "exhaust-fans"
   | "heaters"
   | "electric-irons"
-  | "madhani";
+  | "madhani"
+  | "conduit-pipes";
 
 export type Spec = { label: string; value: string };
 
@@ -43,6 +45,8 @@ export type Product = {
   /** One or two plain sentences built only from the specs */
   summary: string;
   images: ProductImage[];
+  /** Shown under the photograph when the picture is not of the exact item sold */
+  imageNote?: string;
   colours?: string[];
   highlights: string[];
   specs: Spec[];

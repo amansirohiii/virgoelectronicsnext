@@ -39,7 +39,7 @@ export default function PartnersPage() {
         crumbs={crumbs}
         title="For dealers and distributors"
         lede="Sell the Virgo range from your shop, or supply it to shops in your area."
-        picture={{ scene: scenes.pedestalFan }}
+        picture={{ scene: scenes.cooler }}
         actions={
           <>
             <Link href="/partners/become-a-dealer" className="btn btn-red">

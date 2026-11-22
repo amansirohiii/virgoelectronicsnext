@@ -402,6 +402,53 @@ const pedestalFans: Product[] = [
   pedestal("pedestal-16", "Pedestal-16", [671, 1200]),
 ];
 
+/* ---------- Table fans ---------- */
+
+const tableFans: Product[] = [
+  {
+    slug: "moving-12-ap",
+    category: "table-fans",
+    name: 'Moving 12" AP',
+    kind: "All-purpose table fan",
+    keyFigure: { value: "12 in", label: "Sweep" },
+    summary:
+      "A 12 inch all-purpose table fan in white and turquoise, with the speed knob on the base. For a desk, a counter or a bedside.",
+    images: [img("table-fans/moving-12-ap", 553, 779, 'Virgo Moving 12 inch AP table fan in white and turquoise')],
+    colours: ["White and turquoise"],
+    highlights: ["12 inch sweep", "All-purpose (AP) fan", "Speed knob on the base"],
+    specs: [
+      { label: "Sweep", value: "12 inch" },
+      { label: "Type", value: "All-purpose (AP) table fan" },
+      { label: "Colour", value: "White and turquoise" },
+    ],
+    facts: {},
+    status: "published",
+  },
+];
+
+/* ---------- Conduit pipes ---------- */
+
+const conduitPipes: Product[] = [
+  {
+    slug: "pvc-conduit-pipe",
+    category: "conduit-pipes",
+    name: "PVC Conduit Pipe",
+    kind: "Rigid PVC conduit",
+    summary:
+      "Rigid PVC conduit pipe for running electrical wiring inside walls and ceilings or on the surface. Tell us the sizes and quantity you need and we will confirm what we supply.",
+    images: [img("conduit-pipes/pvc-conduit-pipe", 1051, 746, "Rigid PVC conduit pipes in three diameters")],
+    imageNote: "Representative picture. Sizes and gauges are confirmed with your enquiry.",
+    highlights: ["Rigid PVC", "For concealed and surface wiring", "Sizes on request"],
+    specs: [
+      { label: "Material", value: "Rigid PVC" },
+      { label: "Use", value: "Electrical wiring, concealed and surface" },
+      { label: "Sizes", value: "On request" },
+    ],
+    facts: {},
+    status: "published",
+  },
+];
+
 /* ---------- Exhaust fans ---------- */
 
 const exhaustFans: Product[] = [
@@ -547,8 +594,10 @@ export const products: Product[] = [
   ...coolers,
   ...ceilingFans,
   ...pedestalFans,
+  ...tableFans,
   ...exhaustFans,
   ...heaters,
   ...irons,
   ...madhani,
+  ...conduitPipes,
 ];

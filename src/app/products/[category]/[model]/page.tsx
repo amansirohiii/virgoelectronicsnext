@@ -103,6 +103,7 @@ export default async function ProductPage({ params }: { params: Promise<Params> 
                 </span>
               </Lightbox>
             ) : null}
+            {product.imageNote ? <p className="label mt-3">{product.imageNote}</p> : null}
           </div>
 
           <div className="lg:sticky lg:top-28 lg:col-span-5 lg:self-start">

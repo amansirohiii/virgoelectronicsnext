@@ -20,6 +20,8 @@ const COVER: Record<CategorySlug, string> = {
   heaters: "quartz-heater",
   "electric-irons": "magic",
   madhani: "electric-madhani",
+  "table-fans": "moving-12-ap",
+  "conduit-pipes": "pvc-conduit-pipe",
 };
 
 export function categoryCover(slug: CategorySlug): ProductImage | undefined {

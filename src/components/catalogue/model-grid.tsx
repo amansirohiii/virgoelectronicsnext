@@ -11,6 +11,7 @@ export function cardRatio(slug: CategorySlug): Ratio {
     case "ceiling-fans":
     case "electric-irons":
     case "heaters":
+    case "conduit-pipes":
       return "landscape";
     case "exhaust-fans":
       return "square";
