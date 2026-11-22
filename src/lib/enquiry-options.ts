@@ -2,7 +2,9 @@
  * Option lists, field lists and form state for the enquiry forms.
  *
  * Kept free of the validation library so the browser bundle of the form
- * carries only these lists. Validation lives in `enquiry.ts` and runs on the server.
+ * carries only these lists. The server schemas in `enquiry.ts` are the authority;
+ * `lib/validate.ts` mirrors them in the browser. Both read the patterns and
+ * messages below so the wording and the rules cannot drift apart.
  */
 import { categories } from "@/content/categories";
 import type { EnquiryType } from "@/components/enquiry/enquiry-form";
@@ -77,6 +79,46 @@ export const ENQUIRY_FIELDS: Record<EnquiryType, string[]> = {
   product: ["name", "mobile", "city", "pin", "buyerType", "message"],
   general: ["name", "mobile", "email", "city", "message"],
 };
+
+export const MOBILE_PATTERN = /^[6-9]\d{9}$/;
+export const PIN_PATTERN = /^[1-9]\d{5}$/;
+export const GSTIN_PATTERN = /^\d{2}[A-Z]{5}\d{4}[A-Z][1-9A-Z]Z[0-9A-Z]$/;
+
+/** Strips spaces, dashes, brackets and a leading +91, 91 or 0. Returns what is left. */
+export function normaliseMobile(raw: string): string {
+  let digits = raw.replace(/[\s\-().]/g, "");
+  if (digits.startsWith("+91")) digits = digits.slice(3);
+  else if (digits.length === 12 && digits.startsWith("91")) digits = digits.slice(2);
+  else if (digits.length === 11 && digits.startsWith("0")) digits = digits.slice(1);
+  return digits;
+}
+
+export const keepUnder = (max: number) => `Keep this under ${max} characters`;
+
+/** Error wording shared by the server schemas and the browser validators. */
+export const ENQUIRY_MESSAGES = {
+  name: "Enter your name",
+  mobileMissing: "Enter your mobile number",
+  mobileInvalid: "Enter a 10 digit mobile number",
+  city: "Enter your city or town",
+  shopName: "Enter the name of your shop",
+  firmName: "Enter the name of your firm",
+  organisation: "Enter the name of your organisation",
+  territory: "Enter the districts or area you want to cover",
+  items: "List the models and how many of each you need",
+  email: "Enter an email address like name@example.com",
+  pinMissing: "Enter your 6 digit PIN code",
+  pinInvalid: "Enter a 6 digit PIN code",
+  pinOptional: "Enter a 6 digit PIN code, or leave it blank",
+  categoriesMissing: "Choose at least one product range",
+  categoriesUnknown: "Choose from the product ranges listed",
+  state: "Choose your state",
+  yearsInTrade: "Choose how long you have been in the trade",
+  gstin: "Enter the 15 character GSTIN, or leave it blank",
+  buyerType: "Choose who the product is for",
+  messageMissing: "Write your message",
+  messageShort: "Write a little more so we know how to help (at least 10 characters)",
+} as const;
 
 export type FormValues = Record<string, string | string[]>;
 
