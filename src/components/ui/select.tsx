@@ -290,14 +290,14 @@ export function Select({
           onKeyUp={(e) => {
             if (e.key === " ") e.preventDefault();
           }}
-          className={cx(controlFrame(Boolean(error)), "cursor-pointer items-center gap-3 px-3.5 text-left")}
+          className={cx(controlFrame(Boolean(error)), "min-h-[3.1875rem] cursor-pointer gap-3 px-3.5 text-left")}
         >
-          <span className={cx("min-w-0 flex-1 truncate", !selected || selected.value === "" ? "text-steel" : undefined)}>
+          <span className={cx("min-w-0 flex-1 self-center truncate", !selected || selected.value === "" ? "text-steel" : undefined)}>
             {selected?.label ?? placeholder}
           </span>
           <ChevronIcon
             className={cx(
-              "size-5 shrink-0 text-steel transition-transform duration-150 motion-reduce:transition-none",
+              "size-5 shrink-0 self-center text-steel transition-transform duration-150 motion-reduce:transition-none",
               open && "rotate-180",
             )}
           />

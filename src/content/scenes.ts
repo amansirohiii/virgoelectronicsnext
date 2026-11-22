@@ -29,7 +29,7 @@ export const scenes: Record<Scene["key"], Scene> = {
     alt: "Virgo CG-02 cooler standing in a bright living room",
     category: "coolers",
     model: { name: "CG-02", slug: "cg-02", line: "90 litre steel-body cooler" },
-    focus: "78% 55%",
+    focus: "88% 55%",
   },
   ceilingFan: {
     key: "ceilingFan",
@@ -49,7 +49,7 @@ export const scenes: Record<Scene["key"], Scene> = {
     alt: "Virgo quartz heater glowing on a bedroom floor",
     category: "heaters",
     model: { name: "Quartz Heater", slug: "quartz-heater", line: "400 and 800 W room heater" },
-    focus: "72% 62%",
+    focus: "88% 65%",
   },
   pedestalFan: {
     key: "pedestalFan",

@@ -44,7 +44,7 @@ export function CategoryTiles() {
         </Link>
       </div>
 
-      <ul className="mt-8 grid grid-cols-2 gap-3 md:gap-5 lg:grid-cols-4">
+      <ul className="mt-8 grid grid-cols-2 gap-3 md:gap-5 lg:grid-cols-5">
         {categories.map((c, i) => {
           const n = getProducts(c.slug).length;
           const range = categoryRange(c.slug);

@@ -65,11 +65,15 @@ export function ProductsMenu({
     const onPointer = (e: PointerEvent) => {
       if (!itemRef.current?.contains(e.target as Node)) close();
     };
+    // A panel left hanging over a page that is being scrolled reads as stuck
+    const onScroll = () => close();
     document.addEventListener("keydown", onKey);
     document.addEventListener("pointerdown", onPointer);
+    window.addEventListener("scroll", onScroll, { passive: true, once: true });
     return () => {
       document.removeEventListener("keydown", onKey);
       document.removeEventListener("pointerdown", onPointer);
+      window.removeEventListener("scroll", onScroll);
     };
   }, [open]);
 
@@ -123,7 +127,7 @@ export function ProductsMenu({
         }`}
       >
         <div className="wrap grid grid-cols-[minmax(0,1fr)_15rem] gap-10 py-8">
-          <ul className="grid grid-cols-4 gap-3 xl:grid-cols-7">
+          <ul className="grid grid-cols-3 gap-3 xl:grid-cols-5">
             {categories.map((c) => (
               <li key={c.slug}>
                 <Link href={c.href} className="group block">
