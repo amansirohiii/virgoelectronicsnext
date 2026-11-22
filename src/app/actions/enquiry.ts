@@ -150,13 +150,14 @@ export async function submitEnquiry(prev: EnquiryState, formData: FormData): Pro
 
   const url = process.env.ENQUIRY_WEBHOOK_URL;
   const secret = process.env.ENQUIRY_WEBHOOK_SECRET;
-  if (!url || !secret) {
-    console.error(`[enquiry] ${reference} ${type} not delivered: ENQUIRY_WEBHOOK_URL or ENQUIRY_WEBHOOK_SECRET is not set`);
+  if (!url) {
+    console.error(`[enquiry] ${reference} ${type} not delivered: ENQUIRY_WEBHOOK_URL is not set`);
     return { status: "undelivered", attempt, values };
   }
 
   const payload = {
-    secret,
+    // Optional second key. The webhook checks it only when its own ENQUIRY_SECRET is set.
+    secret: secret ?? "",
     reference,
     type,
     submittedAt: new Date(now).toISOString(),

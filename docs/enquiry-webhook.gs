@@ -4,9 +4,12 @@
  * Paste this into Extensions > Apps Script of the Google Sheet that should
  * receive enquiries. Setup steps are in docs/ENQUIRY_SETUP.md.
  *
- * Script Properties (Project Settings > Script Properties):
- *   ENQUIRY_SECRET  the same value as ENQUIRY_WEBHOOK_SECRET in Vercel
- *   NOTIFY_EMAIL    the address that gets an email for every enquiry
+ * Script Properties (Project Settings > Script Properties), both optional:
+ *   NOTIFY_EMAIL    the address that gets an email for every enquiry.
+ *                   Without it the email goes to the Google account that owns this script.
+ *   ENQUIRY_SECRET  if set, requests must carry the same value
+ *                   (ENQUIRY_WEBHOOK_SECRET in Vercel). Without it the web app
+ *                   address itself is the only key, so keep that address private.
  *
  * The website treats an enquiry as delivered only when this script answers
  * {"ok": true}. Answer that only after the row is written.
@@ -48,7 +51,7 @@ function doPost(e) {
     var expected = props.getProperty("ENQUIRY_SECRET");
     var data = JSON.parse((e && e.postData && e.postData.contents) || "{}");
 
-    if (!expected || typeof data.secret !== "string" || data.secret !== expected) {
+    if (expected && data.secret !== expected) {
       return reply({ ok: false, error: "unauthorised" });
     }
     if (!data.reference || !data.type || !data.fields) {
@@ -75,7 +78,7 @@ function doPost(e) {
           fields.name,
           fields.mobile,
           fields.city,
-          JSON.stringify(details),
+          describe(details),
         ].map(safeCell),
       );
       SpreadsheetApp.flush();
@@ -84,7 +87,7 @@ function doPost(e) {
     }
 
     // The row is saved. A failed email is logged but does not fail the enquiry.
-    var notify = props.getProperty("NOTIFY_EMAIL");
+    var notify = props.getProperty("NOTIFY_EMAIL") || Session.getEffectiveUser().getEmail();
     if (notify) {
       try {
         sendSummary(notify, data);
@@ -108,6 +111,22 @@ function getSheet() {
     sheet.setFrozenRows(1);
   }
   return sheet;
+}
+
+/** "Shop name: Sharma Electricals | PIN code: 201001 | ..." for the Details column. */
+function describe(details) {
+  return Object.keys(details)
+    .map(function (key) {
+      var value = details[key];
+      if (value && typeof value === "object" && !Array.isArray(value)) value = value.name || JSON.stringify(value);
+      if (Array.isArray(value)) value = value.join(", ");
+      if (value === "" || value === undefined || value === null) return "";
+      return (FIELD_NAMES[key] || key) + ": " + value;
+    })
+    .filter(function (part) {
+      return part !== "";
+    })
+    .join(" | ");
 }
 
 /** Stops a value such as "=HYPERLINK(...)" from running as a formula in the Sheet. */
