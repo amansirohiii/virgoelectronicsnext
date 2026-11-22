@@ -23,7 +23,7 @@ import {
   initialEnquiryState,
   type EnquiryState,
   type FormValues,
-} from "@/lib/enquiry";
+} from "@/lib/enquiry-options";
 
 export type EnquiryType = "dealer" | "distributor" | "bulk" | "product" | "general";
 

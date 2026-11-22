@@ -4,7 +4,7 @@ import { categoryPath, getCategories } from "@/lib/catalogue";
 import { Logo } from "@/components/logo";
 
 const trade = [
-  { label: "Why stock Virgo", href: "/partners" },
+  { label: "For dealers and distributors", href: "/partners" },
   { label: "Become a dealer", href: "/partners/become-a-dealer" },
   { label: "Become a distributor", href: "/partners/become-a-distributor" },
   { label: "Bulk orders", href: "/bulk-orders" },
