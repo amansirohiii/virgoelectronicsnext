@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, createElement, useContext, type ReactNode } from "react";
+import { createContext, createElement, useContext, type CSSProperties, type ReactNode } from "react";
 
 /**
  * Shared by the range search and the cooler filters. The server renders every
@@ -15,16 +15,18 @@ export function Show({
   id,
   as = "div",
   className,
+  style,
   children,
 }: {
   id: string;
   as?: Tag;
   className?: string;
+  style?: CSSProperties;
   children: ReactNode;
 }) {
   const visible = useContext(VisibleContext);
   const hidden = visible !== null && !visible.has(id);
-  return createElement(as, { className, hidden }, children);
+  return createElement(as, { className, style, hidden }, children);
 }
 
 /** Visible when at least one of `ids` is visible, e.g. a category section. */

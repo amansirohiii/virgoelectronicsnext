@@ -113,6 +113,26 @@ const TYPE_NAMES: Record<EnquiryType, string> = {
   general: "general",
 };
 
+/**
+ * Short fields that take half the row on wider screens. Fields keep their order,
+ * so these pair up as name + mobile, city + PIN, firm + email, city + state and so on.
+ */
+const HALF_WIDTH = new Set([
+  "name",
+  "mobile",
+  "firmName",
+  "email",
+  "city",
+  "pin",
+  "state",
+  "yearsInTrade",
+  "brandsHandled",
+  "gstin",
+  "deliveryCity",
+  "neededBy",
+  "buyerType",
+]);
+
 function fieldDef(type: EnquiryType, key: string): FieldDef {
   if (type === "general" && key === "message") return GENERAL_MESSAGE;
   if (type === "product" && key === "pin") return PRODUCT_PIN;
@@ -243,7 +263,7 @@ export function EnquiryForm({ type, product, heading }: EnquiryFormProps) {
           <input id={id("website")} type="text" name="website" tabIndex={-1} autoComplete="off" defaultValue="" />
         </div>
 
-        <div className="space-y-6">
+        <div className="grid gap-x-5 gap-y-6 sm:grid-cols-2">
           {fieldKeys.map((key) => (
             <Field
               key={key}
@@ -252,6 +272,7 @@ export function EnquiryForm({ type, product, heading }: EnquiryFormProps) {
               def={fieldDef(type, key)}
               defaultValue={defaults[key]}
               error={errors[key]}
+              className={HALF_WIDTH.has(key) ? "min-w-0" : "min-w-0 sm:col-span-2"}
             />
           ))}
         </div>
@@ -278,12 +299,14 @@ function Field({
   def,
   defaultValue,
   error,
+  className,
 }: {
   name: string;
   id: string;
   def: FieldDef;
   defaultValue: string | string[] | undefined;
   error: string | undefined;
+  className?: string;
 }) {
   const hintId = def.hint ? `${id}-hint` : undefined;
   const errorId = error ? `${id}-error` : undefined;
@@ -309,7 +332,7 @@ function Field({
   if (def.kind === "checkboxes") {
     const checked = Array.isArray(defaultValue) ? defaultValue : [];
     return (
-      <fieldset aria-describedby={describedBy}>
+      <fieldset aria-describedby={describedBy} className={className}>
         <legend className="field-label">{label}</legend>
         {hint}
         <div className="mt-2 grid gap-x-6 sm:grid-cols-2">
@@ -372,7 +395,7 @@ function Field({
   }
 
   return (
-    <div>
+    <div className={className}>
       <label htmlFor={id} className="field-label">
         {label}
       </label>
@@ -400,7 +423,7 @@ function Delivered({
       </p>
       <p className="mt-5">
         <span className="label block">Your reference</span>
-        <span className="font-mono text-lg font-medium">{state.reference}</span>
+        <span className="text-xl font-semibold tabular-nums">{state.reference}</span>
       </p>
       {hasWhatsApp() ? (
         <a

@@ -12,10 +12,16 @@ import {
 } from "@/lib/catalogue";
 import { breadcrumbLd, pageMeta } from "@/lib/seo";
 import { JsonLd } from "@/components/json-ld";
-import { Breadcrumbs } from "@/components/catalogue/breadcrumbs";
+import { PageHero } from "@/components/page-hero";
 import { CompareSync, ResumeCompare } from "@/components/catalogue/compare-sync";
 
 const MAX = 3;
+
+const crumbs = [
+  { name: "Home", path: "/" },
+  { name: "Products", path: "/products" },
+  { name: "Compare", path: "/compare" },
+];
 
 export const metadata = pageMeta({
   title: "Compare models",
@@ -63,34 +69,25 @@ export default async function ComparePage({ searchParams }: { searchParams: Prom
 
   return (
     <>
-      <div className="wrap pt-6 md:pt-10">
-        <Breadcrumbs items={[{ name: "Home", path: "/" }, { name: "Products", path: "/products" }, { name: "Compare" }]} />
-        <h1 className="display display-xl mt-4 md:mt-6">Compare models</h1>
-        {category ? (
-          <p className="lede mt-5 md:mt-6">
-            {models.length === 1
-              ? `The ${models[0]?.name} on its own. Add up to two more ${category.name.toLowerCase()} to see them side by side.`
-              : `${models.length} ${category.name.toLowerCase()} side by side. A dash means the figure is not listed for that model.`}
-          </p>
-        ) : (
-          <p className="lede mt-5 md:mt-6">
-            Pick a model to start, then add up to two more of the same kind. Every listed specification is set out in one
-            table.
-          </p>
-        )}
+      <PageHero
+        crumbs={crumbs}
+        title="Compare models"
+        size="lg"
+        lede={
+          category
+            ? models.length === 1
+              ? `Add up to two more ${category.name.toLowerCase()} to set beside the ${models[0]?.name}.`
+              : `${models.length} ${category.name.toLowerCase()} side by side.`
+            : "Pick a model, then add up to two more of the same kind."
+        }
+      >
         {category ? null : <ResumeCompare />}
-      </div>
+      </PageHero>
 
       {category ? <Comparison category={category} models={models} /> : <Picker />}
 
       <CompareSync entries={models.map(entryOf)} />
-      <JsonLd
-        data={breadcrumbLd([
-          { name: "Home", path: "/" },
-          { name: "Products", path: "/products" },
-          { name: "Compare", path: "/compare" },
-        ])}
-      />
+      <JsonLd data={breadcrumbLd(crumbs)} />
     </>
   );
 }
@@ -102,12 +99,12 @@ function Comparison({ category, models }: { category: Category; models: Product[
 
   return (
     <>
-      <section aria-label="Comparison table" className="wrap mt-12 md:mt-16">
+      <section aria-label="Comparison table" className="wrap rise mt-10 md:mt-14" style={{ "--i": 3 } as React.CSSProperties}>
         <div
           role="region"
           aria-label={`Specifications of ${models.map((m) => m.name).join(", ")}`}
           tabIndex={0}
-          className="overflow-x-auto overscroll-x-contain border-y-[1.5px] border-ink"
+          className="cell overflow-x-auto overscroll-x-contain"
         >
           <table className={`w-full table-fixed border-collapse text-left text-[0.9375rem] ${minW}`}>
             <caption className="sr-only">
@@ -121,7 +118,7 @@ function Comparison({ category, models }: { category: Category; models: Product[
             </colgroup>
             <thead>
               <tr className="border-b border-ink align-top">
-                <td className="sticky left-0 z-10 bg-paper py-4 pr-4 shadow-[1px_0_0_var(--color-line)]">
+                <td className="sticky left-0 z-10 bg-cell py-4 pl-4 pr-4 shadow-[1px_0_0_var(--color-line)] sm:pl-5">
                   <span className="label">Model</span>
                 </td>
                 {models.map((m) => {
@@ -129,7 +126,7 @@ function Comparison({ category, models }: { category: Category; models: Product[
                   return (
                     <th key={m.slug} scope="col" className="px-3 py-4 font-normal sm:px-4">
                       <Link href={productPath(m)} className="group block">
-                        <span className="cell relative block aspect-square overflow-hidden">
+                        <span className="zoom-frame relative block aspect-square border border-line bg-cell">
                           {img ? (
                             <Image
                               src={img.src}
@@ -140,7 +137,7 @@ function Comparison({ category, models }: { category: Category; models: Product[
                             />
                           ) : null}
                         </span>
-                        <span className="display mt-3 block text-2xl group-hover:underline">{m.name}</span>
+                        <span className="display mt-3 block text-2xl underline-offset-4 group-hover:underline">{m.name}</span>
                       </Link>
                       <span className="label mt-1 block">{m.kind}</span>
                       <Link
@@ -156,17 +153,17 @@ function Comparison({ category, models }: { category: Category; models: Product[
             </thead>
             <tbody>
               {rows.map((label) => (
-                <tr key={label} className="border-b border-line align-top last:border-b-0">
+                <tr key={label} className="border-b border-line bg-cell align-top last:border-b-0 even:bg-[#f7f6f2]">
                   <th
                     scope="row"
-                    className="label sticky left-0 z-10 bg-paper py-3 pr-4 font-normal shadow-[1px_0_0_var(--color-line)]"
+                    className="label sticky left-0 z-10 bg-inherit py-3 pl-4 pr-4 text-left font-normal shadow-[1px_0_0_var(--color-line)] sm:pl-5"
                   >
                     {label}
                   </th>
                   {models.map((m) => {
                     const v = m.specs.find((s) => s.label === label)?.value;
                     return (
-                      <td key={m.slug} className="px-3 py-3 font-medium sm:px-4">
+                      <td key={m.slug} className="px-3 py-3 font-medium tabular-nums sm:px-4">
                         {v ?? (
                           <>
                             <span aria-hidden="true" className="font-normal text-steel">
@@ -193,7 +190,7 @@ function Comparison({ category, models }: { category: Category; models: Product[
         </p>
       </section>
 
-      <section aria-labelledby="add" className="wrap mt-16 md:mt-20">
+      <section aria-labelledby="add" className="wrap reveal mt-16 md:mt-20">
         <h2 id="add" className="display display-md">
           Add a model
         </h2>
@@ -233,10 +230,10 @@ function Picker() {
     .filter((g) => g.products.length > 1);
 
   return (
-    <section aria-label="Choose a model to compare" className="wrap mt-12 md:mt-16">
+    <section aria-label="Choose a model to compare" className="wrap mt-10 md:mt-14">
       <div className="grid gap-x-10 gap-y-12 md:grid-cols-2 lg:grid-cols-3">
-        {groups.map(({ category, products }) => (
-          <div key={category.slug} className="border-t-[1.5px] border-ink pt-4">
+        {groups.map(({ category, products }, i) => (
+          <div key={category.slug} className="reveal border-t-[1.5px] border-ink pt-4" style={{ "--i": i } as React.CSSProperties}>
             <h2 className="display display-sm">{category.name}</h2>
             <p className="label mt-1.5">{products.length} models</p>
             <ul className="mt-4 border-t border-line">

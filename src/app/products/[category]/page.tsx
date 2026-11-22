@@ -14,7 +14,8 @@ import {
 import { breadcrumbLd, itemListLd, pageMeta } from "@/lib/seo";
 import { JsonLd } from "@/components/json-ld";
 import { CoolerDrawing } from "@/components/cooler-drawing";
-import { Breadcrumbs } from "@/components/catalogue/breadcrumbs";
+import { PageHero, type HeroPicture } from "@/components/page-hero";
+import { sceneForCategory } from "@/content/scenes";
 import { CoolerFilters, type CoolerFilterItem } from "@/components/catalogue/cooler-filters";
 import { ModelGrid, cardRatio } from "@/components/catalogue/model-grid";
 import { ModelTable } from "@/components/catalogue/model-table";
@@ -52,17 +53,26 @@ export default async function CategoryPage({ params }: { params: Promise<Params>
   const range = categoryRange(category.slug);
   const isCoolers = category.slug === "coolers";
   const many = products.length > 1;
-  const [first, ...rest] = category.intro;
+  const scene = sceneForCategory(category.slug);
+  const picture: HeroPicture = scene
+    ? { scene }
+    : { cutouts: products.slice(0, 3).flatMap((p) => (p.images[0] ? [{ image: p.images[0] }] : [])) };
+
+  const crumbs = [
+    { name: "Home", path: "/" },
+    { name: "Products", path: "/products" },
+    { name: category.name, path },
+  ];
 
   const grid = (
-    <div className={isCoolers ? "mt-8" : undefined}>
-      <ModelGrid products={products} ratio={cardRatio(category.slug)} compare={many} preloadFirst />
+    <div className={isCoolers ? "mt-10" : undefined}>
+      <ModelGrid products={products} ratio={cardRatio(category.slug)} compare={many} />
     </div>
   );
 
   const table = many ? (
     <section aria-labelledby="side-by-side" className="reveal mt-20 md:mt-28">
-      <div className="flex flex-wrap items-end justify-between gap-x-8 gap-y-3">
+      <div className="flex flex-wrap items-end justify-between gap-x-8 gap-y-2">
         <h2 id="side-by-side" className="display display-md">
           All models side by side
         </h2>
@@ -71,39 +81,25 @@ export default async function CategoryPage({ params }: { params: Promise<Params>
       <div className="mt-6">
         <ModelTable category={category} products={products} />
       </div>
-      <p className="mt-4 text-sm text-steel">
-        A dash means the figure is not listed for that model. Pick up to three models with Compare to see every
-        specification together.
-      </p>
+      <p className="label mt-3">A dash means the figure is not listed for that model.</p>
     </section>
   ) : null;
 
   return (
     <>
-      <div className="wrap pt-6 md:pt-10">
-        <Breadcrumbs items={[{ name: "Home", path: "/" }, { name: "Products", path: "/products" }, { name: category.name }]} />
+      <PageHero
+        crumbs={crumbs}
+        title={category.name}
+        lede={category.intro.join(" ")}
+        picture={picture}
+      >
+        <p className="label">
+          {products.length} {products.length === 1 ? "model" : "models"}
+          {range ? `, ${range}` : ""}
+        </p>
+      </PageHero>
 
-        <div className="mt-4 grid gap-x-10 gap-y-8 md:mt-6 lg:grid-cols-12">
-          <div className="lg:col-span-8">
-            <h1 className="display display-xl">{category.name}</h1>
-            {first ? <p className="lede mt-6">{first}</p> : null}
-            {rest.length ? (
-              <div className="prose-virgo mt-4 text-steel">
-                {rest.map((para) => (
-                  <p key={para}>{para}</p>
-                ))}
-              </div>
-            ) : null}
-          </div>
-          <dl className="self-end border-t-[1.5px] border-ink lg:col-span-4">
-            <Fact term="Models" value={String(products.length)} />
-            {range ? <Fact term="Range" value={range} /> : null}
-            <Fact term="Line" value={category.line} />
-          </dl>
-        </div>
-      </div>
-
-      <section aria-labelledby="models" className="wrap mt-14 md:mt-20">
+      <section aria-labelledby="models" className="wrap mt-16 md:mt-24">
         <h2 id="models" className={isCoolers ? "sr-only" : "display display-md mb-8"}>
           {many ? `${products.length} ${category.name.toLowerCase()}` : `The ${category.singular}`}
         </h2>
@@ -124,46 +120,9 @@ export default async function CategoryPage({ params }: { params: Promise<Params>
 
       {category.notes?.length ? <Notes category={category} /> : null}
 
-      <section aria-labelledby="trade" className="on-dark mt-24 md:mt-32">
-        <div className="wrap grid gap-8 py-14 md:py-20 lg:grid-cols-12 lg:items-end">
-          <div className="lg:col-span-7">
-            <h2 id="trade" className="display display-lg">
-              Sell Virgo {category.name.toLowerCase()} in your shop
-            </h2>
-            <p className="lede mt-5">
-              Shops and distributors can apply to stock our range. For a large order for your own premises, send a bulk
-              enquiry and tell us the models and quantities.
-            </p>
-          </div>
-          <div className="flex flex-col gap-3 sm:flex-row lg:col-span-5 lg:justify-end">
-            <Link href="/partners/become-a-dealer" className="btn btn-red">
-              Become a dealer
-            </Link>
-            <Link href="/bulk-orders" className="btn btn-line">
-              Bulk order enquiry
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      <JsonLd
-        data={breadcrumbLd([
-          { name: "Home", path: "/" },
-          { name: "Products", path: "/products" },
-          { name: category.name, path },
-        ])}
-      />
+      <JsonLd data={breadcrumbLd(crumbs)} />
       <JsonLd data={itemListLd(category, products)} />
     </>
-  );
-}
-
-function Fact({ term, value }: { term: string; value: string }) {
-  return (
-    <div className="grid grid-cols-[6rem_1fr] items-baseline gap-4 border-b border-line py-3">
-      <dt className="label">{term}</dt>
-      <dd className="font-medium">{value}</dd>
-    </div>
   );
 }
 
@@ -195,10 +154,7 @@ function SizeStrip({ products }: { products: Product[] }) {
       <h2 id="sizes" className="display display-md">
         Sizes at one scale
       </h2>
-      <p className="mt-4 max-w-[40em] text-steel">
-        Every cooler drawn to the same scale, smallest tank first, so you can see how much floor and height each one
-        takes. The drawings show cabinet size and proportion, not styling.
-      </p>
+      <p className="mt-3 text-steel">Every cabinet drawn to the same scale, smallest tank first.</p>
       <div
         role="region"
         aria-label="Cooler sizes drawn to one scale"
@@ -211,10 +167,13 @@ function SizeStrip({ products }: { products: Product[] }) {
               <figure>
                 <CoolerDrawing name={p.name} w={dim.w} d={dim.d} h={dim.h} scaleTo={tallest} frontOnly className="h-56 w-auto sm:h-64" />
                 <figcaption className="mt-2 border-t border-line pt-2">
-                  <Link href={productPath(p)} className="display text-lg underline-offset-4 hover:underline">
+                  <Link
+                    href={productPath(p)}
+                    className="inline-flex min-h-11 items-center font-semibold leading-tight underline-offset-4 hover:underline"
+                  >
                     {p.name}
                   </Link>
-                  <span className="label block">{p.facts.tankLitres} L</span>
+                  <span className="label block tabular-nums">{p.facts.tankLitres} L</span>
                 </figcaption>
               </figure>
             </li>
@@ -226,16 +185,17 @@ function SizeStrip({ products }: { products: Product[] }) {
 }
 
 function Notes({ category }: { category: Category }) {
+  const notes = category.notes ?? [];
   return (
-    <section aria-labelledby="notes" className="reveal wrap mt-20 md:mt-28">
-      <h2 id="notes" className="display display-md">
+    <section aria-labelledby="notes" className="wrap mt-20 md:mt-28">
+      <h2 id="notes" className="display display-md reveal">
         Before you order
       </h2>
-      <dl className="mt-8 border-t-[1.5px] border-ink">
-        {category.notes?.map((n) => (
-          <div key={n.title} className="grid gap-x-10 gap-y-2 border-b border-line py-5 md:grid-cols-12">
-            <dt className="display display-sm md:col-span-4">{n.title}</dt>
-            <dd className="max-w-[40em] text-steel md:col-span-8">{n.body}</dd>
+      <dl className="mt-8 grid gap-x-8 gap-y-8 md:grid-cols-3">
+        {notes.map((n, i) => (
+          <div key={n.title} className="reveal rule-ink-t pt-4" style={{ "--i": i } as React.CSSProperties}>
+            <dt className="display display-sm">{n.title}</dt>
+            <dd className="mt-2 text-steel">{n.body}</dd>
           </div>
         ))}
       </dl>

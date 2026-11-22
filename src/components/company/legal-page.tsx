@@ -1,6 +1,6 @@
 import { breadcrumbLd } from "@/lib/seo";
 import { JsonLd } from "@/components/json-ld";
-import { Trail } from "@/components/company/trail";
+import { PageHero } from "@/components/page-hero";
 
 /** Date shown on the privacy and terms pages. Change it whenever either page's wording changes. */
 export const LEGAL_UPDATED = { iso: "2026-11-22", text: "22 November 2026" };
@@ -24,38 +24,22 @@ export function LegalPage({
   return (
     <>
       <JsonLd data={breadcrumbLd(crumbs)} />
-      <div className="wrap pt-10 md:pt-16">
-        <Trail crumbs={crumbs} />
-        <h1 className="display display-lg mt-4">{title}</h1>
-        <p className="label mt-5">
+      <PageHero crumbs={crumbs} title={title} size="lg" lede={lede}>
+        <p className="label">
           Last updated <time dateTime={LEGAL_UPDATED.iso}>{LEGAL_UPDATED.text}</time>
         </p>
-        <p className="lede mt-5">{lede}</p>
-        <div className="mt-14 md:mt-20">{children}</div>
-      </div>
+      </PageHero>
+      <div className="wrap mt-12 md:mt-16">{children}</div>
     </>
   );
 }
 
-/** One numbered section: heading on the left, plain text on the right, a hairline above. */
-export function LegalSection({
-  n,
-  title,
-  children,
-}: {
-  n: number;
-  title: string;
-  children: React.ReactNode;
-}) {
+/** One section: heading on the left, plain text on the right, a hairline above. */
+export function LegalSection({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <section className="rule-t grid gap-4 py-8 md:grid-cols-12 md:gap-8 md:py-10">
-      <h2 className="display display-sm md:col-span-4">
-        <span className="label mb-2 block tabular-nums" aria-hidden="true">
-          {String(n).padStart(2, "0")}
-        </span>
-        {title}
-      </h2>
-      <div className="prose-virgo md:col-span-8">{children}</div>
+    <section className="reveal rule-t grid gap-3 py-8 md:grid-cols-12 md:gap-8 md:py-10">
+      <h2 className="display display-sm md:col-span-4">{title}</h2>
+      <div className="prose-virgo text-[1.0625rem] leading-relaxed md:col-span-7">{children}</div>
     </section>
   );
 }
