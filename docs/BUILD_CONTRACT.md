@@ -63,3 +63,27 @@ Sections are separated by generous space (`mt-20 md:mt-28`) and hairline rules, 
 ## Report format (your final message, under 250 words)
 
 Verdict line. Files created. Output of your last `npx tsc --noEmit` run. Anything you could not do or any place the contract stopped you. Any fact you wanted to state but could not because it is not in the data (as a question for the owner).
+
+---
+
+# Version 2 design brief (after the owner saw version 1)
+
+Version 1 was correct but read like a spec sheet. The owner's words: too basic header and footer, too much text and only text, no transitions or animations, a huge bare headline with no picture, misaligned rows, capital-letter labels and small tags above headings that look machine-made. Version 2 must look like the website of an established appliance company. Everything in the hard rules above still applies, with these changes.
+
+## What changed in the foundation (already done, use it)
+
+- **Scenes.** Four room photographs now exist: `src/content/scenes.ts` exports `scenes.cooler`, `scenes.ceilingFan`, `scenes.heater`, `scenes.pedestalFan` and `sceneForCategory(slug)`. Each has `src`, `width`, `height`, `alt`, `model` and `focus` (use as `object-position` with `object-cover`). Use them large. Never caption them as a customer's home or shop.
+- **Motion.** `.reveal` now fades and rises when a block enters the screen in every browser (plus `.reveal-left`, `.reveal-right`, `.reveal-zoom`; stagger with `style={{ "--i": n }}`). `.rise` for first-screen entrance. `.kenburns` slow push-in on a photograph. `.zoom-frame` zooms the image inside on hover. `.underline-grow` animated underline. `.marquee` endless strip. Buttons press in. Use motion on every page: staggered entrance on the first screen, reveals on sections below, zoom on photographs and cards. Keep it calm: no bouncing, no spinning, nothing that loops except the marquee and the hero.
+- **Labels.** `.label` is now small sentence-case text. Capital-letter text is banned site-wide: no `uppercase` class, no letter-spaced mono tags. `font-mono` is allowed only for numbers inside drawings and the key-figure badge on product cards.
+- **Headlines** are smaller (`display-xl` now tops out near 76 px). Do not put a tag, category word or number above a heading. No "01, 02, 03" row numbers anywhere.
+- **Facts now confirmed by the owner:** replies within 24 hours (`site.contact.replyWithin`), no fee to apply as a dealer or distributor (`site.statements.noApplicationFee`), Instagram link (`site.social.instagram`).
+
+## Rules for version 2
+
+1. **Picture first.** Every page opens with a real picture near the top: a scene, a product photograph, or a row of product cut-outs. A section that is only text must be short: one heading and at most two sentences.
+2. **Cut the words.** Halve the running text of version 1. Say it once. Prefer a picture, a figure or a table.
+3. **Align on one grid.** All rows of a list or table share the same column positions: use one CSS grid with fixed tracks (or `subgrid`), never a separate auto-sized grid per row.
+4. **Rich but quiet.** White, paper and graphite surfaces; one red for enquiry actions; hairlines; photographs. Still no gradients as decoration, no glass, no icon-in-a-circle feature grids, no emoji. Simple line icons (inline SVG, 1.5 px stroke) are allowed where they help: phone, WhatsApp, search, arrow, Instagram.
+5. **Phone first.** Check every layout at 360 px in your head: nothing wider than the screen, 44 px tap targets, text at least 16 px, images with fixed aspect ratios so nothing jumps.
+6. **Corners** stay square on cells and buttons.
+7. The logo stays only in the header and footer. On a dark surface it must sit on a white plate with padding.

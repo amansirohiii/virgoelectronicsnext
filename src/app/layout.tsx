@@ -8,6 +8,7 @@ import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { ContactBar } from "@/components/contact-bar";
 import { JsonLd } from "@/components/json-ld";
+import { RevealObserver } from "@/components/reveal-observer";
 import { organizationLd, websiteLd } from "@/lib/seo";
 
 const anek = Anek_Latin({
@@ -47,7 +48,11 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en-IN" className={`${anek.variable} ${plexMono.variable}`}>
+    <html lang="en-IN" className={`${anek.variable} ${plexMono.variable}`} suppressHydrationWarning>
+      <head>
+        {/* Marks the page as scripted before first paint so scroll reveals can start hidden */}
+        <script dangerouslySetInnerHTML={{ __html: "document.documentElement.dataset.js='1'" }} />
+      </head>
       <body className="flex min-h-dvh flex-col">
         <a
           href="#main"
@@ -61,6 +66,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </main>
         <SiteFooter />
         <ContactBar />
+        <RevealObserver />
         <JsonLd data={organizationLd()} />
         <JsonLd data={websiteLd()} />
         <SpeedInsights />

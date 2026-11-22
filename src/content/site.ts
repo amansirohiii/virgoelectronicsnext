@@ -28,11 +28,11 @@ export const site = {
     address: [] as string[],
     hours: "",
     /** e.g. "2 working days". Shown on forms and confirmation screens when set. */
-    replyWithin: "",
+    replyWithin: "24 hours",
   },
 
   social: {
-    instagram: "",
+    instagram: "https://www.instagram.com/virgoelectronics",
     youtube: "",
     facebook: "",
   },
@@ -42,7 +42,7 @@ export const site = {
    * `noApplicationFee`: "We never charge a fee for a dealership or distributorship application."
    */
   statements: {
-    noApplicationFee: false as boolean,
+    noApplicationFee: true as boolean,
   },
 
   analytics: {

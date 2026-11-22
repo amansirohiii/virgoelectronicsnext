@@ -86,30 +86,28 @@
     letter-spacing: -0.012em;
   }
   .display-xl {
-    font-size: clamp(2.75rem, 8.4vw, 7rem);
+    font-size: clamp(2.5rem, 5.4vw, 4.75rem);
   }
   .display-lg {
-    font-size: clamp(2.25rem, 5.6vw, 4.5rem);
+    font-size: clamp(2rem, 4vw, 3.25rem);
   }
   .display-md {
-    font-size: clamp(1.75rem, 3.4vw, 2.75rem);
+    font-size: clamp(1.5rem, 2.6vw, 2.125rem);
   }
   .display-sm {
     font-size: clamp(1.375rem, 2.2vw, 1.75rem);
     line-height: 1.02;
   }
 
-  /* Rating-plate label: small mono caps used for spec names and section markers */
+  /* Small supporting text: spec names, counts, captions. Sentence case, never capitals. */
   .label {
-    font-family: var(--font-mono);
-    font-size: 0.6875rem;
-    line-height: 1.3;
-    letter-spacing: 0.09em;
-    text-transform: uppercase;
+    font-size: 0.875rem;
+    line-height: 1.35;
+    font-weight: 500;
     color: var(--color-steel);
   }
   .on-dark .label {
-    color: #a9aeb5;
+    color: #b4b9bf;
   }
 
   .lede {
@@ -278,41 +276,79 @@
 }
 
 /*
-  Motion: one quiet reveal as blocks enter the viewport, done in CSS only.
-  Browsers without scroll-driven animations simply show the content.
+  Motion.
+  `.reveal` blocks fade and rise as they enter the screen. A small script in the
+  layout marks the page as scripted (html[data-js]) and adds `.is-in` when a block
+  is seen, so without scripts everything is simply visible.
+  Variants: `.reveal-left`, `.reveal-right`, `.reveal-zoom` (for photographs).
+  Stagger siblings with style={{ "--i": n }}.
 */
 @media (prefers-reduced-motion: no-preference) {
-  @supports (animation-timeline: view()) {
-    .reveal {
-      animation: reveal-up linear both;
-      animation-timeline: view();
-      animation-range: entry 0% entry 55%;
-    }
-    @keyframes reveal-up {
-      from {
-        opacity: 0;
-        transform: translateY(1.25rem);
-      }
-      to {
-        opacity: 1;
-        transform: none;
-      }
-    }
+  html[data-js] .reveal {
+    opacity: 0;
+    transform: translateY(1.75rem);
+    transition:
+      opacity 800ms var(--ease-out-quart),
+      transform 800ms var(--ease-out-quart);
+    transition-delay: calc(var(--i, 0) * 80ms);
+    will-change: opacity, transform;
   }
+  html[data-js] .reveal.reveal-left {
+    transform: translateX(-2rem);
+  }
+  html[data-js] .reveal.reveal-right {
+    transform: translateX(2rem);
+  }
+  html[data-js] .reveal.reveal-zoom {
+    transform: scale(1.04);
+  }
+  html[data-js] .reveal.is-in {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* First-screen entrance */
   .rise {
-    animation: rise 700ms var(--ease-out-quart) both;
-    animation-delay: calc(var(--i, 0) * 80ms);
+    animation: rise 800ms var(--ease-out-quart) both;
+    animation-delay: calc(var(--i, 0) * 90ms);
   }
   @keyframes rise {
     from {
       opacity: 0;
-      transform: translateY(0.9rem);
+      transform: translateY(1.25rem);
     }
     to {
       opacity: 1;
       transform: none;
     }
   }
+
+  /* Slow push-in on a photograph while it is on screen */
+  .kenburns {
+    animation: kenburns 9s ease-out both;
+  }
+  @keyframes kenburns {
+    from {
+      transform: scale(1.08);
+    }
+    to {
+      transform: scale(1);
+    }
+  }
+
+  /* Photograph zooms a little when its frame is hovered */
+  .zoom-frame {
+    overflow: hidden;
+  }
+  .zoom-frame img {
+    transition: transform 900ms var(--ease-out-quart);
+  }
+  .zoom-frame:hover img,
+  a:hover .zoom-frame img,
+  a:focus-visible .zoom-frame img {
+    transform: scale(1.05);
+  }
+
   /* Dimension lines draw themselves in */
   .draw path,
   .draw line {
@@ -326,7 +362,51 @@
       stroke-dashoffset: 0;
     }
   }
+
+  /* Endless sideways strip */
+  .marquee {
+    display: flex;
+    width: max-content;
+    animation: marquee var(--marquee-time, 40s) linear infinite;
+  }
+  .marquee:hover {
+    animation-play-state: paused;
+  }
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
+  }
 }
+
+/* Underline that grows from the left: nav and text links */
+.underline-grow {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-size: 0% 1.5px;
+  background-position: 0 100%;
+  transition: background-size 260ms var(--ease-out-quart);
+  padding-bottom: 0.15em;
+}
+.underline-grow:hover,
+.underline-grow:focus-visible,
+a:hover > .underline-grow,
+.underline-grow[aria-current="page"] {
+  background-size: 100% 1.5px;
+}
+
+/* Buttons press in slightly */
+.btn {
+  transition:
+    background-color 160ms var(--ease-out-quart),
+    color 160ms var(--ease-out-quart),
+    border-color 160ms var(--ease-out-quart),
+    transform 160ms var(--ease-out-quart);
+}
+.btn:active {
+  transform: translateY(1px) scale(0.985);
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
