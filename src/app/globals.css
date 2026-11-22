@@ -54,6 +54,21 @@
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
   }
+  /*
+    Two things used to make phones scroll sideways:
+    1. A block that zooms or slides in starts slightly outside the screen.
+       Clipping at the body hides that without creating a scroll container,
+       so the sticky header keeps working.
+    2. Visually hidden labels are absolutely positioned. Inside a sideways
+       scroller they escape it unless the scroller is their containing block.
+  */
+  body {
+    overflow-x: clip;
+  }
+  [class*="overflow-x-auto"],
+  [class*="overflow-auto"] {
+    position: relative;
+  }
   ::selection {
     background: var(--color-ink);
     color: var(--color-paper);
