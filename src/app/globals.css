@@ -1,56 +1,418 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-@layer base {
-  :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-    --radius: 0.5rem;
-  }
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-  }
+@import "tailwindcss";
+
+/*
+  Virgo design tokens.
+  Rule of the system: one red, and it only ever means "enquire".
+  The logo sits on white only (header and footer), never on paper, graphite or a photograph.
+*/
+@theme {
+  --color-paper: #f3f2ee;
+  --color-cell: #ffffff;
+  --color-ink: #16181b;
+  --color-steel: #555b63;
+  --color-mute: #8b9097;
+  --color-line: #d8d6cf;
+  --color-graphite: #1b1d21;
+  --color-graphite-line: #383c42;
+  --color-red: #d6141d;
+  --color-red-deep: #b00f17;
+
+  --font-sans: var(--font-anek), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, "SFMono-Regular", monospace;
+
+  --breakpoint-xs: 26rem;
+
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
 }
+
 @layer base {
-  * {
-    @apply border-border;
+  html {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: 5.5rem;
   }
   body {
-    @apply bg-background text-foreground;
+    font-family: var(--font-sans);
+    font-size: 1.0625rem;
+    line-height: 1.55;
+    font-feature-settings: "tnum" 0;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection {
+    background: var(--color-ink);
+    color: var(--color-paper);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-ink);
+    outline-offset: 3px;
+  }
+  .on-dark :focus-visible {
+    outline-color: #fff;
+  }
+  a {
+    text-underline-offset: 0.2em;
+  }
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+}
+
+@layer components {
+  /* Page gutter and max width */
+  .wrap {
+    width: 100%;
+    max-width: 82rem;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+  @media (min-width: 48rem) {
+    .wrap {
+      padding-inline: 2.5rem;
+    }
+  }
+
+  /* Condensed display face: page titles, model names, big figures */
+  .display {
+    font-stretch: 78%;
+    font-weight: 700;
+    line-height: 0.95;
+    letter-spacing: -0.012em;
+  }
+  .display-xl {
+    font-size: clamp(2.5rem, 5.4vw, 4.75rem);
+  }
+  .display-lg {
+    font-size: clamp(2rem, 4vw, 3.25rem);
+  }
+  .display-md {
+    font-size: clamp(1.5rem, 2.6vw, 2.125rem);
+  }
+  .display-sm {
+    font-size: clamp(1.375rem, 2.2vw, 1.75rem);
+    line-height: 1.02;
+  }
+
+  /* Small supporting text: spec names, counts, captions. Sentence case, never capitals. */
+  .label {
+    font-size: 0.875rem;
+    line-height: 1.35;
+    font-weight: 500;
+    color: var(--color-steel);
+  }
+  .on-dark .label {
+    color: #b4b9bf;
+  }
+
+  .lede {
+    font-size: clamp(1.125rem, 1.6vw, 1.375rem);
+    line-height: 1.45;
+    color: var(--color-steel);
+    max-width: 38em;
+  }
+  .prose-virgo {
+    max-width: 40em;
+  }
+  .prose-virgo p + p {
+    margin-top: 1em;
+  }
+
+  /* Buttons. Red = enquire, and nothing else. */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6em;
+    min-height: 3rem;
+    padding: 0.7rem 1.35rem;
+    font-weight: 600;
+    font-size: 1rem;
+    line-height: 1.15;
+    border: 1.5px solid transparent;
+    transition:
+      background-color 160ms var(--ease-out-quart),
+      color 160ms var(--ease-out-quart),
+      border-color 160ms var(--ease-out-quart);
+    cursor: pointer;
+  }
+  .btn-red {
+    background: var(--color-red);
+    color: #fff;
+  }
+  .btn-red:hover {
+    background: var(--color-red-deep);
+  }
+  .btn-ink {
+    background: var(--color-ink);
+    color: #fff;
+  }
+  .btn-ink:hover {
+    background: #000;
+  }
+  .btn-line {
+    border-color: var(--color-ink);
+    color: var(--color-ink);
+  }
+  .btn-line:hover {
+    background: var(--color-ink);
+    color: #fff;
+  }
+  .on-dark .btn-line {
+    border-color: #fff;
+    color: #fff;
+  }
+  .on-dark .btn-line:hover {
+    background: #fff;
+    color: var(--color-ink);
+  }
+  .btn[aria-disabled="true"],
+  .btn:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+
+  /* Text link with an arrow that moves on hover */
+  .link-arrow {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.45em;
+    font-weight: 600;
+    border-bottom: 1.5px solid currentColor;
+    padding-bottom: 0.1em;
+  }
+  .link-arrow::after {
+    content: "→";
+    transition: transform 200ms var(--ease-out-quart);
+  }
+  .link-arrow:hover::after {
+    transform: translateX(0.25em);
+  }
+
+  /* White studio cell that holds a product photograph */
+  .cell {
+    background: var(--color-cell);
+    border: 1px solid var(--color-line);
+  }
+
+  /* Hairline rules */
+  .rule-t {
+    border-top: 1px solid var(--color-line);
+  }
+  .rule-b {
+    border-bottom: 1px solid var(--color-line);
+  }
+  .rule-ink-t {
+    border-top: 1.5px solid var(--color-ink);
+  }
+  .on-dark .rule-t,
+  .on-dark .rule-b {
+    border-color: var(--color-graphite-line);
+  }
+
+  /* Dark trade band */
+  .on-dark {
+    background: var(--color-graphite);
+    color: #f4f3ef;
+  }
+  .on-dark .lede {
+    color: #c3c7cc;
+  }
+
+  /* Form controls */
+  .field-label {
+    display: block;
+    font-weight: 600;
+    font-size: 0.9375rem;
+    margin-bottom: 0.35rem;
+  }
+  .field-hint {
+    font-size: 0.875rem;
+    color: var(--color-steel);
+    margin-top: 0.3rem;
+  }
+  .field-error {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-red-deep);
+    margin-top: 0.3rem;
+  }
+  .input {
+    display: block;
+    width: 100%;
+    min-height: 3rem;
+    padding: 0.65rem 0.8rem;
+    background: #fff;
+    border: 1.5px solid #9a9ea4;
+    border-radius: 0;
+    font: inherit;
+    font-size: 1rem; /* 16px minimum stops iOS zooming on focus */
+    color: var(--color-ink);
+  }
+  .input::placeholder {
+    color: var(--color-steel);
+    opacity: 1;
+  }
+  .input:hover {
+    border-color: var(--color-ink);
+  }
+  .input:focus-visible {
+    outline: 2px solid var(--color-ink);
+    outline-offset: 1px;
+    border-color: var(--color-ink);
+  }
+  .input[aria-invalid="true"] {
+    border-color: var(--color-red-deep);
+  }
+  textarea.input {
+    min-height: 7rem;
+    resize: vertical;
+  }
+}
+
+/*
+  Motion.
+  `.reveal` blocks fade and rise as they enter the screen. A small script in the
+  layout marks the page as scripted (html[data-js]) and adds `.is-in` when a block
+  is seen, so without scripts everything is simply visible.
+  Variants: `.reveal-left`, `.reveal-right`, `.reveal-zoom` (for photographs).
+  Stagger siblings with style={{ "--i": n }}.
+*/
+@media (prefers-reduced-motion: no-preference) {
+  html[data-js] .reveal {
+    opacity: 0;
+    transform: translateY(1.75rem);
+    transition:
+      opacity 800ms var(--ease-out-quart),
+      transform 800ms var(--ease-out-quart);
+    transition-delay: calc(var(--i, 0) * 80ms);
+    will-change: opacity, transform;
+  }
+  html[data-js] .reveal.reveal-left {
+    transform: translateX(-2rem);
+  }
+  html[data-js] .reveal.reveal-right {
+    transform: translateX(2rem);
+  }
+  html[data-js] .reveal.reveal-zoom {
+    transform: scale(1.04);
+  }
+  html[data-js] .reveal.is-in {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* First-screen entrance */
+  .rise {
+    animation: rise 800ms var(--ease-out-quart) both;
+    animation-delay: calc(var(--i, 0) * 90ms);
+  }
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(1.25rem);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  /* Slow push-in on a photograph while it is on screen */
+  .kenburns {
+    animation: kenburns 9s ease-out both;
+  }
+  @keyframes kenburns {
+    from {
+      transform: scale(1.08);
+    }
+    to {
+      transform: scale(1);
+    }
+  }
+
+  /* Photograph zooms a little when its frame is hovered */
+  .zoom-frame {
+    overflow: hidden;
+  }
+  .zoom-frame img {
+    transition: transform 900ms var(--ease-out-quart);
+  }
+  .zoom-frame:hover img,
+  a:hover .zoom-frame img,
+  a:focus-visible .zoom-frame img {
+    transform: scale(1.05);
+  }
+
+  /* Dimension lines draw themselves in */
+  .draw path,
+  .draw line {
+    stroke-dasharray: var(--len, 600);
+    stroke-dashoffset: var(--len, 600);
+    animation: draw 900ms var(--ease-out-quart) forwards;
+    animation-delay: calc(var(--i, 0) * 90ms + 150ms);
+  }
+  @keyframes draw {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  /* Endless sideways strip */
+  .marquee {
+    display: flex;
+    width: max-content;
+    animation: marquee var(--marquee-time, 40s) linear infinite;
+  }
+  .marquee:hover {
+    animation-play-state: paused;
+  }
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+}
+
+/* Underline that grows from the left: nav and text links */
+.underline-grow {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-size: 0% 1.5px;
+  background-position: 0 100%;
+  transition: background-size 260ms var(--ease-out-quart);
+  padding-bottom: 0.15em;
+}
+.underline-grow:hover,
+.underline-grow:focus-visible,
+a:hover > .underline-grow,
+.underline-grow[aria-current="page"] {
+  background-size: 100% 1.5px;
+}
+
+/* Buttons press in slightly */
+.btn {
+  transition:
+    background-color 160ms var(--ease-out-quart),
+    color 160ms var(--ease-out-quart),
+    border-color 160ms var(--ease-out-quart),
+    transform 160ms var(--ease-out-quart);
+}
+.btn:active {
+  transform: translateY(1px) scale(0.985);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
   }
 }

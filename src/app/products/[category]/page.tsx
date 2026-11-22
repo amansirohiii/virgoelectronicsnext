@@ -1,145 +1,204 @@
-// pages/products/[category]/index.tsx
+import type { Metadata } from "next";
 import Link from "next/link";
-import Image from "next/image";
-import { Suspense } from "react";
+import { notFound } from "next/navigation";
 import {
-  Breadcrumb,
-  BreadcrumbEllipsis,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import NotFound from "@/app/not-found";
-import { productCategories, products } from "@/utils/data";
-import type { Metadata, ResolvingMetadata } from 'next'
+  categoryPath,
+  categoryRange,
+  getCategories,
+  getCategory,
+  getProducts,
+  productPath,
+  type Category,
+  type Product,
+} from "@/lib/catalogue";
+import { breadcrumbLd, itemListLd, pageMeta } from "@/lib/seo";
+import { JsonLd } from "@/components/json-ld";
+import { CoolerDrawing } from "@/components/cooler-drawing";
+import { PageHero, type HeroPicture } from "@/components/page-hero";
+import { sceneForCategory } from "@/content/scenes";
+import { CoolerFilters, type CoolerFilterItem } from "@/components/catalogue/cooler-filters";
+import { ModelGrid, cardRatio } from "@/components/catalogue/model-grid";
+import { ModelTable } from "@/components/catalogue/model-table";
 
-interface Product {
-  id: number;
-  category: string;
-  image: string;
-  model: string;
-  specs: string;
-  color?: string;
-  sweep?: string;
-  bearing?: string;
-  link: string;
+type Params = { category: string };
+
+export const dynamicParams = false;
+
+export function generateStaticParams(): Params[] {
+  return getCategories()
+    .filter((c) => getProducts(c.slug).length > 0)
+    .map((c) => ({ category: c.slug }));
 }
 
-const Card = ({ product }: any) => {
-  return (
-    <div className="group my-10 flex w-full max-w-xs flex-col overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md">
-      <div className="relative mx-3 mt-3 flex h-80 overflow-hidden rounded-xl">
-        <Suspense>
-          <Image
-            src={product.image}
-            alt="logo"
-            fill
-            priority
-            className="peer absolute top-0 right-0 h-full w-full "
-          />
-        </Suspense>
+export async function generateMetadata({ params }: { params: Promise<Params> }): Promise<Metadata> {
+  const { category: slug } = await params;
+  const category = getCategory(slug);
+  if (!category) return {};
+  return pageMeta({
+    title: category.seo.title,
+    description: category.seo.description,
+    path: categoryPath(category.slug),
+    image: getProducts(category.slug)[0]?.images[0]?.src,
+  });
+}
 
-      </div>
-      <div className="mt-4 px-5 pb-5">
+export default async function CategoryPage({ params }: { params: Promise<Params> }) {
+  const { category: slug } = await params;
+  const category = getCategory(slug);
+  if (!category) notFound();
+  const products = getProducts(category.slug);
+  if (!products.length) notFound();
 
-        <h1 className="flex items-center justify-center rounded-md bg-slate-900 px-5 py-2.5 text-center font-medium text-white focus:outline-none focus:ring-4 focus:ring-blue-300 text-xl">
-          {product.model}
-        </h1>
-      </div>
+  const path = categoryPath(category.slug);
+  const range = categoryRange(category.slug);
+  const isCoolers = category.slug === "coolers";
+  const many = products.length > 1;
+  const scene = sceneForCategory(category.slug);
+  const picture: HeroPicture = scene
+    ? { scene }
+    : { cutouts: products.slice(0, 3).flatMap((p) => (p.images[0] ? [{ image: p.images[0] }] : [])) };
+
+  const crumbs = [
+    { name: "Home", path: "/" },
+    { name: "Products", path: "/products" },
+    { name: category.name, path },
+  ];
+
+  const grid = (
+    <div className={isCoolers ? "mt-10" : undefined}>
+      <ModelGrid products={products} ratio={cardRatio(category.slug)} compare={many} />
     </div>
   );
-};
 
- const CategoryPage = async({ params }: { params: { category: string } }) => {
-  const category = params.category;
-  const categoryProducts = await products.filter(
-    (product) => product.category === category
-  );
-  if(categoryProducts.length==0) return NotFound();
-  const productCategory = await productCategories.filter((product) => product.slug === category)[0];
+  const table = many ? (
+    <section aria-labelledby="side-by-side" className="reveal mt-20 md:mt-28">
+      <div className="flex flex-wrap items-end justify-between gap-x-8 gap-y-2">
+        <h2 id="side-by-side" className="display display-md">
+          All models side by side
+        </h2>
+        {category.tableColumns.length >= 3 ? <p className="label md:hidden">Swipe the table sideways</p> : null}
+      </div>
+      <div className="mt-6">
+        <ModelTable category={category} products={products} />
+      </div>
+      <p className="label mt-3">A dash means the figure is not listed for that model.</p>
+    </section>
+  ) : null;
+
   return (
+    <>
+      <PageHero
+        crumbs={crumbs}
+        title={category.name}
+        lede={category.intro.join(" ")}
+        picture={picture}
+      >
+        <p className="label">
+          {products.length} {products.length === 1 ? "model" : "models"}
+          {range ? `, ${range}` : ""}
+        </p>
+      </PageHero>
 
-        <div>
-          <div className="relative w-full h-36 sm:h-96 mt-20">
-            <Image
-              src={productCategory.banner}
-              alt="banner"
-              fill
-              className=""
-            />
-          </div>
+      <section aria-labelledby="models" className="wrap mt-16 md:mt-24">
+        <h2 id="models" className={isCoolers ? "sr-only" : "display display-md mb-8"}>
+          {many ? `${products.length} ${category.name.toLowerCase()}` : `The ${category.singular}`}
+        </h2>
+        {isCoolers ? (
+          <CoolerFilters items={coolerItems(products)}>
+            {grid}
+            {table}
+          </CoolerFilters>
+        ) : (
+          <>
+            {grid}
+            {table}
+          </>
+        )}
+      </section>
 
-          <div className="container m-auto mt-4 xl:px-14 md:px-12 px-8 min-h-screen">
+      {isCoolers ? <SizeStrip products={products} /> : null}
 
-        <Breadcrumb>
-        <BreadcrumbList>
-          <BreadcrumbItem>
-            <BreadcrumbLink href="/">Home</BreadcrumbLink>
-          </BreadcrumbItem>
-          <BreadcrumbSeparator />
-          <BreadcrumbItem>
-            <DropdownMenu>
-              <DropdownMenuTrigger className="flex items-center gap-1">
-                <BreadcrumbEllipsis className="h-4 w-4" />
-                <span className="sr-only">Toggle menu</span>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="start">
-                <DropdownMenuItem>
-                 <BreadcrumbLink href="/products/"> All Category</BreadcrumbLink>
-                </DropdownMenuItem>
-                {/* <DropdownMenuItem>Themes</DropdownMenuItem>
-              <DropdownMenuItem>GitHub</DropdownMenuItem> */}
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </BreadcrumbItem>
-          <BreadcrumbSeparator />
-          <BreadcrumbItem>
-              <BreadcrumbPage>{category}</BreadcrumbPage>
-            </BreadcrumbItem>
-          </BreadcrumbList>
-        </Breadcrumb>
-        <h1 className="text-center text-2xl font-bold">
-          {category.split("-").map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(" ")}
-        </h1>
-        <div className=" my-5 text-gray-400">
-            <p>{productCategory.description}</p>
-              </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 w-full gap-3">
-          {categoryProducts.map((product) => (
-            <Link key={product.id} href={product.link}>
-              <Card product={product} />
-            </Link>
-          ))}
-        </div>
-      </div>
-      </div>
+      {category.notes?.length ? <Notes category={category} /> : null}
+
+      <JsonLd data={breadcrumbLd(crumbs)} />
+      <JsonLd data={itemListLd(category, products)} />
+    </>
   );
-};
-type Props = {
-  params: { category: string }
-  searchParams: { [key: string]: string | string[] | undefined }
-}
-export async function generateMetadata(
-  { params, searchParams }: Props,
-  parent: ResolvingMetadata
-): Promise<Metadata> {
-  // read route params
-  console.log(searchParams);
-  const data = await products.filter((product) => product.category === params.category)[0];
-
-  return {
-    title: ` ${data?.category.replace("-", " ").toUpperCase()} Manufacturer Ghaziabad, Virgo Electronics`,
-    openGraph: {
-description: data?.description    },
-  }
 }
 
-export default CategoryPage;
+function coolerItems(products: Product[]): CoolerFilterItem[] {
+  return products.flatMap((p) =>
+    p.facts.tankLitres && p.facts.pad
+      ? [
+          {
+            id: `${p.category}/${p.slug}`,
+            litres: p.facts.tankLitres,
+            pad: p.facts.pad,
+            steel: p.facts.body === "Galvanized steel",
+          },
+        ]
+      : [],
+  );
+}
+
+/** Every cooler drawn at one scale, smallest tank first. */
+function SizeStrip({ products }: { products: Product[] }) {
+  const drawn = products
+    .flatMap((p) => (p.dimensionsIn ? [{ p, dim: p.dimensionsIn }] : []))
+    .sort((a, b) => (a.p.facts.tankLitres ?? 0) - (b.p.facts.tankLitres ?? 0) || a.dim.h - b.dim.h);
+  if (!drawn.length) return null;
+  const tallest = Math.max(...drawn.map((d) => d.dim.h));
+
+  return (
+    <section aria-labelledby="sizes" className="reveal wrap mt-20 md:mt-28">
+      <h2 id="sizes" className="display display-md">
+        Sizes at one scale
+      </h2>
+      <p className="mt-3 text-steel">Every cabinet drawn to the same scale, smallest tank first.</p>
+      <div
+        role="region"
+        aria-label="Cooler sizes drawn to one scale"
+        tabIndex={0}
+        className="cell mt-8 overflow-x-auto overscroll-x-contain"
+      >
+        <ul className="flex w-max items-end gap-2 px-4 pb-6 pt-8 sm:gap-4 sm:px-8">
+          {drawn.map(({ p, dim }) => (
+            <li key={p.slug} className="shrink-0">
+              <figure>
+                <CoolerDrawing name={p.name} w={dim.w} d={dim.d} h={dim.h} scaleTo={tallest} frontOnly className="h-56 w-auto sm:h-64" />
+                <figcaption className="mt-2 border-t border-line pt-2">
+                  <Link
+                    href={productPath(p)}
+                    className="inline-flex min-h-11 items-center font-semibold leading-tight underline-offset-4 hover:underline"
+                  >
+                    {p.name}
+                  </Link>
+                  <span className="label block tabular-nums">{p.facts.tankLitres} L</span>
+                </figcaption>
+              </figure>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  );
+}
+
+function Notes({ category }: { category: Category }) {
+  const notes = category.notes ?? [];
+  return (
+    <section aria-labelledby="notes" className="wrap mt-20 md:mt-28">
+      <h2 id="notes" className="display display-md reveal">
+        Before you order
+      </h2>
+      <dl className="mt-8 grid gap-x-8 gap-y-8 md:grid-cols-3">
+        {notes.map((n, i) => (
+          <div key={n.title} className="reveal rule-ink-t pt-4" style={{ "--i": i } as React.CSSProperties}>
+            <dt className="display display-sm">{n.title}</dt>
+            <dd className="mt-2 text-steel">{n.body}</dd>
+          </div>
+        ))}
+      </dl>
+    </section>
+  );
+}
