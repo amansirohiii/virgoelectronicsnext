@@ -18,7 +18,7 @@ export default function PrivacyPage() {
       path="/privacy"
       lede="This page explains what we collect when you send an enquiry on this site, what we do with it and what we do not do with it."
     >
-      <LegalSection n={1} title="What we collect">
+      <LegalSection title="What we collect">
         <p>
           The enquiry forms ask for your name, mobile number and city. Some forms also ask for things
           like your shop or business name, the products you are interested in, or a message. We collect
@@ -27,26 +27,26 @@ export default function PrivacyPage() {
         <p>We do not ask for payment details, and you do not need an account to use this site.</p>
       </LegalSection>
 
-      <LegalSection n={2} title="What we use it for">
+      <LegalSection title="What we use it for">
         <p>
           We use your details only to reply to your enquiry, by phone, WhatsApp or email.
         </p>
       </LegalSection>
 
-      <LegalSection n={3} title="Where it goes">
+      <LegalSection title="Where it goes">
         <p>
           When you send a form, your details go to our own enquiry sheet and our own email inbox.
         </p>
       </LegalSection>
 
-      <LegalSection n={4} title="What we do not do">
+      <LegalSection title="What we do not do">
         <p>
           We do not sell your details. We do not share them with anyone for marketing, and we do not add
           you to a mailing list.
         </p>
       </LegalSection>
 
-      <LegalSection n={5} title="Visit statistics">
+      <LegalSection title="Visit statistics">
         {analytics ? (
           <p>
             We use Google Analytics and Vercel Speed Insights to count visits and see which pages are
@@ -59,7 +59,7 @@ export default function PrivacyPage() {
         )}
       </LegalSection>
 
-      <LegalSection n={6} title="Seeing or deleting your details">
+      <LegalSection title="Seeing or deleting your details">
         <p>
           To ask what details we hold about you, or to ask us to delete them, write to us from the{" "}
           <Link href="/contact" className="underline hover:no-underline">
@@ -78,7 +78,7 @@ export default function PrivacyPage() {
         </p>
       </LegalSection>
 
-      <LegalSection n={7} title="Changes to this page">
+      <LegalSection title="Changes to this page">
         <p>
           If we change how we handle enquiries, we will update this page and the date at the top.
         </p>

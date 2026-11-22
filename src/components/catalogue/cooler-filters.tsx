@@ -84,68 +84,76 @@ export function CoolerFilters({ items, children }: { items: CoolerFilterItem[]; 
 
   return (
     <>
-      <div className="rule-ink-t grid gap-x-10 gap-y-5 pt-5 lg:grid-cols-[auto_auto_auto_1fr] lg:items-end">
-        <fieldset>
-          <legend className="label mb-2">Tank</legend>
-          <div className="flex flex-wrap gap-2">
-            <Choice name={`${uid}-tank`} value="all" checked={tank === "all"} onChange={setTank}>
-              All
+      <div className="flex flex-col gap-y-4 border-y border-line py-4 lg:flex-row lg:items-center lg:gap-x-8">
+        <fieldset className="flex flex-wrap items-center gap-2">
+          <legend className="sr-only">Tank size</legend>
+          <span aria-hidden="true" className="label mr-1 w-10 lg:w-auto">
+            Tank
+          </span>
+          <Choice name={`${uid}-tank`} value="all" checked={tank === "all"} onChange={setTank}>
+            All
+          </Choice>
+          {bands.map((b) => (
+            <Choice key={b.key} name={`${uid}-tank`} value={b.key} checked={tank === b.key} onChange={setTank}>
+              {b.label} <Count n={b.count} />
             </Choice>
-            {bands.map((b) => (
-              <Choice key={b.key} name={`${uid}-tank`} value={b.key} checked={tank === b.key} onChange={setTank}>
-                {b.label} <span className="opacity-70">({b.count})</span>
-              </Choice>
-            ))}
-          </div>
+          ))}
         </fieldset>
 
-        <fieldset>
-          <legend className="label mb-2">Pad</legend>
-          <div className="flex flex-wrap gap-2">
-            <Choice name={`${uid}-pad`} value="all" checked={pad === "all"} onChange={() => setPad("all")}>
-              All
-            </Choice>
-            {(["Honeycomb", "Grass"] as const).map((p) =>
-              padCount(p) ? (
-                <Choice key={p} name={`${uid}-pad`} value={p} checked={pad === p} onChange={() => setPad(p)}>
-                  {p} <span className="opacity-70">({padCount(p)})</span>
-                </Choice>
-              ) : null,
-            )}
-          </div>
+        <fieldset className="flex flex-wrap items-center gap-2">
+          <legend className="sr-only">Cooling pad</legend>
+          <span aria-hidden="true" className="label mr-1 w-10 lg:w-auto">
+            Pad
+          </span>
+          <Choice name={`${uid}-pad`} value="all" checked={pad === "all"} onChange={() => setPad("all")}>
+            All
+          </Choice>
+          {(["Honeycomb", "Grass"] as const).map((p) =>
+            padCount(p) ? (
+              <Choice key={p} name={`${uid}-pad`} value={p} checked={pad === p} onChange={() => setPad(p)}>
+                {p} <Count n={padCount(p)} />
+              </Choice>
+            ) : null,
+          )}
         </fieldset>
 
         {steelCount > 0 && steelCount < items.length ? (
-          <fieldset>
-            <legend className="label mb-2">Body</legend>
-            <label className="flex min-h-11 cursor-pointer items-center gap-2.5 border-[1.5px] border-ink px-3.5 font-semibold has-[:checked]:bg-ink has-[:checked]:text-white has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-ink">
+          <fieldset className="flex flex-wrap items-center gap-2">
+            <legend className="sr-only">Body</legend>
+            <span aria-hidden="true" className="label mr-1 w-10 lg:hidden">
+              Body
+            </span>
+            <label className={chip}>
               <input
                 type="checkbox"
                 checked={steel}
                 onChange={(e) => setSteel(e.target.checked)}
-                className="h-4 w-4 accent-white"
+                className="mr-2 h-4 w-4 accent-ink"
               />
-              Steel body only <span className="opacity-70">({steelCount})</span>
+              Steel body <Count n={steelCount} />
             </label>
           </fieldset>
         ) : null}
 
-        <div className="flex min-h-11 flex-wrap items-center gap-x-5 gap-y-1 lg:justify-end">
-          <p aria-live="polite" aria-atomic="true" className="label !text-ink">
-            {active ? `Showing ${shown} of ${items.length} coolers` : `All ${items.length} coolers`}
+        <div className="flex min-h-11 items-center gap-x-5 lg:ml-auto">
+          <p aria-live="polite" aria-atomic="true" className="font-semibold">
+            {active ? `${shown} of ${items.length} coolers` : `${items.length} coolers`}
           </p>
           {active ? (
-            <button type="button" onClick={reset} className="inline-flex min-h-11 items-center font-semibold underline underline-offset-4">
-              Clear filters
+            <button
+              type="button"
+              onClick={reset}
+              className="inline-flex min-h-11 items-center text-[0.9375rem] text-steel underline underline-offset-4 hover:text-ink"
+            >
+              Clear
             </button>
           ) : null}
         </div>
       </div>
 
       {visible && shown === 0 ? (
-        <div className="rule-t mt-6 pt-6">
+        <div className="mt-8">
           <p className="display display-sm">No cooler has all of those.</p>
-          <p className="mt-2 text-steel">Clear a filter to see more of the range.</p>
           <button type="button" onClick={reset} className="btn btn-line mt-4">
             Clear filters
           </button>
@@ -154,6 +162,19 @@ export function CoolerFilters({ items, children }: { items: CoolerFilterItem[]; 
 
       <VisibleContext.Provider value={visible}>{children}</VisibleContext.Provider>
     </>
+  );
+}
+
+const chip =
+  "relative inline-flex min-h-11 cursor-pointer items-center whitespace-nowrap border border-line bg-cell px-3.5 text-[0.9375rem] font-medium transition-colors hover:border-ink has-[:checked]:border-ink has-[:checked]:bg-ink has-[:checked]:text-white has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-ink";
+
+function Count({ n }: { n: number }) {
+  return (
+    <span className="ml-1 tabular-nums opacity-60">
+      <span className="sr-only">, </span>
+      {n}
+      <span className="sr-only"> {n === 1 ? "model" : "models"}</span>
+    </span>
   );
 }
 
@@ -171,7 +192,7 @@ function Choice({
   children: ReactNode;
 }) {
   return (
-    <label className="relative flex min-h-11 cursor-pointer items-center border-[1.5px] border-ink px-3.5 font-semibold whitespace-nowrap hover:bg-white has-[:checked]:bg-ink has-[:checked]:text-white has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-ink">
+    <label className={chip}>
       <input
         type="radio"
         name={name}

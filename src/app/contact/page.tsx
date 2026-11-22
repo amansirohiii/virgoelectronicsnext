@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { JsonLd } from "@/components/json-ld";
 import { EnquiryForm } from "@/components/enquiry/enquiry-form";
-import { Trail } from "@/components/enquiry/trail";
+import { PageHero } from "@/components/page-hero";
+import { groupUnderline } from "@/components/catalogue/underline";
 import { hasEmail, hasPhone, hasWhatsApp, site, telHref, whatsappHref } from "@/content/site";
 import { breadcrumbLd, pageMeta } from "@/lib/seo";
 
@@ -42,84 +43,95 @@ export default function ContactPage() {
   return (
     <>
       <JsonLd data={breadcrumbLd(crumbs)} />
-      <div className="wrap pt-10 md:pt-16">
-        <Trail crumbs={crumbs} />
-        <h1 className="display display-lg mt-4">Contact {site.name}</h1>
-        <p className="lede mt-5">
-          Send us a message with the form on this page. If you want to stock our products or buy in quantity, the
-          trade forms below ask for the details we need.
-        </p>
+      <PageHero
+        crumbs={crumbs}
+        title={`Contact ${site.name}`}
+        size="lg"
+        lede="Send us a message here, or use a trade form below to stock or bulk-buy our products."
+      />
 
-        <div className="mt-12 grid gap-14 md:mt-16 lg:grid-cols-12">
-          <div className="lg:col-span-5">
-            <section aria-labelledby="details-heading" className="rule-ink-t pt-5">
-              <h2 id="details-heading" className="display display-sm">
-                Where we are
-              </h2>
-              <dl className="mt-4">
-                <Row label="Location">
-                  <address className="not-italic">
-                    {location.map((line) => (
-                      <span key={line} className="block">
-                        {line}
-                      </span>
-                    ))}
-                  </address>
+      <div className="wrap mt-12 grid gap-x-14 gap-y-12 md:mt-16 lg:grid-cols-12">
+        <section
+          aria-labelledby="details-heading"
+          className="rise lg:order-2 lg:col-span-4 lg:col-start-9"
+          style={{ "--i": 2 } as React.CSSProperties}
+        >
+          <div className="cell p-6 sm:p-7 lg:sticky lg:top-28">
+            <h2 id="details-heading" className="display display-sm">
+              Where we are
+            </h2>
+            <dl className="mt-4">
+              <Row label="Address">
+                <address className="not-italic">
+                  {location.map((line) => (
+                    <span key={line} className="block">
+                      {line}
+                    </span>
+                  ))}
+                </address>
+              </Row>
+              {hasPhone() ? (
+                <Row label="Phone">
+                  <a href={telHref()} className="font-semibold underline underline-offset-4">
+                    {c.phone}
+                  </a>
                 </Row>
-                {hasPhone() ? (
-                  <Row label="Phone">
-                    <a href={telHref()} className="font-semibold underline">
-                      {c.phone}
-                    </a>
-                  </Row>
-                ) : null}
-                {hasWhatsApp() ? (
-                  <Row label="WhatsApp">
-                    <a href={whatsappHref(`Hello ${site.name}, I have an enquiry.`)} className="font-semibold underline">
-                      Message us on WhatsApp
-                    </a>
-                  </Row>
-                ) : null}
-                {hasEmail() ? (
-                  <Row label="Email">
-                    <a href={`mailto:${c.email}`} className="font-semibold underline">
-                      {c.email}
-                    </a>
-                  </Row>
-                ) : null}
-                {c.hours ? <Row label="Hours">{c.hours}</Row> : null}
-              </dl>
-            </section>
-
-            <section aria-labelledby="trade-heading" className="mt-14 rule-ink-t pt-5">
-              <h2 id="trade-heading" className="display display-sm">
-                Trade forms
-              </h2>
-              <ul className="mt-4">
-                {tradeForms.map((f) => (
-                  <li key={f.href} className="border-b border-line py-4">
-                    <Link href={f.href} className="link-arrow">
-                      {f.title}
-                    </Link>
-                    <p className="mt-1.5 text-steel">{f.line}</p>
-                  </li>
-                ))}
-              </ul>
-            </section>
+              ) : null}
+              {hasWhatsApp() ? (
+                <Row label="WhatsApp">
+                  <a
+                    href={whatsappHref(`Hello ${site.name}, I have an enquiry.`)}
+                    className="font-semibold underline underline-offset-4"
+                  >
+                    Message us
+                  </a>
+                </Row>
+              ) : null}
+              {hasEmail() ? (
+                <Row label="Email">
+                  <a href={`mailto:${c.email}`} className="break-all font-semibold underline underline-offset-4">
+                    {c.email}
+                  </a>
+                </Row>
+              ) : null}
+              {c.hours ? <Row label="Hours">{c.hours}</Row> : null}
+              {c.replyWithin ? <Row label="Reply">Within {c.replyWithin}</Row> : null}
+            </dl>
           </div>
+        </section>
 
-          <div className="lg:col-span-6 lg:col-start-7">
-            <EnquiryForm type="general" heading="Send us a message" />
-          </div>
+        <div className="rise lg:order-1 lg:col-span-7" style={{ "--i": 3 } as React.CSSProperties}>
+          <EnquiryForm type="general" heading="Send us a message" />
         </div>
       </div>
+
+      <section aria-labelledby="trade-heading" className="wrap mt-20 md:mt-28">
+        <h2 id="trade-heading" className="display display-md reveal">
+          Trade forms
+        </h2>
+        <ul className="mt-8 grid gap-5 md:grid-cols-3">
+          {tradeForms.map((f, i) => (
+            <li key={f.href} className="reveal" style={{ "--i": i } as React.CSSProperties}>
+              <Link href={f.href} className="group cell flex h-full flex-col p-6 transition-colors hover:border-ink">
+                <h3 className="display display-sm">
+                  <span className={groupUnderline}>{f.title}</span>
+                </h3>
+                <p className="mt-2 text-steel">{f.line}</p>
+                <span aria-hidden="true" className="mt-auto self-start pt-6 text-xl transition-transform duration-200 ease-out-quart group-hover:translate-x-1">
+                  →
+                </span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </section>
     </>
   );
 }
 
 function Row({ label, children }: { label: string; children: React.ReactNode }) {
   return (
-    <div className="grid grid-cols-[6.5rem_1fr] items-baseline gap-4 border-b border-line py-3.5">
+    <div className="grid grid-cols-[5.5rem_minmax(0,1fr)] items-baseline gap-x-4 border-t border-line py-3">
       <dt className="label">{label}</dt>
       <dd>{children}</dd>
     </div>

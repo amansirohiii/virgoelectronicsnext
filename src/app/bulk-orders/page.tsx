@@ -1,8 +1,10 @@
 import Link from "next/link";
 import { JsonLd } from "@/components/json-ld";
 import { EnquiryForm } from "@/components/enquiry/enquiry-form";
-import { Trail } from "@/components/enquiry/trail";
-import { categoryPath, getCategories, getProduct, productPath } from "@/lib/catalogue";
+import { FormAside } from "@/components/enquiry/form-aside";
+import { PageHero } from "@/components/page-hero";
+import { categoryCover } from "@/components/catalogue/category-tiles";
+import { getProduct, productPath, type CategorySlug } from "@/lib/catalogue";
 import { breadcrumbLd, pageMeta } from "@/lib/seo";
 
 const PATH = "/bulk-orders";
@@ -27,12 +29,17 @@ function productFromParam(value: string | string[] | undefined) {
   return product ? { name: product.name, path: productPath(product), category: product.category } : undefined;
 }
 
-const include = [
-  "The model names, as they appear on this site",
-  "How many of each model",
-  "The city where they are to be delivered",
-  "When you need them",
-];
+const steps = [
+  "Send the models and how many of each you need.",
+  "We call you on the number you give.",
+  "We quote on exactly those models and quantities.",
+] as const;
+
+const shown: CategorySlug[] = ["coolers", "ceiling-fans", "pedestal-fans"];
+const cutouts = shown.flatMap((slug) => {
+  const image = categoryCover(slug);
+  return image ? [{ image }] : [];
+});
 
 export default async function BulkOrdersPage({
   searchParams,
@@ -40,56 +47,32 @@ export default async function BulkOrdersPage({
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
   const product = productFromParam((await searchParams).product);
-  const categories = getCategories();
 
   return (
     <>
       <JsonLd data={breadcrumbLd(crumbs)} />
-      <div className="wrap pt-10 md:pt-16">
-        <Trail crumbs={crumbs} />
-        <h1 className="display display-lg mt-4">Bulk orders</h1>
-        <p className="lede mt-5">
-          For schools, hostels, offices, factories, halls and builders buying appliances in quantity. Send us the
-          models and how many of each you need, and we quote on exactly those models and quantities.
-        </p>
+      <PageHero
+        crumbs={crumbs}
+        title="Bulk orders"
+        size="lg"
+        lede="For schools, hostels, offices, factories, halls and builders buying appliances in quantity."
+        picture={{ cutouts }}
+      />
 
-        <div className="mt-12 grid gap-14 md:mt-16 lg:grid-cols-12">
-          <div className="lg:col-span-7">
-            <EnquiryForm type="bulk" product={product} />
-          </div>
-          <aside aria-labelledby="include-heading" className="lg:col-span-4 lg:col-start-9">
-            <div className="rule-ink-t pt-5">
-              <h2 id="include-heading" className="display display-sm">
-                What to put in the list
-              </h2>
-              <ul className="mt-4">
-                {include.map((item) => (
-                  <li key={item} className="border-b border-line py-3.5">
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div className="mt-12">
-              <h2 className="display display-sm">Find the model names</h2>
-              <p className="mt-3 text-steel">Each range lists every model with its specification.</p>
-              <ul className="mt-4 flex flex-wrap gap-x-5 gap-y-1">
-                {categories.map((c) => (
-                  <li key={c.slug}>
-                    <Link href={categoryPath(c.slug)} className="inline-block py-2 font-semibold underline">
-                      {c.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-              <p className="mt-6">
-                <Link href="/products" className="link-arrow">
-                  See the whole range
-                </Link>
-              </p>
-            </div>
-          </aside>
+      <div className="wrap mt-14 grid gap-x-14 gap-y-12 md:mt-20 lg:grid-cols-12">
+        <div className="reveal lg:col-span-7">
+          <EnquiryForm type="bulk" product={product} />
+        </div>
+        <div className="lg:col-span-4 lg:col-start-9">
+          <FormAside steps={steps}>
+            <p>
+              Model names are on each{" "}
+              <Link href="/products" className="font-semibold text-ink underline underline-offset-4">
+                product page
+              </Link>
+              .
+            </p>
+          </FormAside>
         </div>
       </div>
     </>

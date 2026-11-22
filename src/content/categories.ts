@@ -11,22 +11,21 @@ export const categories: Category[] = [
     singular: "cooler",
     line: "Desert, duct and tower coolers",
     intro: [
-      "Eleven coolers, from the 30 litre Baby for a small room to the 125 litre Sumo. The steel-body models are built on a heavy galvanized steel cabinet with a powder-coated finish, the kind many buyers ask for as a lohe ka cooler.",
-      "Each model page gives the tank size, cabinet size, fan blade, motor, pump and pad type, so you can match a cooler to the room and to the counter space you have.",
+      "Eleven coolers from 30 to 125 litres. Most have a heavy galvanized steel body, the lohe ka cooler many buyers ask for.",
     ],
     tableColumns: ["Tank", "Size (W × D × H)", "Body", "Fan blade", "Motor", "Pump", "Pad"],
     notes: [
       {
         title: "Tank size",
-        body: "A bigger tank runs longer between refills. The range covers 30, 60, 80, 90, 100, 110 and 125 litres.",
+        body: "A bigger tank runs longer between refills, from 30 up to 125 litres.",
       },
       {
         title: "Honeycomb or grass pad",
-        body: "Honeycomb pads are a moulded cellulose block. Grass pads are wood wool held in a frame and are simple to replace each season. Each model page says which one it takes.",
+        body: "Honeycomb is a moulded cellulose block, while grass is wood wool in a frame and is simple to replace each season.",
       },
       {
         title: "Cabinet size",
-        body: "Sizes are given in inches as width, depth and height. Check the height against your window or stand before ordering.",
+        body: "Sizes are in inches, width by depth by height, so check the height against your window or stand.",
       },
     ],
     seo: {
@@ -41,13 +40,13 @@ export const categories: Category[] = [
     singular: "ceiling fan",
     line: "1200 mm fans with full copper winding",
     intro: [
-      "Six ceiling fans, all 1200 mm sweep, all with full copper winding and a double ball bearing. They differ in body, blade and finish: Era and Era Plus are the plain workhorses, while Sportz, Asta, Sportz Plus and Magna have an aluminium die-cast body and balanced aluminium blades.",
+      "Six 1200 mm fans, all with full copper winding and a double ball bearing. Four have an aluminium die-cast body and balanced aluminium blades.",
     ],
     tableColumns: ["Sweep", "Winding", "Bearing", "Body", "Blades", "Finish"],
     notes: [
       {
         title: "Sweep",
-        body: "1200 mm (48 inch) is the common size for a bedroom or living room. Every fan in this range is 1200 mm.",
+        body: "Every fan here is 1200 mm (48 inch), the usual size for a bedroom or living room.",
       },
       {
         title: "Colours",
@@ -66,7 +65,7 @@ export const categories: Category[] = [
     singular: "pedestal fan",
     line: "Heavy-duty motor, home and commercial use",
     intro: [
-      "Two pedestal fans, the Pedestal-18 and the Pedestal-16, built around a heavy-duty motor for homes, shops and halls.",
+      "Two pedestal fans with a heavy-duty motor, for home and commercial use.",
     ],
     tableColumns: ["Motor", "Use"],
     seo: {
@@ -81,7 +80,7 @@ export const categories: Category[] = [
     singular: "exhaust fan",
     line: "Exhaust and fresh air fans, 225 to 450 mm",
     intro: [
-      "Metal exhaust and fresh air fans in four sizes from 225 mm to 450 mm, for kitchens, bathrooms, shops and workshops.",
+      "A metal exhaust fan and a fresh air fan, from 225 to 450 mm, for kitchens, shops and workshops.",
     ],
     tableColumns: ["Sizes", "Motor", "Bearing"],
     seo: {
@@ -97,13 +96,13 @@ export const categories: Category[] = [
     line: "Quartz and blower room heaters, immersion rods",
     oldSlug: "heating",
     intro: [
-      "Three winter products: a quartz room heater with 400 and 800 W settings, a blower heater with 1000 and 2000 W settings, and an immersion rod in 1000, 1500 and 2000 W.",
+      "A quartz heater (400 / 800 W), a blower heater (1000 / 2000 W) and an immersion rod in three wattages.",
     ],
     tableColumns: ["Type", "Power"],
     notes: [
       {
         title: "Quartz or blower",
-        body: "The quartz heater warms what is in front of it and has 400 and 800 W settings. The blower heater pushes warm air into the room and has 1000 and 2000 W settings.",
+        body: "The quartz heater warms what is in front of it, while the blower heater pushes warm air into the room.",
       },
     ],
     seo: {
@@ -117,7 +116,7 @@ export const categories: Category[] = [
     name: "Electric Irons",
     singular: "iron",
     line: "Dry irons",
-    intro: ["Two dry irons for daily household pressing: Magic and Plancha."],
+    intro: ["Two dry irons with a temperature dial, for daily pressing at home."],
     tableColumns: ["Type"],
     seo: {
       title: "Electric dry irons",
@@ -130,7 +129,7 @@ export const categories: Category[] = [
     singular: "madhani",
     line: "Electric madhani for lassi and butter",
     intro: [
-      "An electric madhani for churning curd into lassi and butter, with a heavy-duty copper-wound motor. It is made for both home and commercial use.",
+      "An electric madhani with a heavy-duty copper-wound motor, for churning curd into lassi and butter.",
     ],
     tableColumns: ["Motor", "Winding", "Use"],
     seo: {

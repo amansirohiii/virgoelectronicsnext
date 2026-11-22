@@ -20,6 +20,7 @@ import { Breadcrumbs } from "@/components/catalogue/breadcrumbs";
 import { CompareButton } from "@/components/catalogue/compare-button";
 import { Lightbox } from "@/components/catalogue/lightbox";
 import { ModelGrid, cardRatio } from "@/components/catalogue/model-grid";
+import { StickyEnquire } from "@/components/catalogue/sticky-enquire";
 
 type Params = { category: string; model: string };
 
@@ -83,14 +84,14 @@ export default async function ProductPage({ params }: { params: Promise<Params> 
 
   return (
     <>
-      <div className="wrap pt-6 md:pt-10">
-        <Breadcrumbs items={[...crumbs.slice(0, 3), { name: product.name }]} />
+      <div className="wrap pt-4 md:pt-8">
+        <Breadcrumbs items={crumbs} />
 
-        <div className="mt-4 grid gap-x-14 gap-y-10 md:mt-6 lg:grid-cols-12">
-          <div className="lg:col-span-7">
+        <div className="mt-3 grid gap-x-14 gap-y-8 md:mt-5 lg:grid-cols-12">
+          <div className="rise lg:col-span-7">
             {image ? (
               <Lightbox image={image} label={`Enlarge the photo of the ${product.name}`}>
-                <span className={`cell relative block overflow-hidden ${aspectFor(image)}`}>
+                <span className={`cell zoom-frame relative block ${aspectFor(image)}`}>
                   <Image
                     src={image.src}
                     alt={image.alt}
@@ -105,23 +106,34 @@ export default async function ProductPage({ params }: { params: Promise<Params> 
           </div>
 
           <div className="lg:sticky lg:top-28 lg:col-span-5 lg:self-start">
-            <p className="label">{product.kind}</p>
-            <h1 className="display display-lg mt-3">{product.name}</h1>
+            <h1 className="display display-lg rise" style={stagger(1)}>
+              {product.name}
+            </h1>
+            <p className="rise mt-2 text-lg text-steel" style={stagger(1)}>
+              {product.kind}
+            </p>
 
             {product.keyFigure ? (
-              <p className="mt-6 flex items-baseline justify-between gap-6 border-y-[1.5px] border-ink py-3">
+              <p
+                className="rise mt-6 flex items-baseline justify-between gap-6 border-y-[1.5px] border-ink py-3"
+                style={stagger(2)}
+              >
                 <span className="label">{product.keyFigure.label}</span>
-                <span className="display display-md">{product.keyFigure.value}</span>
+                <span className="display display-md tabular-nums">{product.keyFigure.value}</span>
               </p>
             ) : null}
 
-            <p className="mt-6 text-lg leading-relaxed">{product.summary}</p>
+            <p className="rise mt-6 text-lg leading-relaxed" style={stagger(2)}>
+              {product.summary}
+            </p>
 
             {product.highlights.length ? (
-              <ul className="mt-6 border-t border-line">
+              <ul className="rise mt-6 grid border-t border-line sm:grid-cols-2 sm:gap-x-6" style={stagger(3)}>
                 {product.highlights.map((h) => (
-                  <li key={h} className="flex items-baseline gap-3 border-b border-line py-2.5">
-                    <span aria-hidden="true" className="inline-block h-1.5 w-1.5 shrink-0 translate-y-[-0.15em] bg-ink" />
+                  <li key={h} className="flex items-center gap-3 border-b border-line py-2.5">
+                    <svg aria-hidden="true" viewBox="0 0 16 16" className="h-4 w-4 shrink-0">
+                      <path d="M3 8.5l3.2 3.2L13 4.8" fill="none" stroke="currentColor" strokeWidth="1.5" />
+                    </svg>
                     <span>{h}</span>
                   </li>
                 ))}
@@ -129,13 +141,13 @@ export default async function ProductPage({ params }: { params: Promise<Params> 
             ) : null}
 
             {product.colours?.length ? (
-              <div className="mt-6">
+              <div className="rise mt-6" style={stagger(3)}>
                 <p id="colours" className="label">
                   Colours
                 </p>
-                <ul aria-labelledby="colours" className="mt-2.5 flex flex-wrap gap-2">
+                <ul aria-labelledby="colours" className="mt-2 flex flex-wrap gap-2">
                   {product.colours.map((c) => (
-                    <li key={c} className="border border-ink bg-white px-3 py-1.5 text-[0.9375rem] font-medium">
+                    <li key={c} className="border border-line bg-cell px-3 py-1.5 text-[0.9375rem] font-medium">
                       {c}
                     </li>
                   ))}
@@ -143,8 +155,8 @@ export default async function ProductPage({ params }: { params: Promise<Params> 
               </div>
             ) : null}
 
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-              <a href="#enquire" className="btn btn-red w-full sm:w-auto">
+            <div className="rise mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap" style={stagger(4)}>
+              <a id="main-enquire" href="#enquire" className="btn btn-red w-full sm:w-auto">
                 Enquire about this model
               </a>
               <CompareButton entry={entry} name={product.name} />
@@ -154,18 +166,17 @@ export default async function ProductPage({ params }: { params: Promise<Params> 
       </div>
 
       <div className="wrap mt-20 grid gap-x-14 gap-y-16 md:mt-28 lg:grid-cols-12">
-        <div className="lg:col-span-7">
+        <div className="reveal lg:col-span-7">
           <SpecPlate title="Specifications" specs={product.specs} />
         </div>
 
         {dims ? (
-          <section aria-labelledby="size" className="lg:col-span-5">
+          <section aria-labelledby="size" className="reveal lg:col-span-5" style={stagger(1)}>
             <h2 id="size" className="display display-md">
               Size
             </h2>
-            <p className="mt-4 text-steel">
-              The {product.name} cabinet is {dims.w} inches wide, {dims.d} inches deep and {dims.h} inches high. The
-              drawing shows the cabinet size and proportion, not the styling of the model.
+            <p className="mt-3 text-steel">
+              {dims.w} in wide, {dims.d} in deep and {dims.h} in high. The drawing shows size, not styling.
             </p>
             <figure className="cell mt-6 px-4 pb-4 pt-6 sm:px-6">
               <CoolerDrawing name={product.name} w={dims.w} d={dims.d} h={dims.h} className="mx-auto h-auto max-h-80 w-full" />
@@ -179,47 +190,30 @@ export default async function ProductPage({ params }: { params: Promise<Params> 
       </div>
 
       <section id="enquire" aria-label={`Enquire about the ${product.name}`} className="wrap mt-20 scroll-mt-24 md:mt-28">
-        <div className="rule-ink-t pt-10 md:pt-12">
-          <div className="max-w-3xl">
+        <div className="reveal rule-ink-t grid gap-x-14 gap-y-10 pt-10 md:pt-12 lg:grid-cols-12">
+          <div className="lg:col-span-7">
             <EnquiryForm
               type="product"
               product={{ name: product.name, path, category: category.name }}
               heading={`Enquire about the ${product.name}`}
             />
           </div>
-        </div>
-      </section>
-
-      <section aria-labelledby="trade" className="reveal wrap mt-20 md:mt-28">
-        <div className="grid gap-x-14 gap-y-8 lg:grid-cols-12">
-          <div className="lg:col-span-5">
-            <h2 id="trade" className="display display-md">
+          <aside aria-labelledby="trade" className="lg:col-span-4 lg:col-start-9">
+            <h2 id="trade" className="display display-sm">
               Buying for a shop or in bulk
             </h2>
-            <p className="mt-4 max-w-[34em] text-steel">
-              The {product.name} is part of our {category.name.toLowerCase()} range. Shops can stock it as a dealer or
-              distributor, and larger buyers can order it in quantity.
-            </p>
-          </div>
-          <ul className="border-t-[1.5px] border-ink lg:col-span-7">
-            <TradeLink href="/partners/become-a-dealer" title="Become a dealer" text="Sell the Virgo range from your shop." />
-            <TradeLink
-              href="/partners/become-a-distributor"
-              title="Become a distributor"
-              text="Supply Virgo products to shops in your area."
-            />
-            <TradeLink
-              href={`/bulk-orders?product=${entry}`}
-              title="Bulk orders"
-              text={`Buy the ${product.name} or other models in quantity for your own use.`}
-            />
-          </ul>
+            <ul className="mt-4 border-t border-line">
+              <TradeLink href="/partners/become-a-dealer" title="Become a dealer" />
+              <TradeLink href="/partners/become-a-distributor" title="Become a distributor" />
+              <TradeLink href={`/bulk-orders?product=${entry}`} title={`Bulk order for the ${product.name}`} />
+            </ul>
+          </aside>
         </div>
       </section>
 
       {related.length ? (
-        <section aria-labelledby="related" className="reveal wrap mt-20 md:mt-28">
-          <div className="flex flex-wrap items-baseline justify-between gap-x-8 gap-y-3">
+        <section aria-labelledby="related" className="wrap mt-20 md:mt-28">
+          <div className="reveal flex flex-wrap items-baseline justify-between gap-x-8 gap-y-3">
             <h2 id="related" className="display display-md">
               More {category.name.toLowerCase()}
             </h2>
@@ -233,21 +227,27 @@ export default async function ProductPage({ params }: { params: Promise<Params> 
         </section>
       ) : null}
 
+      <StickyEnquire
+        name={product.name}
+        detail={product.keyFigure ? `${product.keyFigure.value} ${product.kind.toLowerCase()}` : product.kind}
+        watchId="main-enquire"
+        formId="enquire"
+      />
+
       <JsonLd data={breadcrumbLd(crumbs)} />
       <JsonLd data={productLd(product, category)} />
     </>
   );
 }
 
-function TradeLink({ href, title, text }: { href: string; title: string; text: string }) {
+const stagger = (i: number) => ({ "--i": i }) as React.CSSProperties;
+
+function TradeLink({ href, title }: { href: string; title: string }) {
   return (
     <li className="border-b border-line">
-      <Link href={href} className="group flex min-h-16 items-center justify-between gap-6 py-4">
-        <span>
-          <span className="display display-sm block group-hover:underline">{title}</span>
-          <span className="mt-1 block text-steel">{text}</span>
-        </span>
-        <span aria-hidden="true" className="text-xl transition-transform duration-200 group-hover:translate-x-1">
+      <Link href={href} className="group flex min-h-14 items-center justify-between gap-4 py-3 font-semibold">
+        <span className="underline-offset-4 group-hover:underline">{title}</span>
+        <span aria-hidden="true" className="transition-transform duration-200 ease-out-quart group-hover:translate-x-1">
           →
         </span>
       </Link>

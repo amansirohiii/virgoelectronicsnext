@@ -13,11 +13,14 @@ export default function ErrorPage({ error, retry }: { error: unknown; retry: () 
 
   return (
     <div className="wrap pt-10 md:pt-16">
-      <h1 className="display display-xl max-w-[14ch]">This page did not load</h1>
-      <p className="lede mt-6">
-        Something went wrong on our side while opening this page. Try again, or go back to the home page.
+      <h1 className="display display-xl rise max-w-[14ch]">This page did not load</h1>
+      <p className="lede rise mt-5" style={{ "--i": 1 } as React.CSSProperties}>
+        Something went wrong on our side. Try again, or go back to the home page.
       </p>
-      <div className="rule-ink-t mt-12 flex flex-col items-start gap-4 pt-8 sm:flex-row sm:items-center">
+      <div
+        className="rise mt-8 flex flex-col items-stretch gap-3 xs:flex-row xs:items-center"
+        style={{ "--i": 2 } as React.CSSProperties}
+      >
         <button type="button" onClick={() => retry()} className="btn btn-ink">
           Try again
         </button>
