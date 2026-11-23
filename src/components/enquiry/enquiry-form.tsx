@@ -87,6 +87,7 @@ export function EnquiryForm({ type, product, heading }: EnquiryFormProps) {
         uid={uid}
         noticeRef={noticeRef}
         elapsedSinceOpen={elapsedSinceOpen}
+        nameProduct={!heading}
         className={heading ? "mt-6" : undefined}
       />
     </div>
@@ -100,10 +101,23 @@ type BodyProps = Omit<EnquiryFormProps, "heading"> & {
   uid: string;
   noticeRef: RefObject<HTMLDivElement | null>;
   elapsedSinceOpen: () => number;
+  /** Shows the product's name above the fields. Off when a heading already names it. */
+  nameProduct: boolean;
   className?: string;
 };
 
-function EnquiryFormBody({ type, product, state, formAction, pending, uid, noticeRef, elapsedSinceOpen, className }: BodyProps) {
+function EnquiryFormBody({
+  type,
+  product,
+  state,
+  formAction,
+  pending,
+  uid,
+  noticeRef,
+  elapsedSinceOpen,
+  nameProduct,
+  className,
+}: BodyProps) {
   const pathname = usePathname();
   const fieldKeys = ENQUIRY_FIELDS[type];
   const serverErrors = state.status === "invalid" ? state.errors : {};
@@ -143,7 +157,7 @@ function EnquiryFormBody({ type, product, state, formAction, pending, uid, notic
       ) : null}
       {state.status === "blocked" ? <Blocked message={state.message} ref={showSummary ? undefined : noticeRef} /> : null}
 
-      {type === "product" && product ? (
+      {type === "product" && product && nameProduct ? (
         <p className="mb-6">
           <span className="label block">Enquiry about</span>
           <span className="font-semibold">{product.name}</span>
