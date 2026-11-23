@@ -17,14 +17,15 @@ const slides: Slide[] = order.map((s) => ({
 }));
 
 /**
- * Text on the left inside the page gutter; the slideshow on the right runs to the
- * edge of the screen on desktop. On phones the picture comes first, edge to edge.
+ * Text on the left, the slideshow on the right, both inside the page gutter so the
+ * picture's right edge lines up with the header. On phones the picture comes first,
+ * edge to edge.
  */
 export function Hero({ winter }: { winter: boolean }) {
   const start = Math.max(0, order.findIndex((s) => s.key === (winter ? "heater" : "cooler")));
 
   return (
-    <section className="grid lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:items-center lg:gap-12 lg:pl-[max(2.5rem,calc((100%_-_82rem)/2_+_2.5rem))] lg:pt-12">
+    <section className="grid lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:mx-auto lg:max-w-[82rem] lg:items-center lg:gap-12 lg:px-10 lg:pt-12">
       <div className="px-5 pt-8 md:px-10 lg:px-0 lg:pb-10 lg:pt-0">
         <h1 className="display display-xl rise">Coolers, fans and heaters, made in {site.city}.</h1>
         <p className="lede rise mt-5" style={stagger(1)}>

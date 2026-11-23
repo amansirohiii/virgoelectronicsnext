@@ -88,7 +88,7 @@ export function HeroSlideshow({ slides, start }: { slides: Slide[]; start: numbe
                 alt={s.alt}
                 fill
                 preload={i === start}
-                sizes="(min-width: 1024px) 60vw, 100vw"
+                sizes="(min-width: 1312px) 720px, (min-width: 1024px) 56vw, 100vw"
                 className={`object-cover ${active || i === prev ? "kenburns" : ""}`}
                 style={{ objectPosition: s.focus }}
               />

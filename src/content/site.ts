@@ -52,6 +52,16 @@ export const site = {
 
 export type Site = typeof site;
 
+/**
+ * The address as lines: the postal address when it is set, otherwise the plant
+ * area and the state, e.g. "MG Road Industrial Area" then "Ghaziabad, Uttar Pradesh".
+ */
+export function addressLines(): readonly string[] {
+  if (site.contact.address.length > 0) return site.contact.address;
+  const [area = "", ...rest] = site.plantArea.split(", ");
+  return [area, [...rest, site.state].join(", ")];
+}
+
 export const hasPhone = () => site.contact.phone.length > 0;
 export const hasWhatsApp = () => site.contact.whatsapp.length > 0;
 export const hasEmail = () => site.contact.email.length > 0;

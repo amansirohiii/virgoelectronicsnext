@@ -3,7 +3,7 @@ import { JsonLd } from "@/components/json-ld";
 import { EnquiryForm } from "@/components/enquiry/enquiry-form";
 import { PageHero } from "@/components/page-hero";
 import { groupUnderline } from "@/components/catalogue/underline";
-import { hasEmail, hasPhone, hasWhatsApp, site, telHref, whatsappHref } from "@/content/site";
+import { addressLines, hasEmail, hasPhone, hasWhatsApp, site, telHref, whatsappHref } from "@/content/site";
 import { breadcrumbLd, pageMeta } from "@/lib/seo";
 
 const PATH = "/contact";
@@ -38,7 +38,7 @@ const tradeForms = [
 
 export default function ContactPage() {
   const c = site.contact;
-  const location = c.address.length > 0 ? c.address : [`${site.plantArea}, ${site.state}`];
+  const location = addressLines();
 
   return (
     <>

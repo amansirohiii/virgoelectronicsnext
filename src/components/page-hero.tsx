@@ -17,6 +17,8 @@ const stagger = (i: number) => ({ "--i": i }) as React.CSSProperties;
  * optional actions, and a picture. The picture is a room scene or a row of
  * product cut-outs in white cells. It sits beside the text on wide screens
  * (`layout="side"`) or under it (`layout="below"`), and under the text on phones.
+ * Beside a picture the title starts level with the picture's top edge, so there
+ * is never an empty band above it.
  */
 export function PageHero({
   crumbs,
@@ -67,7 +69,7 @@ export function PageHero({
     <div className="wrap pt-4 md:pt-8">
       <Breadcrumbs items={crumbs} />
       {side ? (
-        <div className="mt-3 grid gap-x-12 gap-y-8 md:mt-5 lg:grid-cols-12 lg:items-center">
+        <div className="mt-3 grid gap-x-12 gap-y-8 md:mt-5 lg:grid-cols-12 lg:items-start">
           {text}
           <div className="rise lg:col-span-7" style={stagger(3)}>
             {picture ? <Picture picture={picture} wide={false} /> : null}
@@ -92,7 +94,7 @@ function Picture({ picture, wide }: { picture: HeroPicture; wide: boolean }) {
     const { scene } = picture;
     return (
       <figure>
-        <div className="zoom-frame relative aspect-[3/2] bg-cell lg:aspect-[4/3]">
+        <div className="zoom-frame relative aspect-[3/2] bg-cell">
           <div className="kenburns absolute inset-0">
             <Image
               src={scene.src}

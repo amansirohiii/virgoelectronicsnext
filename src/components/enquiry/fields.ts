@@ -52,12 +52,12 @@ export function fieldDef(type: EnquiryType, key: string): FieldDef {
 
 /**
  * Short fields that take half the row on wider screens. Fields keep their order,
- * so these pair up as name + mobile, city + PIN, firm + email, city + state and so on.
+ * so these pair up as name + mobile, city + PIN, email + GSTIN, city + state and so on.
+ * Each form's order in `ENQUIRY_FIELDS` must leave no half field alone on a row.
  */
 export const HALF_WIDTH: ReadonlySet<string> = new Set([
   "name",
   "mobile",
-  "firmName",
   "email",
   "city",
   "pin",

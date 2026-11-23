@@ -1,6 +1,7 @@
 import { footerColumns, legalLinks, type NavItem } from "@/content/navigation";
-import { hasEmail, hasPhone, hasWhatsApp, site, telHref, whatsappHref } from "@/content/site";
+import { addressLines, hasEmail, hasPhone, hasWhatsApp, site, telHref, whatsappHref } from "@/content/site";
 import { categoryPath, getCategories } from "@/lib/catalogue";
+import { groupUnderline } from "@/components/catalogue/underline";
 import { Logo } from "@/components/logo";
 import { NavAnchor } from "@/components/shell/nav-anchor";
 import { PreFooter } from "@/components/shell/pre-footer";
@@ -53,7 +54,7 @@ export function SiteFooter() {
   );
 }
 
-/** Logo, one line about the company, address, contact lines and social links. */
+/** Logo, one line about the company, then one list: address, contact lines and social links. */
 function FooterBrand() {
   const c = site.contact;
   const social = [
@@ -72,67 +73,69 @@ function FooterBrand() {
         </p>
       </div>
 
-      <div className="xl:mt-6">
-        <address className="not-italic">
-          <p className="flex gap-3">
+      <address className="not-italic xl:mt-6">
+        <ul>
+          <li className="flex gap-3 pb-2">
             <PinIcon className="mt-0.5 size-5 shrink-0 text-steel" />
             <span>
-              {c.address.length > 0
-                ? c.address.map((line) => (
-                    <span key={line} className="block">
-                      {line}
-                    </span>
-                  ))
-                : `${site.plantArea}, ${site.state}`}
+              {addressLines().map((line) => (
+                <span key={line} className="block">
+                  {line}
+                </span>
+              ))}
             </span>
-          </p>
-          <ul className="mt-2">
-            {hasPhone() ? (
-              <ContactLine Icon={PhoneIcon} href={telHref()}>
-                {c.phone}
-              </ContactLine>
-            ) : null}
-            {hasWhatsApp() ? (
-              <ContactLine Icon={WhatsAppIcon} href={whatsappHref()}>
-                WhatsApp us
-              </ContactLine>
-            ) : null}
-            {hasEmail() ? (
-              <ContactLine Icon={MailIcon} href={`mailto:${c.email}`}>
-                {c.email}
-              </ContactLine>
-            ) : null}
-          </ul>
-        </address>
-
-        {social.length > 0 ? (
-          <ul className="mt-4 flex gap-2">
-            {social.map(({ name, href, Icon }) => (
-              <li key={name}>
-                <a
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={`${site.name} on ${name} (opens in a new tab)`}
-                  className="btn btn-line btn-icon"
-                >
-                  <Icon className="size-5" />
-                </a>
-              </li>
-            ))}
-          </ul>
-        ) : null}
-      </div>
+          </li>
+          {hasPhone() ? (
+            <ContactLine Icon={PhoneIcon} href={telHref()}>
+              {c.phone}
+            </ContactLine>
+          ) : null}
+          {hasWhatsApp() ? (
+            <ContactLine Icon={WhatsAppIcon} href={whatsappHref()}>
+              WhatsApp us
+            </ContactLine>
+          ) : null}
+          {hasEmail() ? (
+            <ContactLine Icon={MailIcon} href={`mailto:${c.email}`}>
+              {c.email}
+            </ContactLine>
+          ) : null}
+          {social.map(({ name, href, Icon }) => (
+            <ContactLine key={name} Icon={Icon} href={href} newTab>
+              {site.brand} on {name}
+            </ContactLine>
+          ))}
+        </ul>
+      </address>
     </div>
   );
 }
 
-function ContactLine({ Icon, href, children }: { Icon: Icon; href: string; children: React.ReactNode }) {
+/** One row of the footer's contact list: icon, then the text, in line with the address above. */
+function ContactLine({
+  Icon,
+  href,
+  newTab = false,
+  children,
+}: {
+  Icon: Icon;
+  href: string;
+  /** For links that leave the site */
+  newTab?: boolean;
+  children: React.ReactNode;
+}) {
   return (
     <li>
-      <a href={href} className="flex min-h-11 items-center gap-3 font-semibold hover:underline">
-        <Icon className="size-5 shrink-0 text-steel" />
-        <span className="min-w-0 [overflow-wrap:anywhere]">{children}</span>
+      <a
+        href={href}
+        {...(newTab ? { target: "_blank", rel: "noopener noreferrer" } : null)}
+        className="group flex min-h-11 items-center gap-3 font-semibold"
+      >
+        <Icon className="size-5 shrink-0 text-steel transition-colors group-hover:text-ink" />
+        <span className="min-w-0 [overflow-wrap:anywhere]">
+          <span className={groupUnderline}>{children}</span>
+          {newTab ? <span className="sr-only"> (opens in a new tab)</span> : null}
+        </span>
       </a>
     </li>
   );
