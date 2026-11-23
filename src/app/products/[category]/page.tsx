@@ -203,7 +203,7 @@ function PipeSizes({ products }: { products: Product[] }) {
       <p className="mt-3 text-steel">
         The cut end of each pipe, drawn to the same scale. The size is the outside diameter.
       </p>
-      <ul className="cell mt-8 flex flex-wrap items-end gap-x-6 gap-y-8 px-4 pb-6 pt-8 sm:gap-x-12 sm:px-8">
+      <ul className="cell mt-8 flex flex-wrap items-end gap-x-4 gap-y-8 px-4 pb-6 pt-8 sm:gap-x-12 sm:px-8">
         {drawn.map(({ p, pipe }) => (
           <li key={p.slug}>
             <figure>
@@ -213,14 +213,15 @@ function PipeSizes({ products }: { products: Product[] }) {
                 lengthM={pipe.lengthM}
                 scaleTo={widest}
                 endOnly
-                className="h-40 w-auto sm:h-48"
+                className="h-36 w-auto sm:h-48"
               />
               <figcaption className="mt-2 border-t border-line pt-2">
                 <Link
                   href={productPath(p)}
+                  aria-label={p.name}
                   className="inline-flex min-h-11 items-center font-semibold leading-tight underline-offset-4 hover:underline"
                 >
-                  {p.name}
+                  {pipe.outerMm} mm
                 </Link>
                 <span className="label block tabular-nums">{pipe.lengthM} m lengths</span>
               </figcaption>

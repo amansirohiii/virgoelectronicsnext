@@ -249,12 +249,21 @@
     border: 1px solid var(--color-line);
   }
 
-  /* Right edge of a table column that stays put while the rest scrolls under it */
-  .sticky-edge {
-    box-shadow:
-      1px 0 0 #b9b6ad,
-      12px 0 12px -10px rgb(22 24 27 / 0.22);
-    clip-path: inset(0 -14px 0 0);
+  /*
+    Right edge of a table column that stays put while the rest scrolls under it:
+    a rule and a short shade, drawn by a pseudo-element because a box-shadow on a
+    cell of a collapsed-border table is not painted.
+  */
+  .sticky-edge::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 100%;
+    width: 0.875rem;
+    border-left: 1px solid #b9b6ad;
+    background: linear-gradient(to right, rgb(22 24 27 / 0.1), transparent);
+    pointer-events: none;
   }
 
   /* Hairline rules */

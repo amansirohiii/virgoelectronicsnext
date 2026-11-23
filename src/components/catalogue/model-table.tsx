@@ -66,7 +66,7 @@ export function ModelTable({ category, products }: { category: Category; product
               >
                 <Link
                   href={productPath(p)}
-                  className="inline-flex min-h-11 items-center whitespace-nowrap font-semibold underline-offset-4 hover:underline"
+                  className="inline-flex min-h-11 max-w-[7.5rem] items-center py-2 font-semibold leading-snug underline-offset-4 hover:underline sm:max-w-none sm:whitespace-nowrap"
                 >
                   {p.name}
                 </Link>
