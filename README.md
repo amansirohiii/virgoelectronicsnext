@@ -44,10 +44,12 @@ Phone, WhatsApp, email, address, hours and reply time are set in `site.contact` 
 
 ## Enquiries
 
-Enquiry forms post to a server action, which forwards the enquiry to a webhook. It needs two environment variables on Vercel:
+Enquiry forms post to a server action (`src/app/actions/enquiry.ts`), which checks the form and hands it to the delivery channels in `src/lib/enquiry-delivery.ts`. Each channel is switched on by its own environment variables on Vercel, and an enquiry counts as delivered when at least one channel confirms it:
 
-- `ENQUIRY_WEBHOOK_URL`
-- `ENQUIRY_WEBHOOK_SECRET`
+- Google Sheet and email: `ENQUIRY_WEBHOOK_URL`, and optionally `ENQUIRY_WEBHOOK_SECRET`
+- Telegram: `TELEGRAM_BOT_TOKEN` and `TELEGRAM_CHAT_ID`
+
+To add another channel, add one `Channel` to that file.
 
 Setup steps are in `docs/ENQUIRY_SETUP.md`.
 

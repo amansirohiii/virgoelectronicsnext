@@ -2,6 +2,7 @@
 
 import { headers } from "next/headers";
 import { getProduct, productPath } from "@/lib/catalogue";
+import { deliverEnquiry } from "@/lib/enquiry-delivery";
 import {
   ENQUIRY_FIELDS,
   ENQUIRY_TYPES,
@@ -13,18 +14,17 @@ import {
 } from "@/lib/enquiry";
 
 /**
- * Receives every enquiry form on the site and delivers it to the company's
- * webhook (a Google Apps Script that writes to a Sheet and sends an email; see
+ * Receives every enquiry form on the site, checks it and hands it to the
+ * delivery channels in `lib/enquiry-delivery` (the Google Sheet, Telegram; see
  * docs/ENQUIRY_SETUP.md).
  *
- * The one rule: the visitor is told "we have your enquiry" only when the
- * webhook answered with HTTP 2xx and `{ "ok": true }`. Anything else, including
- * a missing env var, returns `undelivered` so the form stays filled and the
- * visitor is pointed to another way of reaching us.
+ * The one rule: the visitor is told "we have your enquiry" only when at least
+ * one channel confirmed it. Anything else, including no channel being set up,
+ * returns `undelivered` so the form stays filled and the visitor is pointed to
+ * another way of reaching us.
  */
 
 const MIN_FILL_MS = 3_000;
-const DELIVERY_TIMEOUT_MS = 15_000;
 
 /*
  * Per-IP rate limit: 5 delivery attempts per 10 minutes.
@@ -148,48 +148,15 @@ export async function submitEnquiry(prev: EnquiryState, formData: FormData): Pro
   const product = resolveProduct(text(formData, "productPath"));
   const reference = makeReference(new Date(now));
 
-  const url = process.env.ENQUIRY_WEBHOOK_URL;
-  const secret = process.env.ENQUIRY_WEBHOOK_SECRET;
-  if (!url) {
-    console.error(`[enquiry] ${reference} ${type} not delivered: ENQUIRY_WEBHOOK_URL is not set`);
-    return { status: "undelivered", attempt, values };
-  }
-
-  const payload = {
-    // Optional second key. The webhook checks it only when its own ENQUIRY_SECRET is set.
-    secret: secret ?? "",
+  const delivered = await deliverEnquiry({
     reference,
     type,
     submittedAt: new Date(now).toISOString(),
     page: safePagePath(text(formData, "page")),
     product,
     fields,
-  };
-
-  const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), DELIVERY_TIMEOUT_MS);
-  try {
-    const res = await fetch(url, {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(payload),
-      signal: controller.signal,
-      cache: "no-store",
-      redirect: "follow", // Apps Script answers through a redirect to googleusercontent.com
-    });
-    const body: unknown = await res.json().catch(() => null);
-    const ok = res.ok && typeof body === "object" && body !== null && (body as { ok?: unknown }).ok === true;
-    if (!ok) {
-      console.error(`[enquiry] ${reference} ${type} not delivered: webhook answered HTTP ${res.status} without ok:true`);
-      return { status: "undelivered", attempt, values };
-    }
-  } catch (err) {
-    const reason = err instanceof Error && err.name === "AbortError" ? "timed out after 15 s" : "request failed";
-    console.error(`[enquiry] ${reference} ${type} not delivered: ${reason}`);
-    return { status: "undelivered", attempt, values };
-  } finally {
-    clearTimeout(timer);
-  }
+  });
+  if (!delivered) return { status: "undelivered", attempt, values };
 
   return { status: "delivered", attempt, reference, mobile: formatMobile(fields.mobile) };
 }
