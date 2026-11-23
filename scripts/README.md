@@ -8,6 +8,8 @@ Three scripts that build files from the site's own product data. Re-run them whe
 | `build_share_images.py` | Makes a 1200 x 630 JPG share picture (WhatsApp, LinkedIn, Open Graph) for every product, every category and the main pages, and the list that `pageMeta()` in `src/lib/seo.ts` reads. Pictures for products that no longer exist are deleted. | `public/og/*.jpg`, `src/content/share-images.json` |
 | `build_catalogue_pdf.py` | Lays out the A4 PDF catalogue: cover, contents, a section per category with every model's photograph and spec table, a page for dealers and distributors, and a back cover. It checks its own layout and stops with an error if text leaves the margins or overlaps a picture. | `public/downloads/virgo-catalogue.pdf` |
 
+A fourth script is a one-off tool, not part of the re-run: `conduit_white.py <in.png> <out.png>` puts a studio photograph of white pipes on pure white (cut-out, backdrop flattened, soft shadow kept, framed 4:3). It was used for the two conduit pipe pictures and needs `opencv-python-headless` and `numpy`.
+
 ## Re-run everything
 
 ```sh

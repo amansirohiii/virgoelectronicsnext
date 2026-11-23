@@ -167,11 +167,17 @@
     "height": 630,
     "alt": "Virgo Electric Madhani, lassi and butter churner"
   },
-  "/products/conduit-pipes/pvc-conduit-pipe": {
-    "src": "/og/product-conduit-pipes-pvc-conduit-pipe.jpg",
+  "/products/conduit-pipes/pvc-conduit-20mm": {
+    "src": "/og/product-conduit-pipes-pvc-conduit-20mm.jpg",
     "width": 1200,
     "height": 630,
-    "alt": "Virgo PVC Conduit Pipe, rigid pvc conduit"
+    "alt": "Virgo PVC Conduit Pipe 20 mm, rigid pvc electrical conduit"
+  },
+  "/products/conduit-pipes/pvc-conduit-25mm": {
+    "src": "/og/product-conduit-pipes-pvc-conduit-25mm.jpg",
+    "width": 1200,
+    "height": 630,
+    "alt": "Virgo PVC Conduit Pipe 25 mm, rigid pvc electrical conduit"
   },
   "/products/coolers": {
     "src": "/og/category-coolers.jpg",
@@ -225,7 +231,7 @@
     "src": "/og/category-conduit-pipes.jpg",
     "width": 1200,
     "height": 630,
-    "alt": "Virgo conduit pipes: 1 model"
+    "alt": "Virgo conduit pipes: 2 models"
   },
   "/": {
     "src": "/og/page-home.jpg",

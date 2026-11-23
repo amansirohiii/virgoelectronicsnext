@@ -13,6 +13,7 @@ import {
 } from "@/lib/catalogue";
 import { breadcrumbLd, itemListLd, pageMeta } from "@/lib/seo";
 import { JsonLd } from "@/components/json-ld";
+import { ConduitDrawing } from "@/components/conduit-drawing";
 import { CoolerDrawing } from "@/components/cooler-drawing";
 import { PageHero, type HeroPicture } from "@/components/page-hero";
 import { sceneForCategory } from "@/content/scenes";
@@ -118,6 +119,8 @@ export default async function CategoryPage({ params }: { params: Promise<Params>
 
       {isCoolers ? <SizeStrip products={products} /> : null}
 
+      <PipeSizes products={products} />
+
       {category.notes?.length ? <Notes category={category} /> : null}
 
       <JsonLd data={breadcrumbLd(crumbs)} />
@@ -180,6 +183,51 @@ function SizeStrip({ products }: { products: Product[] }) {
           ))}
         </ul>
       </div>
+    </section>
+  );
+}
+
+/** Every pipe size drawn at one scale, smallest first. Renders nothing for other categories. */
+function PipeSizes({ products }: { products: Product[] }) {
+  const drawn = products
+    .flatMap((p) => (p.pipe ? [{ p, pipe: p.pipe }] : []))
+    .sort((a, b) => a.pipe.outerMm - b.pipe.outerMm);
+  if (!drawn.length) return null;
+  const widest = Math.max(...drawn.map((d) => d.pipe.outerMm));
+
+  return (
+    <section aria-labelledby="pipe-sizes" className="reveal wrap mt-20 md:mt-28">
+      <h2 id="pipe-sizes" className="display display-md">
+        Sizes at one scale
+      </h2>
+      <p className="mt-3 text-steel">
+        The cut end of each pipe, drawn to the same scale. The size is the outside diameter.
+      </p>
+      <ul className="cell mt-8 flex flex-wrap items-end gap-x-6 gap-y-8 px-4 pb-6 pt-8 sm:gap-x-12 sm:px-8">
+        {drawn.map(({ p, pipe }) => (
+          <li key={p.slug}>
+            <figure>
+              <ConduitDrawing
+                name={p.name}
+                outerMm={pipe.outerMm}
+                lengthM={pipe.lengthM}
+                scaleTo={widest}
+                endOnly
+                className="h-40 w-auto sm:h-48"
+              />
+              <figcaption className="mt-2 border-t border-line pt-2">
+                <Link
+                  href={productPath(p)}
+                  className="inline-flex min-h-11 items-center font-semibold leading-tight underline-offset-4 hover:underline"
+                >
+                  {p.name}
+                </Link>
+                <span className="label block tabular-nums">{pipe.lengthM} m lengths</span>
+              </figcaption>
+            </figure>
+          </li>
+        ))}
+      </ul>
     </section>
   );
 }

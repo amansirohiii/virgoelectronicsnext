@@ -53,6 +53,8 @@ export type Product = {
   facts: ProductFacts;
   /** Outer size in inches, as listed by the company: width, depth, height */
   dimensionsIn?: { w: number; d: number; h: number };
+  /** A pipe's nominal size (outer diameter) and the length it is supplied in */
+  pipe?: { outerMm: number; lengthM: number };
   /** Path on the previous website, for permanent redirects */
   oldPath?: string;
   status: "published" | "draft";

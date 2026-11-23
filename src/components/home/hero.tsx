@@ -28,8 +28,8 @@ export function Hero({ winter }: { winter: boolean }) {
       <div className="px-5 pt-8 md:px-10 lg:px-0 lg:pb-10 lg:pt-0">
         <h1 className="display display-xl rise">Coolers, fans and heaters, made in {site.city}.</h1>
         <p className="lede rise mt-5" style={stagger(1)}>
-          We have made electrical appliances since {site.founded}: {totalModels} models of coolers,
-          fans, heaters, irons and madhani.
+          We have made electrical appliances since {site.founded}. The range today is {totalModels}{" "}
+          models: coolers, fans, heaters, irons, madhani and PVC conduit pipe.
         </p>
         <div className="rise mt-7 flex flex-wrap gap-3" style={stagger(2)}>
           <Link href="/products" className="btn btn-ink">

@@ -14,6 +14,7 @@ import {
 import { breadcrumbLd, pageMeta, productLd } from "@/lib/seo";
 import { JsonLd } from "@/components/json-ld";
 import { SpecPlate } from "@/components/spec-plate";
+import { ConduitDrawing } from "@/components/conduit-drawing";
 import { CoolerDrawing } from "@/components/cooler-drawing";
 import { EnquiryForm } from "@/components/enquiry/enquiry-form";
 import { Breadcrumbs } from "@/components/catalogue/breadcrumbs";
@@ -73,6 +74,7 @@ export default async function ProductPage({ params }: { params: Promise<Params> 
   const image = product.images[0];
   const related = getRelated(product);
   const dims = product.dimensionsIn;
+  const pipe = product.pipe;
   const entry = `${product.category}/${product.slug}`;
 
   const crumbs = [
@@ -184,6 +186,30 @@ export default async function ProductPage({ params }: { params: Promise<Params> 
               <figcaption className="mt-3 flex justify-between gap-4 border-t border-line pt-3">
                 <span className="label">Front</span>
                 <span className="label">Side</span>
+              </figcaption>
+            </figure>
+          </section>
+        ) : null}
+
+        {pipe ? (
+          <section aria-labelledby="size" className="reveal lg:col-span-5" style={stagger(1)}>
+            <h2 id="size" className="display display-md">
+              Size
+            </h2>
+            <p className="mt-3 text-steel">
+              {pipe.outerMm} mm across the outside, in {pipe.lengthM} metre lengths. The drawing shows size, not
+              wall thickness.
+            </p>
+            <figure className="cell mt-6 px-4 pb-4 pt-6 sm:px-6">
+              <ConduitDrawing
+                name={product.name}
+                outerMm={pipe.outerMm}
+                lengthM={pipe.lengthM}
+                className="mx-auto h-auto max-h-56 w-full"
+              />
+              <figcaption className="mt-3 flex justify-between gap-4 border-t border-line pt-3">
+                <span className="label">Cut end</span>
+                <span className="label">Side, shortened</span>
               </figcaption>
             </figure>
           </section>

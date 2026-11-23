@@ -428,25 +428,49 @@ const tableFans: Product[] = [
 
 /* ---------- Conduit pipes ---------- */
 
+/**
+ * Rigid PVC conduit in the two sizes the company supplies. Sizes are the nominal
+ * outer diameter. The pictures are representative, not photographs of Virgo stock.
+ */
+const conduit = (mm: 20 | 25, o: { summary: string; use: string; alt: string; w: number; h: number }): Product => ({
+  slug: `pvc-conduit-${mm}mm`,
+  category: "conduit-pipes",
+  name: `PVC Conduit Pipe ${mm} mm`,
+  kind: "Rigid PVC electrical conduit",
+  keyFigure: { value: `${mm} mm`, label: "Outer diameter" },
+  summary: o.summary,
+  images: [img(`conduit-pipes/pvc-conduit-${mm}mm`, o.w, o.h, o.alt)],
+  imageNote: "Representative picture. Tell us the gauge and quantity with your enquiry.",
+  highlights: [`${mm} mm outer diameter`, "3 metre lengths", "Concealed and surface wiring", "Does not rust"],
+  specs: [
+    { label: "Size", value: `${mm} mm` },
+    { label: "Length", value: "3 m" },
+    { label: "Material", value: "Rigid PVC" },
+    { label: "Typical use", value: o.use },
+    { label: "Fixing", value: "Concealed in the wall or slab, or on the surface" },
+  ],
+  facts: { sizesMm: [mm] },
+  pipe: { outerMm: mm, lengthM: 3 },
+  status: "published",
+});
+
 const conduitPipes: Product[] = [
-  {
-    slug: "pvc-conduit-pipe",
-    category: "conduit-pipes",
-    name: "PVC Conduit Pipe",
-    kind: "Rigid PVC conduit",
+  conduit(20, {
     summary:
-      "Rigid PVC conduit pipe for running electrical wiring inside walls and ceilings or on the surface. Tell us the sizes and quantity you need and we will confirm what we supply.",
-    images: [img("conduit-pipes/pvc-conduit-pipe", 1051, 746, "Rigid PVC conduit pipes in three diameters")],
-    imageNote: "Representative picture. Sizes and gauges are confirmed with your enquiry.",
-    highlights: ["Rigid PVC", "For concealed and surface wiring", "Sizes on request"],
-    specs: [
-      { label: "Material", value: "Rigid PVC" },
-      { label: "Use", value: "Electrical wiring, concealed and surface" },
-      { label: "Sizes", value: "On request" },
-    ],
-    facts: {},
-    status: "published",
-  },
+      "Rigid PVC conduit in the 20 mm size, the one most house wiring runs in: light, fan and socket points. Supplied in 3 metre lengths.",
+    use: "Light, fan and socket points",
+    alt: "A bundle of white 20 mm rigid PVC conduit pipes",
+    w: 1051,
+    h: 788,
+  }),
+  conduit(25, {
+    summary:
+      "Rigid PVC conduit in the 25 mm size, for runs where more wires travel together, such as the lines from the distribution board. Supplied in 3 metre lengths.",
+    use: "Main runs carrying more wires",
+    alt: "A bundle of white 25 mm rigid PVC conduit pipes",
+    w: 973,
+    h: 730,
+  }),
 ];
 
 /* ---------- Exhaust fans ---------- */

@@ -21,7 +21,7 @@ const COVER: Record<CategorySlug, string> = {
   "electric-irons": "magic",
   madhani: "electric-madhani",
   "table-fans": "moving-12-ap",
-  "conduit-pipes": "pvc-conduit-pipe",
+  "conduit-pipes": "pvc-conduit-20mm",
 };
 
 export function categoryCover(slug: CategorySlug): ProductImage | undefined {

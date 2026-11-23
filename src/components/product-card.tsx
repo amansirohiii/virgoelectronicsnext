@@ -8,7 +8,8 @@ import { groupUnderline } from "@/components/catalogue/underline";
  * One model in a grid. The whole card is one link. The photograph sits in a
  * white studio cell with a fixed ratio, so every card in a row has the same
  * picture height whatever the shape of the product, and the card fills the
- * height of its row.
+ * height of its row. The key figure sits beside the kind under the name, never
+ * over the photograph.
  */
 export function ProductCard({
   product,
@@ -38,11 +39,6 @@ export function ProductCard({
             className="object-contain p-[9%]"
           />
         ) : null}
-        {product.keyFigure ? (
-          <p className="absolute left-3 top-3 bg-ink px-2 py-1 font-mono text-[0.75rem] font-medium text-white">
-            {product.keyFigure.value}
-          </p>
-        ) : null}
       </div>
       <div className="mt-3 flex items-start justify-between gap-3">
         <h3 className="display display-sm">
@@ -55,7 +51,14 @@ export function ProductCard({
           →
         </span>
       </div>
-      <p className="label mt-1">{product.kind}</p>
+      <p className="mt-1 flex items-baseline justify-between gap-3">
+        <span className="label">{product.kind}</span>
+        {product.keyFigure ? (
+          <span className="shrink-0 whitespace-nowrap text-[0.9375rem] font-semibold tabular-nums">
+            {product.keyFigure.value}
+          </span>
+        ) : null}
+      </p>
     </Link>
   );
 }

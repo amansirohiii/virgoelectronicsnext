@@ -6,7 +6,8 @@ import { Show } from "./visibility";
 /**
  * Every model of a category in one table, columns from `category.tableColumns`.
  * White ground with zebra rows that skip rows hidden by a filter. The table
- * scrolls inside its own box on phones and the model column stays put.
+ * scrolls inside its own box on phones and the model column stays put, with a
+ * ruled, shaded edge so cells sliding under it read as scrolling.
  * Columns whose every value starts with a figure are right-aligned in
  * tabular figures so the numbers line up.
  */
@@ -36,7 +37,7 @@ export function ModelTable({ category, products }: { category: Category; product
           <tr className="border-b-[1.5px] border-ink bg-cell">
             <th
               scope="col"
-              className="label sticky left-0 z-10 bg-cell py-3.5 pl-4 pr-5 text-left font-semibold shadow-[1px_0_0_var(--color-line)] sm:pl-5"
+              className="label sticky left-0 z-10 bg-cell py-3.5 pl-4 pr-5 text-left font-semibold sticky-edge sm:pl-5"
             >
               Model
             </th>
@@ -61,7 +62,7 @@ export function ModelTable({ category, products }: { category: Category; product
             >
               <th
                 scope="row"
-                className="sticky left-0 z-10 bg-inherit pl-4 pr-5 text-left align-middle font-normal shadow-[1px_0_0_var(--color-line)] sm:pl-5"
+                className="sticky left-0 z-10 bg-inherit pl-4 pr-5 text-left align-middle font-normal sticky-edge sm:pl-5"
               >
                 <Link
                   href={productPath(p)}

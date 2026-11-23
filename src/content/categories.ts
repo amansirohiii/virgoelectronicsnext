@@ -154,15 +154,29 @@ export const categories: Category[] = [
     slug: "conduit-pipes",
     name: "Conduit Pipes",
     singular: "conduit pipe",
-    line: "PVC conduit pipe for electrical wiring",
+    line: "Rigid PVC conduit for wiring, 20 and 25 mm",
     intro: [
-      "Rigid PVC conduit pipe for running electrical wiring inside walls and ceilings or on the surface. Ask us for the sizes and gauges we supply.",
+      "Rigid PVC conduit pipe for electrical wiring, in the two sizes most wiring work uses: 20 mm and 25 mm. Both come in 3 metre lengths, for concealed and surface runs.",
     ],
-    tableColumns: ["Material", "Use"],
+    tableColumns: ["Size", "Length", "Material", "Typical use"],
+    notes: [
+      {
+        title: "Which size",
+        body: "20 mm carries the wires to light, fan and socket points. 25 mm is for runs where more wires travel together, such as the lines from the distribution board.",
+      },
+      {
+        title: "Concealed or surface",
+        body: "The same pipe is used both ways: laid in the wall chase or slab before plastering, or fixed on the surface with saddles.",
+      },
+      {
+        title: "Gauge and quantity",
+        body: "Tell us the gauge you need and how many lengths or bundles, and we confirm what we can supply when we reply.",
+      },
+    ],
     seo: {
-      title: "PVC conduit pipes for electrical wiring",
+      title: "PVC conduit pipes for electrical wiring, 20 and 25 mm",
       description:
-        "Virgo rigid PVC conduit pipe for concealed and surface electrical wiring. Enquire for sizes and gauges.",
+        "Virgo rigid PVC conduit pipe for concealed and surface electrical wiring, in 20 mm and 25 mm sizes and 3 metre lengths. Enquire for gauge and quantity.",
     },
   },
 ];
