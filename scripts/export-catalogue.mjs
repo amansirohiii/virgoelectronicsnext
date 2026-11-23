@@ -34,8 +34,8 @@ function resolveFile(spec, fromDir) {
 function load(file) {
   const cached = cache.get(file);
   if (cached) return cached.exports;
-  const module = { exports: {} };
-  cache.set(file, module);
+  const mod = { exports: {} };
+  cache.set(file, mod);
   const { outputText } = ts.transpileModule(readFileSync(file, "utf8"), {
     fileName: file,
     compilerOptions: {
@@ -49,11 +49,11 @@ function load(file) {
     spec.startsWith("@/") || spec.startsWith(".") ? load(resolveFile(spec, dirname(file))) : nodeRequire(spec);
   // Only the repo's own source files are evaluated here.
   compileFunction(outputText, ["exports", "require", "module"], { filename: file })(
-    module.exports,
+    mod.exports,
     localRequire,
-    module,
+    mod,
   );
-  return module.exports;
+  return mod.exports;
 }
 
 const { site } = load(join(src, "content/site.ts"));
